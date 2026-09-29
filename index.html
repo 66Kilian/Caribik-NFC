@@ -253,6 +253,9 @@
   .btn-sm{padding:10px 16px;font-size:13.5px;}
   @media (hover:hover) and (pointer:fine){ .save-contact{display:none!important;} }
 
+  .ico-sq{width:40px;height:40px;border-radius:11px;background:var(--orange-soft);color:var(--orange);display:grid;place-items:center;flex-shrink:0;}
+  .socials{display:flex;gap:10px;flex-wrap:wrap;}
+
   /* ---------- sections ---------- */
   section.block{padding-block:72px;position:relative;scroll-margin-top:64px;}
   @media(min-width:980px){section.block{padding-block:108px;}}
@@ -345,6 +348,15 @@
   .faq summary .pm{width:28px;height:28px;border-radius:50%;border:1px solid var(--line-strong);display:grid;place-items:center;flex-shrink:0;transition:transform .3s,background .2s;}
   .faq details[open] .pm{transform:rotate(45deg);background:var(--orange-soft);border-color:var(--orange);}
   .faq .ans{padding:0 20px 18px;color:var(--text-dim);font-size:14.5px;line-height:1.6;}
+  .faq .ans p{margin:0 0 14px;}
+  .yt{display:grid;gap:8px;}
+  .yt-btn{position:relative;display:block;width:100%;aspect-ratio:16/9;border:0;padding:0;border-radius:12px;overflow:hidden;cursor:pointer;background:var(--bg-2);}
+  .yt-btn img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.85;transition:opacity .2s;}
+  .yt-btn:hover img{opacity:1;}
+  .yt-play{position:absolute;left:50%;top:50%;width:60px;height:42px;margin:-21px 0 0 -30px;border-radius:12px;background:var(--red);color:#fff;display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.5);}
+  .yt iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:12px;display:block;}
+  .yt-cap{font-size:12.5px;color:var(--text-faint);}
+
 
   /* extras */
   .extras{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
@@ -437,7 +449,7 @@
   html.js:not(.ready) .hero-photo img{transform:scale(1.14);filter:brightness(.55);}
   .hero-photo::after{content:"";position:absolute;inset:0;
     background:linear-gradient(180deg,rgba(5,8,12,.55) 0%,rgba(5,8,12,0) 22%,rgba(5,8,12,0) 45%,rgba(5,8,12,.8) 78%,var(--bg) 100%);}
-  .hero-body{position:relative;z-index:1;padding-top:36svh;padding-bottom:28px;}
+  .hero-body{position:relative;z-index:1;width:100%;padding-top:36svh;padding-bottom:28px;}
   .hero .script{font-size:24px;margin:0 0 6px;display:inline-block;transform:rotate(-3deg);transform-origin:left;}
   .hero h1{font-size:clamp(33px,8.9vw,72px);line-height:1.02;letter-spacing:-.025em;margin:0 0 20px;max-width:14ch;text-shadow:0 2px 30px rgba(0,0,0,.5);}
   @media(min-width:980px){
@@ -460,7 +472,7 @@
   html:is([lang="hu"],[lang="sk"],[lang="cs"]) .sign-word{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:700;}
 
   .hero-cta{display:grid;gap:10px;}
-  .btn-call{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:17px 22px;border-radius:14px;
+  .btn-call{display:flex;align-items:center;justify-content:center;gap:12px;padding:17px 22px;border-radius:14px;
     background:var(--red);color:#fff;text-decoration:none;font-weight:800;font-size:16px;transition:background .2s,transform .15s;}
   .btn-call:active{transform:scale(.98);}
   .btn-call:hover{background:#c90f24;}
@@ -481,6 +493,13 @@
 
   /* ---------- Preistafel ---------- */
   .board-wrap{max-width:720px;}
+  .sub-h{font-family:'Fraunces',Georgia,serif;font-size:22px;font-weight:700;margin:0 0 14px;}
+  .hours-wrap{max-width:720px;margin-bottom:40px;}
+  .hours-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line-strong);}
+  .hours-list li{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);font-size:15px;}
+  .hours-list li span{font-weight:600;color:var(--text-dim);}
+  .hours-list li b{font-weight:800;white-space:nowrap;font-variant-numeric:tabular-nums;}
+  .hours-list li.hot b,.hours-list li.hot span{color:var(--gold);}
   .board{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;}
   .board th,.board td{padding:14px 6px;text-align:end;border-bottom:1px solid var(--line);}
   .board thead th{vertical-align:bottom;border-bottom:1px solid var(--line-strong);padding-top:0;}
@@ -624,13 +643,12 @@
 
       <a class="sign dim" id="sign" href="#eintritt">
         <span class="sign-word" id="signWord">Öffnungszeiten</span>
-        <span class="sign-when"><span id="signWhen">Fr 19–01 · Sa 20–03</span><span class="sign-rel" id="signRel"></span></span>
+        <span class="sign-when"><span id="signWhen">Fr 19:00 – 1:00 · Sa 20:00 – 3:00</span><span class="sign-rel" id="signRel"></span></span>
       </a>
 
       <div class="hero-cta">
         <a class="btn-call" href="tel:+436642985551">
           <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span data-i18n="ctaCall">Anrufen</span></span>
-          <span class="num">0664 298 5551</span>
         </a>
         <div class="hero-sec">
           <a class="save-contact" href="caribik.vcf"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg><span data-i18n="ctaSave">Kontakt speichern</span></a>
@@ -654,15 +672,24 @@
         <h2 data-i18n="prTitle">Eintritt &amp; Öffnungszeiten</h2>
         <p data-i18n="prSub">Keine Reservierung nötig – einfach vorbeikommen und bei uns umziehen.</p>
       </div>
+      <div class="hours-wrap reveal">
+        <h3 class="sub-h" data-i18n="hoursTitle">Öffnungszeiten</h3>
+        <ul class="hours-list">
+          <li><span data-i18n="hThu">Jeden 1. Donnerstag im Monat</span><b data-time="19:00 – 1:00">19:00 – 1:00 Uhr</b></li>
+          <li><span data-i18n="dFri">Freitag</span><b data-time="19:00 – 1:00">19:00 – 1:00 Uhr</b></li>
+          <li><span data-i18n="dSat">Samstag</span><b data-time="20:00 – 3:00">20:00 – 3:00 Uhr</b></li>
+        </ul>
+      </div>
       <div class="board-wrap reveal">
+        <h3 class="sub-h" data-i18n="prPrices">Eintrittspreise</h3>
         <table class="board">
           <caption class="sr-only" data-i18n="prUnit">Eintrittspreise ab, in Euro</caption>
           <thead>
             <tr>
               <th scope="col"><span class="sr-only" data-i18n="prCat">Gast</span></th>
-              <th scope="col" data-col="4"><span class="tag"></span><span class="d"><span data-i18n="tThu">Do</span>*</span><span class="t">19–01</span></th>
-              <th scope="col" data-col="5"><span class="tag"></span><span class="d" data-i18n="tFri">Fr</span><span class="t">19–01</span></th>
-              <th scope="col" data-col="6"><span class="tag"></span><span class="d" data-i18n="tSat">Sa</span><span class="t">20–03</span></th>
+              <th scope="col" data-col="4"><span class="tag"></span><span class="d"><span data-i18n="tThu">Do</span>*</span><span class="t">19:00–1:00</span></th>
+              <th scope="col" data-col="5"><span class="tag"></span><span class="d" data-i18n="tFri">Fr</span><span class="t">19:00–1:00</span></th>
+              <th scope="col" data-col="6"><span class="tag"></span><span class="d" data-i18n="tSat">Sa</span><span class="t">20:00–3:00</span></th>
             </tr>
           </thead>
           <tbody>
@@ -681,7 +708,7 @@
 
       <div class="offer reveal">
         <h3 data-i18n="freeTitle">Zum ersten Mal hier – als Paar?</h3>
-        <p data-i18n-html="freeText">Dann schenken wir euch <b>samstags die ersten zwei Stunden (20–22 Uhr)</b> zum Reinschnuppern. Bleibt ihr länger, zahlt ihr nur den normalen Eintritt. Gilt nur, wenn ihr beide zum ersten Mal da seid – bitte beim Eingang Bescheid sagen.</p>
+        <p data-i18n-html="freeText">Dann schenken wir euch <b>samstags die ersten zwei Stunden (20:00 – 22:00 Uhr)</b> zum Reinschnuppern. Bleibt ihr länger, zahlt ihr nur den normalen Eintritt. Gilt nur, wenn ihr beide zum ersten Mal da seid – bitte beim Eingang Bescheid sagen.</p>
       </div>
     </div>
   </section>
@@ -846,13 +873,34 @@
         <h2 data-i18n="fqTitle">Häufige Fragen</h2>
       </div>
       <div class="faq">
-        <details class="reveal"><summary><span data-i18n="q1">Muss man mit anderen Sex haben?</span><span class="pm">+</span></summary><div class="ans" data-i18n="a1">Nein, natürlich nicht. Oberster Grundsatz: Ein Nein ist und bleibt ein Nein. Viele kommen auch nur zum Plaudern, Kennenlernen oder für die Sauna.</div></details>
-        <details class="reveal"><summary><span data-i18n="q2">Muss man reservieren?</span><span class="pm">+</span></summary><div class="ans" data-i18n="a2">Nein – außer bei Sonderveranstaltungen. Reservierungen für Nächtigungen nehmen wir ausschließlich per E-Mail an office@caribik.at entgegen.</div></details>
-        <details class="reveal"><summary><span data-i18n="q3">Was sollte ich mitbringen?</span><span class="pm">+</span></summary><div class="ans" data-i18n="a3">Nur gute Laune und passende Clubkleidung. Handtücher, Pflegeprodukte und Kondome sind vorhanden, für Kleidung und Wertsachen gibt es versperrbare Spinde.</div></details>
-        <details class="reveal"><summary><span data-i18n="q4">Kann ich als Frau alleine kommen?</span><span class="pm">+</span></summary><div class="ans" data-i18n="a4">Ja! Keine angetrunkenen Männer, genug Zimmer und Duschen, keine Verpflichtungen – bei uns gilt immer: Alles kann, nichts muss. Solodamen zahlen ab 20 €.</div></details>
-        <details class="reveal"><summary><span data-i18n="q5">Gibt es Zimmer, in die wir uns als Paar zurückziehen können?</span><span class="pm">+</span></summary><div class="ans" data-i18n="a5">Ja. Spiegelzimmer, Meereszimmer, Telefonzelle und Strenge Kammer sind verschließbar. Manche Zimmer haben eine Kette: zu = „Zusehen erlaubt“, offen = „Mitmachen erwünscht“.</div></details>
-        <details class="reveal"><summary><span data-i18n="q6">Warum bekommt ein Soloherr nicht immer Einlass?</span><span class="pm">+</span></summary><div class="ans" data-i18n="a6">Uns ist ein ausgewogenes Verhältnis zwischen Frauen und Männern wichtig. Lieber an der Tür ein ehrliches „leider nein“ als Eintritt zahlen und nur Männer antreffen.</div></details>
-        <details class="reveal"><summary><span data-i18n="q7">Was, wenn ich Bekannte treffe?</span><span class="pm">+</span></summary><div class="ans" data-i18n="a7">Beide Seiten sind in derselben Situation. What happens in the club, stays in the club – Diskretion ist uns heilig.</div></details>
+        <details class="reveal" data-yt="WTPGTYyvDqI"><summary><span data-i18n="q1">Muss man mit anderen Sex haben?</span><span class="pm">+</span></summary><div class="ans"><p data-i18n="a1">Nein, natürlich nicht. Oberster Grundsatz: Ein Nein ist und bleibt ein Nein. Viele kommen auch nur zum Plaudern, Kennenlernen oder für die Sauna.</p>
+          <div class="yt"><button type="button" class="yt-btn" data-i18n-aria="faqPlay" aria-label="Video abspielen"><img alt="" width="480" height="360"><span class="yt-play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button><span class="yt-cap" data-i18n="faqVid">Peter erklärt’s im Video</span></div></div></details>
+        <details class="reveal" data-yt="yjhIuUTlTeE"><summary><span data-i18n="q4">Kann ich als Frau alleine kommen?</span><span class="pm">+</span></summary><div class="ans"><p data-i18n="a4">Ja! Keine angetrunkenen Männer, genug Zimmer und Duschen, keine Verpflichtungen – bei uns gilt immer: Alles kann, nichts muss. Solodamen zahlen ab 20 €.</p>
+          <div class="yt"><button type="button" class="yt-btn" data-i18n-aria="faqPlay" aria-label="Video abspielen"><img alt="" width="480" height="360"><span class="yt-play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button><span class="yt-cap" data-i18n="faqVid">Peter erklärt’s im Video</span></div></div></details>
+        <details class="reveal" data-yt="Cwu-d3Jb7D0"><summary><span data-i18n="q6">Warum bekommt ein Soloherr nicht immer Einlass?</span><span class="pm">+</span></summary><div class="ans"><p data-i18n="a6">Uns ist ein ausgewogenes Verhältnis zwischen Frauen und Männern wichtig. Lieber an der Tür ein ehrliches „leider nein“ als Eintritt zahlen und nur Männer antreffen.</p>
+          <div class="yt"><button type="button" class="yt-btn" data-i18n-aria="faqPlay" aria-label="Video abspielen"><img alt="" width="480" height="360"><span class="yt-play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button><span class="yt-cap" data-i18n="faqVid">Peter erklärt’s im Video</span></div></div></details>
+        <details class="reveal" data-yt="Q7gFl-CWY7A"><summary><span data-i18n="q5">Gibt es Zimmer, in die wir uns als Paar zurückziehen können?</span><span class="pm">+</span></summary><div class="ans"><p data-i18n="a5">Ja. Spiegelzimmer, Meereszimmer, Telefonzelle und Strenge Kammer sind verschließbar. Manche Zimmer haben eine Kette: zu = „Zusehen erlaubt“, offen = „Mitmachen erwünscht“.</p>
+          <div class="yt"><button type="button" class="yt-btn" data-i18n-aria="faqPlay" aria-label="Video abspielen"><img alt="" width="480" height="360"><span class="yt-play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button><span class="yt-cap" data-i18n="faqVid">Peter erklärt’s im Video</span></div></div></details>
+        <details class="reveal" data-yt="6g9Ga39cgnI"><summary><span data-i18n="q8">Was ziehe ich an?</span><span class="pm">+</span></summary><div class="ans"><p data-i18n="a8">Clubkleidung statt Straßenkleidung: Damen z. B. Dessous, Corsage oder Minikleid, Herren ordentliche Shorts, Hemd oder ein Fetisch-Outfit. Bitte erst bei uns umziehen – alles Weitere steht oben beim Dresscode.</p>
+          <div class="yt"><button type="button" class="yt-btn" data-i18n-aria="faqPlay" aria-label="Video abspielen"><img alt="" width="480" height="360"><span class="yt-play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button><span class="yt-cap" data-i18n="faqVid">Peter erklärt’s im Video</span></div></div></details>
+        <details class="reveal" data-yt="LuozePjXilw"><summary><span data-i18n="q3">Was sollte ich mitbringen?</span><span class="pm">+</span></summary><div class="ans"><p data-i18n="a3">Nur gute Laune und passende Clubkleidung. Handtücher, Pflegeprodukte und Kondome sind vorhanden, für Kleidung und Wertsachen gibt es versperrbare Spinde.</p>
+          <div class="yt"><button type="button" class="yt-btn" data-i18n-aria="faqPlay" aria-label="Video abspielen"><img alt="" width="480" height="360"><span class="yt-play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button><span class="yt-cap" data-i18n="faqVid">Peter erklärt’s im Video</span></div></div></details>
+        <details class="reveal" data-yt="bcm1FZ6d_14"><summary><span data-i18n="q14">Wann hat die Caribik offen?</span><span class="pm">+</span></summary><div class="ans"><p data-i18n="a14">Jeden 1. Donnerstag im Monat von 19:00 bis 1:00 Uhr, jeden Freitag von 19:00 bis 1:00 Uhr und jeden Samstag von 20:00 bis 3:00 Uhr.</p>
+          <div class="yt"><button type="button" class="yt-btn" data-i18n-aria="faqPlay" aria-label="Video abspielen"><img alt="" width="480" height="360"><span class="yt-play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button><span class="yt-cap" data-i18n="faqVid">Peter erklärt’s im Video</span></div></div></details>
+        <details class="reveal" data-yt="3knyZVNquoE"><summary><span data-i18n="q2">Muss man reservieren?</span><span class="pm">+</span></summary><div class="ans"><p data-i18n="a2">Nein – außer bei Sonderveranstaltungen. Reservierungen für Nächtigungen nehmen wir ausschließlich per E-Mail an office@caribik.at entgegen.</p>
+          <div class="yt"><button type="button" class="yt-btn" data-i18n-aria="faqPlay" aria-label="Video abspielen"><img alt="" width="480" height="360"><span class="yt-play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button><span class="yt-cap" data-i18n="faqVid">Peter erklärt’s im Video</span></div></div></details>
+        <details class="reveal" data-yt="fCJBpztF8mQ"><summary><span data-i18n="q9">Muss ich wie ein Model aussehen?</span><span class="pm">+</span></summary><div class="ans"><p data-i18n="a9">Nein. Schön ist, was gefällt – zu uns kommen Menschen aus allen Bereichen, ob dick, dünn, groß oder klein. Alle werden gleich respektiert und herzlich empfangen.</p>
+          <div class="yt"><button type="button" class="yt-btn" data-i18n-aria="faqPlay" aria-label="Video abspielen"><img alt="" width="480" height="360"><span class="yt-play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button><span class="yt-cap" data-i18n="faqVid">Peter erklärt’s im Video</span></div></div></details>
+        <details class="reveal" data-yt="rIYhG9QR6gk"><summary><span data-i18n="q10">Schadet ein Swingerclubbesuch unserer Beziehung?</span><span class="pm">+</span></summary><div class="ans"><p data-i18n="a10">Das kann man vorher nicht sagen – wichtig ist, dass ihr es beide wollt. Sprecht vorher ab, wie weit ihr gehen möchtet. Erfahrene Paare sagen: Es gibt der Beziehung oft einen Extra-Kick.</p>
+          <div class="yt"><button type="button" class="yt-btn" data-i18n-aria="faqPlay" aria-label="Video abspielen"><img alt="" width="480" height="360"><span class="yt-play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button><span class="yt-cap" data-i18n="faqVid">Peter erklärt’s im Video</span></div></div></details>
+        <details class="reveal" data-yt="Ewnc5tOzxQY"><summary><span data-i18n="q11">Was ist mit der Eifersucht?</span><span class="pm">+</span></summary><div class="ans"><p data-i18n="a11">Eifersucht hat beim Swingen nichts verloren. Setzt euch als Paar vorher klare Grenzen – dann steht einer schönen gemeinsamen Zeit in der Caribik nichts im Weg.</p>
+          <div class="yt"><button type="button" class="yt-btn" data-i18n-aria="faqPlay" aria-label="Video abspielen"><img alt="" width="480" height="360"><span class="yt-play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button><span class="yt-cap" data-i18n="faqVid">Peter erklärt’s im Video</span></div></div></details>
+        <details class="reveal" data-yt="BcPxkhS1QnE"><summary><span data-i18n="q12">Wer darf in den Club?</span><span class="pm">+</span></summary><div class="ans"><p data-i18n="a12">Grundsätzlich jeder ab 18 – eine Einlassgarantie gibt es aber nicht. Betrunkene und Personen mit ansteckenden Krankheiten haben keinen Zutritt.</p>
+          <div class="yt"><button type="button" class="yt-btn" data-i18n-aria="faqPlay" aria-label="Video abspielen"><img alt="" width="480" height="360"><span class="yt-play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button><span class="yt-cap" data-i18n="faqVid">Peter erklärt’s im Video</span></div></div></details>
+        <details class="reveal" data-yt="3dgnLtcqaBU"><summary><span data-i18n="q13">Wie ist das mit Verhütung und Hygiene?</span><span class="pm">+</span></summary><div class="ans"><p data-i18n="a13">Safety first: In jedem Spielzimmer liegen Kondome bereit – bitte benutzt sie. Duschen, Handtücher und Pflegeprodukte sind ausreichend vorhanden.</p>
+          <div class="yt"><button type="button" class="yt-btn" data-i18n-aria="faqPlay" aria-label="Video abspielen"><img alt="" width="480" height="360"><span class="yt-play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button><span class="yt-cap" data-i18n="faqVid">Peter erklärt’s im Video</span></div></div></details>
+        <details class="reveal" data-yt="fTxep6X9XuI"><summary><span data-i18n="q7">Was, wenn ich Bekannte treffe?</span><span class="pm">+</span></summary><div class="ans"><p data-i18n="a7">Beide Seiten sind in derselben Situation. What happens in the club, stays in the club – Diskretion ist uns heilig.</p>
+          <div class="yt"><button type="button" class="yt-btn" data-i18n-aria="faqPlay" aria-label="Video abspielen"><img alt="" width="480" height="360"><span class="yt-play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button><span class="yt-cap" data-i18n="faqVid">Peter erklärt’s im Video</span></div></div></details>
       </div>
     </div>
   </section>
@@ -969,7 +1017,7 @@ document.addEventListener("DOMContentLoaded", function(){
   document.querySelectorAll("[data-i18n-html]").forEach(function(el){ DE[el.getAttribute("data-i18n-html")] = el.innerHTML; });
   var DE_EXTRA = {
     stOpen:"Jetzt geöffnet", stTonight:"Heute Abend geöffnet", stNext:"Nächste Öffnung", stUntil:"bis {t} Uhr", stFrom:"ab {t} Uhr",
-    stLeft:"noch {r}", tagNow:"jetzt", tagToday:"heute", tagNext:"nächste", copied:"Kopiert ✓", lbClose:"Schließen"
+    stLeft:"noch {r}", clock:"{t} Uhr", faqVid:"Peter erklärt’s im Video", faqPlay:"Video abspielen", tagNow:"jetzt", tagToday:"heute", tagNext:"nächste", copied:"Kopiert ✓", lbClose:"Schließen"
   };
   var cur = "de";
   function dict(){ return cur === "de" ? DE : (T[cur] || DE); }
@@ -999,6 +1047,7 @@ document.addEventListener("DOMContentLoaded", function(){
     document.getElementById("langCode").textContent = meta[0].toUpperCase();
     langPanel.querySelectorAll("button").forEach(function(b){ b.setAttribute("aria-current", b.getAttribute("data-code") === cur ? "true" : "false"); });
     document.getElementById("lbClose").setAttribute("aria-label", tx("lbClose"));
+    document.querySelectorAll("[data-i18n-aria]").forEach(function(el){ el.setAttribute("aria-label", tx(el.getAttribute("data-i18n-aria"))); });
     renderStatus();
   }
 
@@ -1013,9 +1062,9 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   function sessionsFor(dayMs){
     var dt = new Date(dayMs), wd = dt.getUTCDay(), dom = dt.getUTCDate(), H = 3600000;
-    if(wd === 4 && dom <= 7) return {s:dayMs + 19*H, e:dayMs + 25*H, open:"19:00", close:"01:00", wd:4};
-    if(wd === 5) return {s:dayMs + 19*H, e:dayMs + 25*H, open:"19:00", close:"01:00", wd:5};
-    if(wd === 6) return {s:dayMs + 20*H, e:dayMs + 27*H, open:"20:00", close:"03:00", wd:6};
+    if(wd === 4 && dom <= 7) return {s:dayMs + 19*H, e:dayMs + 25*H, open:"19:00", close:"1:00", wd:4};
+    if(wd === 5) return {s:dayMs + 19*H, e:dayMs + 25*H, open:"19:00", close:"1:00", wd:5};
+    if(wd === 6) return {s:dayMs + 20*H, e:dayMs + 27*H, open:"20:00", close:"3:00", wd:6};
     return null;
   }
   function computeStatus(){
@@ -1055,6 +1104,9 @@ document.addEventListener("DOMContentLoaded", function(){
     document.getElementById("signWord").textContent = word;
     document.getElementById("signWhen").textContent = when;
     document.getElementById("signRel").textContent = r;
+    var order = {4:0,5:1,6:2};
+    document.querySelectorAll(".hours-list li").forEach(function(li, i){ li.classList.toggle("hot", order[st.s.wd] === i); });
+    document.querySelectorAll("[data-time]").forEach(function(el){ el.textContent = fill(tx("clock"), {t:el.getAttribute("data-time")}); });
     document.querySelectorAll(".board [data-col]").forEach(function(c){
       var hot = +c.getAttribute("data-col") === st.s.wd;
       c.classList.toggle("hot", hot);
@@ -1062,6 +1114,19 @@ document.addEventListener("DOMContentLoaded", function(){
     });
     return st;
   }
+
+  /* ---- FAQ-Videos: Vorschaubild erst beim Aufklappen, Player erst beim Klick ---- */
+  document.querySelectorAll(".faq details[data-yt]").forEach(function(d){
+    var id = d.getAttribute("data-yt"), img = d.querySelector(".yt-btn img");
+    d.addEventListener("toggle", function(){ if(d.open && !img.getAttribute("src")) img.src = "https://i.ytimg.com/vi/" + id + "/hqdefault.jpg"; });
+    d.querySelector(".yt-btn").addEventListener("click", function(){
+      var f = document.createElement("iframe");
+      f.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&rel=0&playsinline=1";
+      f.title = d.querySelector("summary span").textContent;
+      f.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen"; f.allowFullscreen = true;
+      this.replaceWith(f);
+    });
+  });
 
   /* ---- copy ---- */
   document.querySelectorAll(".copy-btn[data-copy]").forEach(function(btn){
