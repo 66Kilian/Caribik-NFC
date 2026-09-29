@@ -504,6 +504,9 @@
   .board th,.board td{padding:14px 6px;text-align:end;border-bottom:1px solid var(--line);}
   .board thead th{vertical-align:bottom;border-bottom:1px solid var(--line-strong);padding-top:0;}
   .board thead th .d{display:block;font-size:15px;font-weight:800;color:var(--text);}
+  .board thead th .m{display:block;font-size:11px;font-weight:700;color:var(--text-dim);white-space:nowrap;}
+  .board [data-col="4"]{border-inline-end:1px solid var(--line-strong);padding-inline-end:12px;}
+  .board [data-col="5"]{padding-inline-start:12px;}
   .board thead th .t{display:block;font-size:12px;font-weight:600;color:var(--text-dim);margin-top:2px;white-space:nowrap;}
   .board thead th .tag{display:block;height:18px;font-size:11.5px;font-weight:800;color:var(--gold);white-space:nowrap;}
   .board tbody th{text-align:start;font-weight:700;font-size:15px;padding-inline-start:0;}
@@ -687,9 +690,9 @@
           <thead>
             <tr>
               <th scope="col"><span class="sr-only" data-i18n="prCat">Gast</span></th>
-              <th scope="col" data-col="4"><span class="tag"></span><span class="d"><span data-i18n="tThu">Do</span>*</span><span class="t">19:00–1:00</span></th>
-              <th scope="col" data-col="5"><span class="tag"></span><span class="d" data-i18n="tFri">Fr</span><span class="t">19:00–1:00</span></th>
-              <th scope="col" data-col="6"><span class="tag"></span><span class="d" data-i18n="tSat">Sa</span><span class="t">20:00–3:00</span></th>
+              <th scope="col" data-col="4"><span class="tag"></span><span class="d" data-i18n="tThu">Do</span><span class="m" data-i18n="thuShort">1. im Monat</span><span class="t">19:00–1:00</span></th>
+              <th scope="col" data-col="5"><span class="tag"></span><span class="d" data-i18n="tFri">Fr</span><span class="m" aria-hidden="true">&nbsp;</span><span class="t">19:00–1:00</span></th>
+              <th scope="col" data-col="6"><span class="tag"></span><span class="d" data-i18n="tSat">Sa</span><span class="m" aria-hidden="true">&nbsp;</span><span class="t">20:00–3:00</span></th>
             </tr>
           </thead>
           <tbody>
@@ -701,7 +704,6 @@
         </table>
         <ul class="board-notes">
           <li><span class="ok">✓</span><span data-i18n="prIncl">Im Eintritt inklusive: Speisen &amp; Getränke (außer Red Bull), Handtücher und Kondome.</span></li>
-          <li><span>*</span><span data-i18n="thuNote">Donnerstag nur jeden 1. im Monat.</span></li>
           <li><span>&nbsp;</span><span data-i18n="prFine">Preise ab – bei Sonderevents können sie abweichen.</span></li>
         </ul>
       </div>
@@ -1088,6 +1090,9 @@ document.addEventListener("DOMContentLoaded", function(){
   function longDate(s){
     try{ return new Intl.DateTimeFormat(LOCALE[cur] || "de-AT",{weekday:"long",day:"numeric",month:"long",timeZone:"UTC"}).format(new Date(s.s)); }catch(e){ return ""; }
   }
+  function shortDate(s){
+    try{ return new Intl.DateTimeFormat(LOCALE[cur] || "de-AT",{day:"numeric",month:"short",timeZone:"UTC"}).format(new Date(s.s)); }catch(e){ return tx("tagNext"); }
+  }
   function renderStatus(){
     var st = computeStatus(); if(!st) return;
     var now = viennaNow(), word, when, r = "", tag;
@@ -1096,7 +1101,7 @@ document.addEventListener("DOMContentLoaded", function(){
     } else if(st.inDays === 0){
       word = tx("stTonight"); when = fill(tx("stFrom"), {t:st.s.open}); r = rel(st.s.s - now); tag = tx("tagToday");
     } else {
-      word = tx("stNext"); when = longDate(st.s) + " · " + fill(tx("stFrom"), {t:st.s.open}); r = rel(0, st.inDays); tag = tx("tagNext");
+      word = tx("stNext"); when = longDate(st.s) + " · " + fill(tx("stFrom"), {t:st.s.open}); r = rel(0, st.inDays); tag = shortDate(st.s);
     }
     var sign = document.getElementById("sign");
     sign.classList.toggle("lit", st.open || st.inDays === 0);
