@@ -46,7 +46,7 @@ A setup oldal mindent a böngésződben generál, a szerverre semmit nem küld.
 
 ### 2. GitHub-token (a mentéshez)
 GitHub → Settings → Developer settings → **Fine-grained personal access tokens** → Generate new token
-- Repository access: **Only select repositories** → `Caribik-NFC`
+- Repository access: **Only select repositories** → `meinekontaktkarte`
 - Permissions → Repository permissions → **Contents: Read and write**
 - Lejárat: pl. 1 év (írd be a naptáradba, mikor kell megújítani)
 
@@ -59,7 +59,7 @@ Vercel → projekt → **Settings → Environment Variables** (Environment: Prod
 | `ADMIN_TOTP_SECRET` | a setup oldalról |
 | `ADMIN_SESSION_SECRET` | a setup oldalról |
 | `GITHUB_TOKEN` | a GitHub-token |
-| `GITHUB_REPO` | `66Kilian/Caribik-NFC` (alapértelmezett, elhagyható) |
+| `GITHUB_REPO` | `66Kilian/meinekontaktkarte` (alapértelmezett, elhagyható) |
 | `GITHUB_BRANCH` | az a branch, amiből az éles oldal települ (alapértelmezett: `main`) |
 
 Utána: **Deployments → Redeploy**.

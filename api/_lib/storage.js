@@ -10,7 +10,7 @@ export function getStorage() {
   if (process.env.MK_LOCAL_REPO) return localStorage_(process.env.MK_LOCAL_REPO);
   return githubStorage({
     token: process.env.GITHUB_TOKEN,
-    repo: process.env.GITHUB_REPO || "66Kilian/Caribik-NFC",
+    repo: process.env.GITHUB_REPO || "66Kilian/meinekontaktkarte",
     branch: process.env.GITHUB_BRANCH || "main",
   });
 }
