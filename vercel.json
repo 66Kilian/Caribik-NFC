@@ -4,6 +4,8 @@
     { "source": "/venus", "destination": "/venus/", "permanent": true }
   ],
   "rewrites": [
+    { "source": "/caribik/", "destination": "/Munk%C3%A1k/Caribik%20Sauna%20Club/index.html" },
+    { "source": "/venus/", "destination": "/Munk%C3%A1k/Venus%20Nfc/index.html" },
     { "source": "/caribik/:path*", "destination": "/Munk%C3%A1k/Caribik%20Sauna%20Club/:path*" },
     { "source": "/venus/:path*", "destination": "/Munk%C3%A1k/Venus%20Nfc/:path*" }
   ],
