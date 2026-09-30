@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin beállítása</title>
+<link rel="icon" href="/favicon.svg">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<div class="center">
+  <div class="card wide">
+    <div class="brand" style="margin-bottom:18px"><span class="logo">MK</span> Admin beállítása</div>
+    <div class="steps"><i class="on"></i><i id="st2"></i><i id="st3"></i></div>
+
+    <section id="s1">
+      <h1>1. Jelszó</h1>
+      <p class="sub">Legalább 12 karakter. Minden a böngésződben készül, semmi nem megy el sehova.</p>
+      <label class="f"><span>Jelszó</span><input class="inp" id="pw1" type="password" autocomplete="new-password"></label>
+      <label class="f"><span>Jelszó még egyszer</span><input class="inp" id="pw2" type="password" autocomplete="new-password"></label>
+      <p class="err-text" id="e1"></p>
+      <button class="btn primary" id="b1">Tovább</button>
+    </section>
+
+    <section id="s2" class="hidden">
+      <h1>2. Kétlépcsős azonosítás</h1>
+      <p class="sub">Olvasd be a QR-kódot egy hitelesítő alkalmazással (Google Authenticator, Microsoft Authenticator, 1Password, Authy …), majd írd be a 6 jegyű kódot.</p>
+      <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start">
+        <div class="qr" id="qr"></div>
+        <div style="flex:1;min-width:220px">
+          <p class="small muted" style="margin-top:0">Kézi megadáshoz a titkos kulcs:</p>
+          <p><code id="secret" class="mono" style="word-break:break-all;user-select:all"></code></p>
+          <p class="hint">Tipp: mentsd el ezt a kulcsot a jelszókezelődbe is. Ha elveszik a telefonod, ezzel tudod visszaállítani.</p>
+        </div>
+      </div>
+      <label class="f" style="margin-top:14px"><span>6 jegyű kód az alkalmazásból</span><input class="inp code-inp" id="code" inputmode="numeric" maxlength="6" autocomplete="one-time-code"></label>
+      <p class="err-text" id="e2"></p>
+      <button class="btn primary" id="b2">Ellenőrzés</button>
+    </section>
+
+    <section id="s3" class="hidden">
+      <h1>3. Beállítás a Vercelben</h1>
+      <p class="sub">Vercel → a projekted → <b>Settings → Environment Variables</b>. Add hozzá az alábbi értékeket (Environment: <b>Production</b>), majd indíts egy <b>Redeploy</b>-t.</p>
+      <div class="envbox" id="env"></div>
+      <p class="hint" style="margin-top:14px">Plusz a mentéshez szükséges GitHub-token (lásd ADMIN.md):</p>
+      <div class="envbox">
+        <div class="envrow"><b>GITHUB_TOKEN</b><span class="small muted">Fine-grained token → Repository access: csak <code>Caribik-NFC</code> → Permissions: <b>Contents: Read and write</b></span></div>
+        <div class="envrow"><b>GITHUB_BRANCH</b><span class="small muted">Az a branch, amiből az éles oldal települ (általában <code>main</code>)</span></div>
+      </div>
+      <p class="err-text" style="margin-top:14px">Ezt az oldalt zárd be, ha kész vagy. Az értékeket ne küldd el senkinek.</p>
+      <a class="btn primary" href="/admin/">Tovább a bejelentkezéshez</a>
+    </section>
+  </div>
+</div>
+<script src="vendor/qrcode.js"></script>
+<script src="setup.js"></script>
+</body>
+</html>
