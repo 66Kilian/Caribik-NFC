@@ -22,7 +22,7 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Service","name":"NFC-Visitenkarte mit eigener Website","serviceType":"NFC-Visitenkarten und Websites","url":"https://meinekontaktkarte.com/",
 "description":"Schwarze NFC-Karte, individuell foliert, verbunden mit einer eigens gebauten Website. Fertig in 5 Werktagen inklusive Versand.",
-"provider":{"@type":"Organization","name":"meinekontaktkarte.com","url":"https://meinekontaktkarte.com/","email":"kilianmaurice666@gmail.com","telephone":"+36 20 627 0766"},
+"provider":{"@type":"Organization","name":"meinekontaktkarte.com","url":"https://meinekontaktkarte.com/"},
 "areaServed":["AT","DE","HU","SK","CZ"]}
 </script>
 <script>document.documentElement.classList.add("js");</script>
@@ -314,7 +314,7 @@
   .dark{background:var(--night);color:var(--on-night);}
   .dark .lead{color:var(--on-night-2);}
   .demos{display:grid;gap:28px;margin-top:44px;}
-  @media(min-width:860px){.demos{grid-template-columns:1fr 1fr 1fr;gap:24px;align-items:start;}}
+  @media(min-width:860px){.demos{grid-template-columns:1fr 1fr;max-width:760px;gap:24px;align-items:start;}}
   .demo{display:grid;gap:16px;}
   .dphone{position:relative;width:min(78%,300px);margin-inline:auto;aspect-ratio:390/660;border-radius:30px;padding:8px;background:#000;box-shadow:0 0 0 1.5px #2e2e33 inset,0 40px 80px -40px rgba(0,0,0,.9);}
   .dphone .scr{position:relative;width:100%;height:100%;border-radius:23px;overflow:hidden;background:#111;}
@@ -398,16 +398,7 @@
   footer{padding:36px 0 48px;}
   .foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;font-size:14px;color:var(--ink-3);}
   .foot .mark svg{width:32px;height:32px;}
-  @media(max-width:759px){ body{padding-bottom:92px;} }
 
-  .mbar{display:none;position:fixed;left:14px;right:14px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:60;gap:8px;padding:8px;border-radius:18px;
-    background:rgba(18,18,20,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 18px 40px -12px rgba(0,0,0,.5);
-    opacity:0;transform:translateY(20px);pointer-events:none;transition:opacity .25s,transform .35s cubic-bezier(.34,1.56,.64,1);}
-  @media(max-width:759px){.mbar{display:flex;}}
-  .mbar.show{opacity:1;transform:none;pointer-events:auto;}
-  .mbar a{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 8px;border-radius:12px;text-decoration:none;font-weight:700;font-size:15px;color:var(--paper);}
-  .mbar .m-wa{background:var(--wa);color:#fff;}
-  .mbar .m-call{border:1px solid rgba(255,255,255,.18);}
 </style>
 </head>
 <body>
@@ -438,7 +429,6 @@
         <button id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Sprache / Language"><span id="langCode">DE</span><span class="car">▾</span></button>
         <div id="langPanel" role="listbox"></div>
       </div>
-      <a class="btn btn-primary top-cta" data-wa href="https://wa.me/36206270766" target="_blank" rel="noopener"><svg class="wa" width="16" height="16" aria-hidden="true"><use href="#wa"/></svg><span data-i18n="ctaShort">Anfragen</span></a>
     </div>
   </div>
 </header>
@@ -451,7 +441,6 @@
         <h1 data-i18n="h1">Die Visitenkarte, die sofort gespeichert wird.</h1>
         <p class="lead" data-i18n="lead">Eine schwarze NFC-Karte mit deinem Design – und dahinter deine eigene, individuell gebaute Website: mit deiner Nummer, Adresse, Öffnungszeiten und allem, was dein Geschäft ausmacht. Handy dranhalten, fertig. Ganz ohne App.</p>
         <div class="hero-cta">
-          <a class="btn btn-primary" data-wa href="https://wa.me/36206270766" target="_blank" rel="noopener"><svg class="wa" width="20" height="20" aria-hidden="true"><use href="#wa"/></svg><span data-i18n="ctaWa">Per WhatsApp anfragen</span></a>
           <a class="link" href="#demos" data-i18n="ctaDemos">Demos ansehen</a>
         </div>
         <p class="hero-note"><svg width="16" height="16" aria-hidden="true" style="color:var(--blue)"><use href="#tapmark"/></svg><span data-i18n-html="heroNote">Fertig in <b>5 Werktagen</b> – inklusive Versand.</span></p>
@@ -570,15 +559,8 @@
   <section class="block dark" id="demos">
     <div class="wrap">
       <h2 class="reveal" data-i18n="dmTitle">Echte Projekte, echte Karten.</h2>
-      <p class="lead reveal" data-i18n="dmLead">Diese Seiten haben wir gebaut – beide öffnen sich per NFC-Karte. Öffne sie hier live und scrolle direkt im Handy durch.</p>
+      <p class="lead reveal" data-i18n="dmLead">Diese Seite haben wir gebaut – sie öffnet sich per NFC-Karte. Öffne sie hier live und scrolle direkt im Handy durch.</p>
       <div class="demos">
-        <article class="demo adult reveal">
-          <div class="dphone"><div class="scr" data-src="/caribik/" data-title="Erlebnissauna Caribik"><img src="img/demo-caribik.jpg" alt="Website der Erlebnissauna Caribik am Handy" width="646" height="1100" loading="lazy">
-            <div class="gate"><span class="b18">18+</span><p data-i18n="gateText">Club für Erwachsene – antippen, um die Seite live zu öffnen.</p><button type="button" data-reveal data-i18n="gateBtn">Live öffnen</button></div></div></div>
-          <p class="live-hint" data-i18n="liveHint">Live – im Handy scrollen und tippen</p>
-          <div><h3>Erlebnissauna Caribik</h3><p data-i18n="dm1">Club in Niederösterreich: Live-Öffnungsstatus, Preistafel, Galerie, FAQ-Videos und fünf Sprachen.</p>
-            <a class="link" href="/caribik/" target="_blank" rel="noopener" data-i18n="live">Live ansehen ↗</a></div>
-        </article>
         <article class="demo adult reveal" style="--d:.08s">
           <div class="dphone"><div class="scr" data-src="https://www.erotik-homepage.com/" data-title="erotik-homepage.com"><img src="img/demo-venus.jpg" alt="Website erotik-homepage.com am Handy" width="646" height="1100" loading="lazy">
             <div class="gate"><span class="b18">18+</span><p data-i18n="gateText2">Angebot für Erwachsenen-Creator – antippen, um die Seite live zu öffnen.</p><button type="button" data-reveal data-i18n="gateBtn">Live öffnen</button></div></div></div>
@@ -591,7 +573,6 @@
             <div class="kk-slot"><div class="kk"><span data-i18n="youCard">Dein Logo</span></div></div>
             <h3 data-i18n="youT">Dein Projekt?</h3>
             <p data-i18n="youD">Friseur, Werkstatt, Restaurant, Praxis oder Club – wir bauen die Seite, die zu dir passt.</p>
-            <a class="link" data-wa href="https://wa.me/36206270766" target="_blank" rel="noopener" data-i18n="youCta">Schreib uns ↗</a>
           </div>
         </article>
       </div>
@@ -638,33 +619,13 @@
       <h2 class="reveal" data-i18n="fqTitle">Häufige Fragen</h2>
       <div class="faq reveal">
         <details><summary><span data-i18n="q1">Brauchen meine Kunden eine App?</span><i aria-hidden="true"></i></summary><div class="ans" data-i18n="a1">Nein. Aktuelle iPhones und die meisten Android-Handys lesen NFC-Karten direkt – Handy entsperren, an die Karte halten, fertig.</div></details>
-        <details><summary><span data-i18n="q2">Was kostet eine Karte mit Website?</span><i aria-hidden="true"></i></summary><div class="ans" data-i18n="a2">Das hängt davon ab, was deine Website können soll. Schreib uns kurz per WhatsApp, was du brauchst – du bekommst ein unverbindliches Angebot.</div></details>
         <details><summary><span data-i18n="q3">Wie lange dauert es?</span><i aria-hidden="true"></i></summary><div class="ans" data-i18n="a3">5 Werktage – inklusive Versand.</div></details>
         <details><summary><span data-i18n="q4">Was passiert, wenn sich meine Nummer ändert?</span><i aria-hidden="true"></i></summary><div class="ans" data-i18n="a4">Die Karte öffnet deine Website – geändert wird also nur die Seite. Die Karte bleibt dieselbe, du musst nichts neu drucken.</div></details>
         <details><summary><span data-i18n="q5">Funktioniert das mit jedem Handy?</span><i aria-hidden="true"></i></summary><div class="ans" data-i18n="a5">Mit allen aktuellen iPhones und den meisten Android-Handys mit NFC. Bei Android muss NFC in den Einstellungen eingeschaltet sein – das ist meist schon der Fall.</div></details>
-        <details><summary><span data-i18n="q6">Kann ich mehrere Karten bestellen?</span><i aria-hidden="true"></i></summary><div class="ans" data-i18n="a6">Ja – zum Beispiel für dein ganzes Team im selben Design. Schreib uns einfach, wie viele du brauchst.</div></details>
       </div>
     </div>
   </section>
 
-  <!-- ===== Kontakt ===== -->
-  <section class="block" id="kontakt" style="padding-top:0">
-    <div class="wrap">
-      <div class="contact reveal">
-        <h2 data-i18n="ctTitle">Lass uns deine Karte machen.</h2>
-        <p class="lead" data-i18n="ctLead">Schreib uns, was du machst – wir melden uns mit einem Vorschlag für Karte und Website.</p>
-        <div class="c-actions">
-          <a class="btn btn-primary" data-wa href="https://wa.me/36206270766" target="_blank" rel="noopener"><svg class="wa" width="20" height="20" aria-hidden="true"><use href="#wa"/></svg><span data-i18n="ctaWa">Per WhatsApp anfragen</span></a>
-          <a class="btn btn-ghost" href="tel:+36206270766"><svg width="18" height="18" aria-hidden="true"><use href="#ic-phone"/></svg><span data-i18n="ctaCall">Anrufen</span></a>
-        </div>
-        <div class="c-list">
-          <a href="tel:+36206270766">+36 20 627 0766</a>
-          <a href="mailto:kilianmaurice666@gmail.com">kilianmaurice666@gmail.com</a>
-        </div>
-        <div class="kk-slot" aria-hidden="true"><div class="kk kk-mira"><span class="uv" aria-hidden="true">M</span><span class="nm"><b class="foil-silver">Mira</b><small class="foil-silver" data-i18n="cardMira">Friseur · Wien</small></span><svg class="tap" viewBox="0 0 24 24"><use href="#tapmark"/></svg></div></div>
-      </div>
-    </div>
-  </section>
 </main>
 
 <footer>
@@ -676,10 +637,6 @@
   </div>
 </footer>
 
-<div class="mbar" id="mbar">
-  <a class="m-wa" data-wa href="https://wa.me/36206270766" target="_blank" rel="noopener"><svg width="18" height="18" aria-hidden="true"><use href="#wa"/></svg>WhatsApp</a>
-  <a class="m-call" href="tel:+36206270766"><svg width="16" height="16" aria-hidden="true"><use href="#ic-phone"/></svg><span data-i18n="ctaCall">Anrufen</span></a>
-</div>
 
 <script src="i18n.js" defer></script>
 <script>
@@ -689,7 +646,6 @@ document.addEventListener("DOMContentLoaded", function(){
   var DE = {};
   document.querySelectorAll("[data-i18n]").forEach(function(el){ var k = el.getAttribute("data-i18n"); if(!(k in DE)) DE[k] = el.innerHTML; });
   document.querySelectorAll("[data-i18n-html]").forEach(function(el){ DE[el.getAttribute("data-i18n-html")] = el.innerHTML; });
-  DE.waText = "Hallo! Ich interessiere mich für eine NFC-Kontaktkarte mit eigener Website.";
   var cur = "de";
   function tx(k){ var d = cur === "de" ? DE : (T[cur] || DE); return d[k] != null ? d[k] : DE[k]; }
 
@@ -712,8 +668,6 @@ document.addEventListener("DOMContentLoaded", function(){
     document.documentElement.lang = cur;
     document.getElementById("langCode").textContent = cur.toUpperCase();
     panel.querySelectorAll("button").forEach(function(b){ b.setAttribute("aria-current", b.dataset.code === cur ? "true" : "false"); });
-    var wa = "https://wa.me/36206270766?text=" + encodeURIComponent(tx("waText"));
-    document.querySelectorAll("[data-wa]").forEach(function(a){ a.href = wa; });
   }
   apply("de");
   document.getElementById("yr").textContent = new Date().getFullYear();
@@ -737,7 +691,7 @@ document.addEventListener("DOMContentLoaded", function(){
   /* ---- Scroll: Story, Schichten, Header, Leiste ---- */
   var story = document.getElementById("so-gehts"), stage = document.getElementById("stage"), phone = document.getElementById("phone"), siteIn = document.getElementById("siteIn");
   var steps = document.querySelectorAll("#steps li"), layers = document.getElementById("layers");
-  var contact = document.getElementById("kontakt"), header = document.querySelector("header.top"), mbar = document.getElementById("mbar"), hero = document.querySelector(".hero");
+  var header = document.querySelector("header.top"), hero = document.querySelector(".hero");
   function fit(){
     document.querySelectorAll(".site-scale").forEach(function(el){ el.style.setProperty("--sc", (el.parentNode.clientWidth / 232).toFixed(3)); });
     document.querySelectorAll(".scr iframe").forEach(function(f){
@@ -753,8 +707,6 @@ document.addEventListener("DOMContentLoaded", function(){
     ticking = false;
     var vh = innerHeight;
     header.classList.toggle("solid", scrollY > 10);
-    var sr = story.getBoundingClientRect(), cr = contact.getBoundingClientRect();
-    mbar.classList.toggle("show", hero.getBoundingClientRect().bottom < 0 && !(sr.top <= 0 && sr.bottom >= vh) && cr.top > vh - 60);
     if(!fine && !still){ var h = clamp(scrollY / 500); tilt(.5 - h * .3, .5 + h * .4); }
 
     var r = story.getBoundingClientRect(), total = r.height - vh;

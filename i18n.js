@@ -169,3 +169,9 @@ Object.assign(I18N.en, {"cardMira": "Hair salon · Vienna", "cardLinde": "Café 
 Object.assign(I18N.hu, {"cardMira": "Fodrász · Bécs", "cardLinde": "Kávézó &amp; pörkölő"});
 Object.assign(I18N.sk, {"cardMira": "Kaderníctvo · Viedeň", "cardLinde": "Kaviareň &amp; pražiareň"});
 Object.assign(I18N.cs, {"cardMira": "Kadeřnictví · Vídeň", "cardLinde": "Kavárna &amp; pražírna"});
+
+/* Nur noch eine Demo */
+Object.assign(I18N.en, {"dmLead": "We built this site – it opens from an NFC card. Open it live here and scroll right inside the phone."});
+Object.assign(I18N.hu, {"dmLead": "Ezt az oldalt mi készítettük – NFC-kártyáról nyílik. Nyisd meg itt élőben, és görgess végig rajta a telefonban."});
+Object.assign(I18N.sk, {"dmLead": "Túto stránku sme postavili my – otvára sa z NFC karty. Otvor si ju tu naživo a prescrolluj priamo v mobile."});
+Object.assign(I18N.cs, {"dmLead": "Tuto stránku jsme postavili my – otevírá se z NFC karty. Otevři si ji tady živě a proscrolluj přímo v mobilu."});
