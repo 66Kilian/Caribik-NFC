@@ -1,7 +1,7 @@
 // Automatisch aus data/sites.json erzeugt (Admin) – nicht von Hand bearbeiten.
 export default {
-  "rev": "wj51lpnf",
-  "updatedAt": "2026-09-30T04:40:45.082Z",
+  "rev": "uspror5n",
+  "updatedAt": "2026-09-30T06:08:41.007Z",
   "groups": [
     "Hauptseite",
     "Kunden",
@@ -42,6 +42,17 @@ export default {
       "enabled": true,
       "aliases": [],
       "notes": ""
+    },
+    {
+      "id": "maxim",
+      "name": "Maxim Wien",
+      "group": "Kunden",
+      "folder": "Munkák/Maxim Wien",
+      "slug": "maxim",
+      "subdomain": "",
+      "enabled": false,
+      "aliases": [],
+      "notes": "Váz a nyilvános adatokból (cím, telefon, nyitvatartás: Yelp). Fotók = helyőrzők, cserélhetők. Escort-rész a maxim-wien.com alapján még hiányzik."
     }
   ]
 };

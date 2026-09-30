@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:3.0
+N:;Maxim Wien;;;
+FN:Maxim Wien – Nightclub
+ORG:Maxim Wien
+TEL;TYPE=WORK,VOICE:+4369917172031
+ADR;TYPE=WORK:;;Kärntner Straße 61;Wien;;1010;Österreich
+URL:https://maxim-wien.com/
+NOTE:Täglich 20:00 – 05:00 Uhr · Eintritt frei · ab 18
+END:VCARD
