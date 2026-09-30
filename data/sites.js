@@ -1,7 +1,7 @@
 // Automatisch aus data/sites.json erzeugt (Admin) – nicht von Hand bearbeiten.
 export default {
-  "rev": "initial",
-  "updatedAt": "2026-09-30T00:00:00.000Z",
+  "rev": "joxwm4u1",
+  "updatedAt": "2026-09-30T04:39:33.650Z",
   "groups": [
     "Hauptseite",
     "Kunden",
@@ -24,10 +24,12 @@ export default {
       "name": "Erlebnissauna Caribik",
       "group": "Kunden",
       "folder": "Munkák/Caribik Sauna Club",
-      "slug": "caribik",
-      "subdomain": "",
+      "slug": "caribiiik",
+      "subdomain": "caribik",
       "enabled": true,
-      "aliases": [],
+      "aliases": [
+        "caribik"
+      ],
       "notes": ""
     },
     {
