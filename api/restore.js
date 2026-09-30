@@ -1,7 +1,7 @@
 // Stellt eine frühere Version wieder her (als neuer Commit – nichts geht verloren).
 import { send, guard, body } from "./_lib/http.js";
 import { getStorage } from "./_lib/storage.js";
-import { CONFIG_PATH, htmlPath, overridesPath, validateConfig } from "./_lib/sites.js";
+import { CONFIG_PATH, configFiles, htmlPath, overridesPath, validateConfig } from "./_lib/sites.js";
 
 export default async function handler(req, res) {
   if (!(await guard(req, res, { method: "POST" }))) return;
@@ -17,7 +17,7 @@ export default async function handler(req, res) {
       if (!old) return send(res, 404, { error: "Version nicht gefunden" });
       let cfg;
       try { cfg = validateConfig(JSON.parse(old.toString("utf8")), current, tree); } catch (m) { return send(res, 400, { error: String(m) }); }
-      files.push({ path: CONFIG_PATH, content: Buffer.from(JSON.stringify(cfg, null, 2) + "\n") });
+      files.push(...configFiles(cfg));
     } else {
       const site = current.sites.find(s => s.id === id);
       if (!site) return send(res, 404, { error: "Seite nicht gefunden" });
@@ -27,7 +27,7 @@ export default async function handler(req, res) {
       files.push({ path: overridesPath(site), content: await st.readAt(overridesPath(site), sha) });
       // Rev erneuern, damit das Admin den Deploy erkennt
       const cfg = { ...current, rev: Math.random().toString(36).slice(2, 10), updatedAt: new Date().toISOString() };
-      files.push({ path: CONFIG_PATH, content: Buffer.from(JSON.stringify(cfg, null, 2) + "\n") });
+      files.push(...configFiles(cfg));
     }
     const r = await st.commit({ files, message: `admin: Version ${sha.slice(0, 7)} wiederhergestellt${id ? ` (${id})` : " (Einstellungen)"}` });
     send(res, 200, { ok: true, commit: r.commit });

@@ -1,6 +1,16 @@
 import { RESERVED_SLUGS } from "../../lib/route.js";
 
 export const CONFIG_PATH = "data/sites.json";
+export const CONFIG_JS_PATH = "data/sites.js"; // wird von middleware.js importiert
+
+/** sites.json + sites.js (gleicher Inhalt) für einen Commit. */
+export function configFiles(cfg) {
+  const json = JSON.stringify(cfg, null, 2);
+  return [
+    { path: CONFIG_PATH, content: Buffer.from(json + "\n") },
+    { path: CONFIG_JS_PATH, content: Buffer.from("// Automatisch aus data/sites.json erzeugt (Admin) – nicht von Hand bearbeiten.\nexport default " + json + ";\n") },
+  ];
+}
 export const WORKS_DIR = "Munkák";
 export const OVERRIDES_FILE = "mk-i18n.js";
 

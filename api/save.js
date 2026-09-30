@@ -1,7 +1,7 @@
 // Speichert alle Änderungen als EIN Commit → Vercel deployt automatisch.
 import { send, guard, body } from "./_lib/http.js";
 import { getStorage, ConflictError } from "./_lib/storage.js";
-import { CONFIG_PATH, htmlPath, overridesPath, validateConfig, validUpload, renderOverrides, cleanOverrides } from "./_lib/sites.js";
+import { CONFIG_PATH, configFiles, htmlPath, overridesPath, validateConfig, validUpload, renderOverrides, cleanOverrides } from "./_lib/sites.js";
 
 const MAX_HTML = 3 << 20;
 const MAX_UPLOAD = 3 << 20;
@@ -18,7 +18,7 @@ export default async function handler(req, res) {
 
     let config = prev;
     try { config = validateConfig(b.config || prev, prev, tree); } catch (msg) { return send(res, 400, { error: String(msg) }); }
-    files.push({ path: CONFIG_PATH, content: Buffer.from(JSON.stringify(config, null, 2) + "\n") });
+    files.push(...configFiles(config));
 
     const byId = new Map(config.sites.map(s => [s.id, s]));
     for (const p of b.pages || []) {
