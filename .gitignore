@@ -1,2 +1,4 @@
 .DS_Store
+.backup-venus-git/
+.claude/
 node_modules/

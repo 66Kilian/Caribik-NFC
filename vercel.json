@@ -1,9 +1,13 @@
 {
+  "redirects": [
+    { "source": "/caribik", "destination": "/caribik/", "permanent": true },
+    { "source": "/venus", "destination": "/venus/", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/caribik/:path*", "destination": "/Munk%C3%A1k/Caribik%20Sauna%20Club/:path*" },
+    { "source": "/venus/:path*", "destination": "/Munk%C3%A1k/Venus%20Nfc/:path*" }
+  ],
   "headers": [
-    { "source": "/(.*)\\.vcf", "headers": [
-      { "key": "Content-Type", "value": "text/vcard; charset=utf-8" },
-      { "key": "Content-Disposition", "value": "inline; filename=\"caribik.vcf\"" }
-    ]},
-    { "source": "/img/(.*)", "headers": [ { "key": "Cache-Control", "value": "public, max-age=2592000" } ] }
+    { "source": "/(.*)\\.vcf", "headers": [ { "key": "Content-Type", "value": "text/vcard; charset=utf-8" } ] }
   ]
 }
