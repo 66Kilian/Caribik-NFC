@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800" viewBox="0 0 600 800">
+<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a0b16"/><stop offset="1" stop-color="#0d0709"/></linearGradient></defs>
+<rect width="600" height="800" fill="url(#g)"/>
+<circle cx="300" cy="300" r="95" fill="#e9d3a0" fill-opacity=".12"/>
+<path d="M130 640c20-120 90-190 170-190s150 70 170 190" fill="#e9d3a0" fill-opacity=".12"/>
+<text x="300" y="730" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="22" letter-spacing="5" fill="#e9d3a0" fill-opacity=".55">FOTO HOCHLADEN</text>
+</svg>

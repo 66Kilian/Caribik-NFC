@@ -60,3 +60,51 @@ I18N.hu = {
   ctPhone:"Telefon", ctAddr:"Cím", ctHours:"Nyitvatartás", ctHoursV:"Naponta 20:00 – 05:00",
   foot18:"Csak felnőtteknek (18+)", mbRoute:"Útvonal", mbSave:"Mentés"
 };
+
+/* Erweiterung: Zimmer, Domina-Studio, Escort, Damen, Preise (Quellen: öffentliche Angaben) */
+Object.assign(I18N.en, {
+  navRooms:"Rooms", navEscort:"Escort", navLadies:"Ladies", navPrices:"Prices",
+  heroEyebrow:"Nightclub · Escort · since 1985", h1:"Vienna’s all-in-one nightclub on <em>Kärntner Straße</em>.",
+  heroLead:"Right in the city centre, a few steps from the Opera: stage, bar, stylish rooms and a discreet escort service – every night until 5 am. Free entry.",
+  stat2:"international ladies",
+  clubLead:"Since 1985 Maxim has been part of Vienna’s nightlife – one of the oldest and best-known venues in the city. Bar, lounge and stage downstairs, rooms upstairs: everything under one roof, discreet and warm.",
+  club1:"20 to 25 ladies from many countries – every night", club3:"Couples are very welcome too",
+  barLead:"Our bar serves everything from beer to champagne. The lounge is the place to start the evening – or let it wind down. You can pay cash, by debit or credit card.",
+  roomsEyebrow:"Rooms &amp; suites", roomsTitle:"Privacy in three levels.", roomsLead:"Above the club are our rooms – quiet, well kept and all yours.",
+  rm1s:"Standard", rm1t:"Standard room", rm1d:"Cosy and discreet – perfect for a spontaneous moment for two.",
+  rm2s:"Superior", rm2t:"Superior room", rm2d:"More space, more comfort, more atmosphere.",
+  rm3s:"VIP", rm3t:"VIP suite", rm3d:"With private jacuzzi and king-size bed – for special nights.",
+  bdsmEyebrow:"Dominatrix studio", bdsmTitle:"For connoisseurs: our BDSM room.", bdsmLead:"Since 2017 Maxim has its own fully equipped BDSM room. Professional dominatrices take time for your wishes – with clear agreements and plenty of experience.",
+  escEyebrow:"Escort service", escTitle:"Maxim comes to you.", escLead:"Our exclusive escort service brings a Maxim lady discreetly to your hotel in Vienna. The taxi ride is already included – the longer the booking, the lower the hourly price.",
+  esc1:"Hotel visits all over Vienna", esc2:"Taxi ride included", esc3:"Discreet booking by phone", escCta:"Book an escort",
+  ladEyebrow:"Our ladies", ladTitle:"Maxim Girls.", ladLead:"Every night 20 to 25 ladies from many countries are at the club. Call us to find out who is here tonight.",
+  profMeta:"Nationality · Languages", profAsk:"Ask for availability →",
+  prEyebrow:"Prices", prTitle:"Clear and transparent.", pr1:"Club entry", pr1v:"free", pr2:"Hotel escort · 1 hour (incl. taxi)", pr3:"Hotel escort · 4 hours (incl. taxi)",
+  pr4:"Rooms, superior &amp; VIP suite", prAsk:"on request", pr5:"Drinks", pr5v:"see menu", prNote:"Pay cash, by debit or credit card. We’re happy to tell you all other prices by phone.",
+  q6:"Can I pay by card?", a6:"Yes – cash, debit or credit card.", q7:"Are couples welcome?", a7:"Yes, very much so.",
+  q8:"How do I book an escort to my hotel?", a8:"Call us with your hotel and preferred time. The lady comes by taxi – the ride is included in the price.",
+  footGroup:"Part of the Maxim Gentlemen Group"
+});
+Object.assign(I18N.hu, {
+  navRooms:"Szobák", navEscort:"Escort", navLadies:"Hölgyek", navPrices:"Árak",
+  heroEyebrow:"Nightclub · Escort · 1985 óta", h1:"Bécs all-in-one éjszakai klubja a <em>Kärntner Straßén</em>.",
+  heroLead:"A belváros szívében, pár lépésre az Operától: színpad, bár, stílusos szobák és diszkrét escort szolgáltatás – minden éjjel hajnali 5-ig. A belépés ingyenes.",
+  stat2:"nemzetközi hölgy",
+  clubLead:"A Maxim 1985 óta a bécsi éjszakai élet része – a város egyik legrégebbi és legismertebb helye. Lent bár, lounge és színpad, fent a szobák: minden egy fedél alatt, diszkréten és barátságosan.",
+  club1:"20–25 hölgy sok országból – minden éjjel", club3:"Párokat is szeretettel várunk",
+  barLead:"A bárban a sörtől a pezsgőig minden megtalálható. A lounge-ban nyugodtan indulhat – vagy zárulhat – az este. Fizethetsz készpénzzel, bank- vagy hitelkártyával.",
+  roomsEyebrow:"Szobák &amp; lakosztályok", roomsTitle:"Privát szféra három szinten.", roomsLead:"A klub felett vannak a szobáink – csendesek, ápoltak és csak a tiétek.",
+  rm1s:"Standard", rm1t:"Standard szoba", rm1d:"Kényelmes és diszkrét – ideális egy spontán pillanathoz kettesben.",
+  rm2s:"Superior", rm2t:"Superior szoba", rm2d:"Több hely, több kényelem, több hangulat.",
+  rm3s:"VIP", rm3t:"VIP lakosztály", rm3d:"Saját jakuzzival és king-size ággyal – különleges éjszakákra.",
+  bdsmEyebrow:"Domina-stúdió", bdsmTitle:"Ínyenceknek: BDSM-szobánk.", bdsmLead:"A Maxim 2017 óta saját, teljesen felszerelt BDSM-szobával rendelkezik. Profi dominák szánnak időt a kívánságaidra – világos megállapodásokkal és sok tapasztalattal.",
+  escEyebrow:"Escort szolgáltatás", escTitle:"A Maxim hozzád megy.", escLead:"Exkluzív escort szolgáltatásunk diszkréten a bécsi szállodádba viszi a Maxim hölgyét. A taxi az árban benne van – minél hosszabb a foglalás, annál kedvezőbb az óradíj.",
+  esc1:"Szállodai látogatás egész Bécsben", esc2:"Taxi az árban", esc3:"Diszkrét foglalás telefonon", escCta:"Escort foglalása",
+  ladEyebrow:"Hölgyeink", ladTitle:"Maxim Girls.", ladLead:"Minden éjjel 20–25 hölgy van a klubban sok országból. Hogy ma ki van itt, azt telefonon megtudod.",
+  profMeta:"Nemzetiség · Nyelvek", profAsk:"Elérhetőség →",
+  prEyebrow:"Árak", prTitle:"Világosan és átláthatóan.", pr1:"Belépés a klubba", pr1v:"ingyenes", pr2:"Szállodai escort · 1 óra (taxival)", pr3:"Szállodai escort · 4 óra (taxival)",
+  pr4:"Szobák, superior &amp; VIP lakosztály", prAsk:"érdeklődj", pr5:"Italok", pr5v:"itallap szerint", prNote:"Fizetés készpénzzel, bank- vagy hitelkártyával. Minden további árat szívesen elmondunk telefonon.",
+  q6:"Fizethetek kártyával?", a6:"Igen – készpénzzel, bank- vagy hitelkártyával.", q7:"Párokat is fogadtok?", a7:"Igen, nagyon szívesen.",
+  q8:"Hogyan foglalhatok escortot a szállodámba?", a8:"Hívj fel, és mondd meg a szállodát és az időpontot. A hölgy taxival érkezik – az út benne van az árban.",
+  footGroup:"A Maxim Gentlemen Group tagja"
+});

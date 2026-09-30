@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Maxim Wien · Nightclub an der Kärntner Straße seit 1985</title>
-<meta name="description" content="Maxim Wien – Wiens legendärer Nightclub in der Kärntner Straße 61, 1010 Wien. Bühne, Bar, Séparées. Täglich 20:00 – 05:00 Uhr, Eintritt frei, ab 18.">
+<meta name="description" content="Maxim Wien – All-in-One-Nightclub seit 1985 in der Kärntner Straße 61, 1010 Wien: Bühne, Bar, Zimmer mit VIP-Suite, Domina-Studio und Hotel-Escort. Täglich 20:00 – 05:00 Uhr, Eintritt frei, ab 18.">
 <meta name="theme-color" content="#0b0708">
 <meta name="robots" content="index,follow">
 <link rel="icon" href="img/hero.svg">
@@ -140,6 +140,27 @@
   .mobile-bar .mb-alt{border:1px solid var(--line);color:var(--gold-2)}
   @media(min-width:760px){.mobile-bar{display:none}}
 
+  .cards{display:grid;gap:14px;margin-top:28px}
+  @media(min-width:760px){.cards{grid-template-columns:repeat(3,1fr)}}
+  .card{padding:24px;border-radius:var(--r);background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+  .card.hl{border-color:rgba(216,180,106,.55);box-shadow:0 20px 50px -30px rgba(216,180,106,.6)}
+  .card small{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:800}
+  .card h3{font-size:24px}
+  .card p{margin:0;color:var(--text-dim);font-size:15px}
+  .profiles{display:grid;gap:14px;grid-template-columns:1fr 1fr;margin-top:28px}
+  @media(min-width:900px){.profiles{grid-template-columns:repeat(4,1fr)}}
+  .profile{border-radius:var(--r);overflow:hidden;background:var(--card);border:1px solid var(--line)}
+  .profile .ph{aspect-ratio:3/4;background:var(--bg-2)}
+  .profile .ph img{width:100%;height:100%;object-fit:cover}
+  .profile .pi{padding:14px 16px 16px}
+  .profile h3{font-size:20px;margin-bottom:4px}
+  .profile p{margin:0 0 10px;color:var(--text-dim);font-size:13px}
+  .profile a{font-size:13px;font-weight:800;color:var(--gold-2);text-decoration:none}
+  .prices{margin-top:28px;border-top:1px solid var(--line)}
+  .prow{display:flex;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .prow span{color:var(--text-dim)}
+  .prow b{font-family:"Playfair Display",serif;font-size:20px;color:var(--gold-2);white-space:nowrap}
+  .note{margin-top:14px;font-size:13px;color:var(--text-dim)}
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s,transform .7s}
   .reveal.in{opacity:1;transform:none}
   @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
@@ -165,9 +186,10 @@
     <nav class="nav-links">
       <a href="#zeiten" data-i18n="navHours">Öffnungszeiten</a>
       <a href="#club" data-i18n="navClub">Der Club</a>
-      <a href="#shows" data-i18n="navShows">Shows</a>
-      <a href="#bar" data-i18n="navBar">Bar</a>
-      <a href="#infos" data-i18n="navInfo">Gut zu wissen</a>
+      <a href="#zimmer" data-i18n="navRooms">Zimmer</a>
+      <a href="#escort" data-i18n="navEscort">Escort</a>
+      <a href="#damen" data-i18n="navLadies">Damen</a>
+      <a href="#preise" data-i18n="navPrices">Preise</a>
       <a href="#kontakt" data-i18n="navContact">Kontakt</a>
     </nav>
     <div class="nav-right">
@@ -186,9 +208,9 @@
   <section class="hero">
     <div class="hero-photo"><img src="img/hero.svg" alt="Maxim Wien – Nightclub in der Kärntner Straße" width="1400" height="900" fetchpriority="high"></div>
     <div class="wrap hero-body">
-      <p class="eyebrow" data-i18n="heroEyebrow">Nightclub &amp; Varieté · seit 1985</p>
-      <h1 data-i18n-html="h1">Wiens legendärer Nightclub an der <em>Kärntner Straße</em>.</h1>
-      <p class="lead" data-i18n="heroLead">Mitten in der Innenstadt, wenige Schritte von der Oper: Bühne, Bar und Séparées – jede Nacht bis 5 Uhr früh. Eintritt frei.</p>
+      <p class="eyebrow" data-i18n="heroEyebrow">Nightclub · Escort · seit 1985</p>
+      <h1 data-i18n-html="h1">Wiens All-in-One-Nightclub an der <em>Kärntner Straße</em>.</h1>
+      <p class="lead" data-i18n="heroLead">Mitten in der Innenstadt, wenige Schritte von der Oper: Bühne, Bar, stilvolle Zimmer und diskreter Escort-Service – jede Nacht bis 5 Uhr früh. Eintritt frei.</p>
       <div class="hero-cta">
         <a class="btn btn-red" href="tel:+4369917172031"><span data-i18n="ctaCall">Anrufen</span></a>
         <a class="btn btn-ghost" href="https://www.google.com/maps/dir/?api=1&amp;destination=Maxim+Wien,+K%C3%A4rntner+Stra%C3%9Fe+61,+1010+Wien" target="_blank" rel="noopener"><span data-i18n="ctaRoute">Route planen</span></a>
@@ -196,7 +218,7 @@
       <div class="status" id="status"><i></i><span id="statusText">Täglich 20:00 – 05:00 Uhr</span></div>
       <div class="stats">
         <div><b>1985</b><span data-i18n="stat1">Tradition seit</span></div>
-        <div><b>7</b><span data-i18n="stat2">Nächte pro Woche</span></div>
+        <div><b>20+</b><span data-i18n="stat2">internationale Damen</span></div>
         <div><b>0 €</b><span data-i18n="stat3">Eintritt</span></div>
       </div>
     </div>
@@ -223,11 +245,11 @@
       <div class="reveal">
         <p class="eyebrow" data-i18n="clubEyebrow">Der Club</p>
         <h2 data-i18n="clubTitle">Eine Wiener Institution.</h2>
-        <p class="lead" data-i18n="clubLead">Seit 1985 gehört das Maxim zum Wiener Nachtleben. Warmes Licht, rote Samtsessel, gute Musik – und ein Team, das Gäste aus aller Welt diskret und herzlich empfängt.</p>
+        <p class="lead" data-i18n="clubLead">Seit 1985 gehört das Maxim zum Wiener Nachtleben – als eines der ältesten und bekanntesten Häuser der Stadt. Unten Bar, Lounge und Bühne, oben die Zimmer: alles unter einem Dach, diskret und herzlich.</p>
         <ul class="list">
-          <li data-i18n="club1">Rund 20 internationale Tänzerinnen jede Nacht</li>
+          <li data-i18n="club1">20 bis 25 Damen aus vielen Ländern – jede Nacht</li>
           <li data-i18n="club2">Mitten im 1. Bezirk, direkt an der Kärntner Straße</li>
-          <li data-i18n="club3">Diskretion ist bei uns selbstverständlich</li>
+          <li data-i18n="club3">Auch Paare sind herzlich willkommen</li>
         </ul>
       </div>
     </div>
@@ -257,20 +279,83 @@
       <div class="reveal">
         <p class="eyebrow" data-i18n="barEyebrow">Bar &amp; Lounge</p>
         <h2 data-i18n="barTitle">Champagner, Cocktails, gute Gesellschaft.</h2>
-        <p class="lead" data-i18n="barLead">An unserer Bar gibt es alles von Bier bis Champagner. In der Lounge lässt sich der Abend in Ruhe beginnen – oder ausklingen.</p>
+        <p class="lead" data-i18n="barLead">An unserer Bar gibt es alles von Bier bis Champagner. In der Lounge lässt sich der Abend in Ruhe beginnen – oder ausklingen. Bezahlen kannst du bar, mit Debit- oder Kreditkarte.</p>
       </div>
     </div>
   </section>
 
-  <!-- ===== Séparées ===== -->
-  <section class="block" id="separees" style="padding-top:0">
-    <div class="wrap split rev">
-      <div class="shot reveal"><img src="img/separee.svg" alt="Séparées" width="900" height="600" loading="lazy"></div>
-      <div class="reveal">
-        <p class="eyebrow" data-i18n="sepEyebrow">Séparées &amp; VIP</p>
-        <h2 data-i18n="sepTitle">Mehr Privatsphäre.</h2>
-        <p class="lead" data-i18n="sepLead">Für besondere Momente stehen stilvolle Séparées und Themenzimmer bereit – ungestört, diskret und liebevoll eingerichtet.</p>
+  <!-- ===== Zimmer ===== -->
+  <section class="block" id="zimmer" style="padding-top:0">
+    <div class="wrap">
+      <p class="eyebrow reveal" data-i18n="roomsEyebrow">Zimmer &amp; Suiten</p>
+      <h2 class="reveal" data-i18n="roomsTitle">Privatsphäre in drei Stufen.</h2>
+      <p class="lead reveal" data-i18n="roomsLead">Über dem Club liegen unsere Zimmer – ruhig, gepflegt und ganz für euch allein.</p>
+      <div class="cards">
+        <div class="card reveal"><small data-i18n="rm1s">Standard</small><h3 data-i18n="rm1t">Standard-Zimmer</h3><p data-i18n="rm1d">Gemütlich und diskret – ideal für einen spontanen Moment zu zweit.</p></div>
+        <div class="card reveal"><small data-i18n="rm2s">Superior</small><h3 data-i18n="rm2t">Superior-Zimmer</h3><p data-i18n="rm2d">Mehr Platz, mehr Komfort, mehr Atmosphäre.</p></div>
+        <div class="card hl reveal"><small data-i18n="rm3s">VIP</small><h3 data-i18n="rm3t">VIP-Suite</h3><p data-i18n="rm3d">Mit eigenem Jacuzzi und Kingsize-Bett – für besondere Nächte.</p></div>
       </div>
+    </div>
+  </section>
+
+  <!-- ===== Domina-Studio ===== -->
+  <section class="block" id="studio" style="padding-top:0">
+    <div class="wrap split rev">
+      <div class="shot reveal"><img src="img/separee.svg" alt="Domina-Studio" width="900" height="600" loading="lazy"></div>
+      <div class="reveal">
+        <p class="eyebrow" data-i18n="bdsmEyebrow">Domina-Studio</p>
+        <h2 data-i18n="bdsmTitle">Für Kenner: unser BDSM-Raum.</h2>
+        <p class="lead" data-i18n="bdsmLead">Seit 2017 hat das Maxim einen eigenen, voll ausgestatteten BDSM-Raum. Professionelle Dominas nehmen sich Zeit für deine Wünsche – mit klaren Absprachen und viel Erfahrung.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Escort ===== -->
+  <section class="block" id="escort" style="padding-top:0">
+    <div class="wrap split">
+      <div class="shot reveal"><img src="img/lounge.svg" alt="Maxim Escort Service" width="900" height="600" loading="lazy"></div>
+      <div class="reveal">
+        <p class="eyebrow" data-i18n="escEyebrow">Escort Service</p>
+        <h2 data-i18n="escTitle">Das Maxim kommt zu dir.</h2>
+        <p class="lead" data-i18n="escLead">Unser exklusiver Escort-Service bringt eine Maxim-Dame diskret in dein Hotel in Wien. Die Anfahrt per Taxi ist im Preis bereits enthalten – je länger die Buchung, desto günstiger die Stunde.</p>
+        <ul class="list">
+          <li data-i18n="esc1">Hotelbesuche in ganz Wien</li>
+          <li data-i18n="esc2">Taxi-Anfahrt inklusive</li>
+          <li data-i18n="esc3">Buchung diskret per Telefon</li>
+        </ul>
+        <div class="hero-cta" style="margin:22px 0 0"><a class="btn btn-red" href="tel:+4369917172031"><span data-i18n="escCta">Escort buchen</span></a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Damen ===== -->
+  <section class="block" id="damen" style="padding-top:0">
+    <div class="wrap">
+      <p class="eyebrow reveal" data-i18n="ladEyebrow">Unsere Damen</p>
+      <h2 class="reveal" data-i18n="ladTitle">Maxim Girls.</h2>
+      <p class="lead reveal" data-i18n="ladLead">Jede Nacht sind 20 bis 25 Damen aus vielen Ländern im Club. Wer heute da ist, erfährst du am Telefon.</p>
+      <div class="profiles">
+        <div class="profile reveal"><div class="ph"><img src="img/profil.svg" alt="Profil" width="600" height="800" loading="lazy"></div><div class="pi"><h3>Name</h3><p data-i18n="profMeta">Nationalität · Sprachen</p><a href="tel:+4369917172031" data-i18n="profAsk">Verfügbarkeit anfragen →</a></div></div>
+        <div class="profile reveal"><div class="ph"><img src="img/profil.svg" alt="Profil" width="600" height="800" loading="lazy"></div><div class="pi"><h3>Name</h3><p data-i18n="profMeta">Nationalität · Sprachen</p><a href="tel:+4369917172031" data-i18n="profAsk">Verfügbarkeit anfragen →</a></div></div>
+        <div class="profile reveal"><div class="ph"><img src="img/profil.svg" alt="Profil" width="600" height="800" loading="lazy"></div><div class="pi"><h3>Name</h3><p data-i18n="profMeta">Nationalität · Sprachen</p><a href="tel:+4369917172031" data-i18n="profAsk">Verfügbarkeit anfragen →</a></div></div>
+        <div class="profile reveal"><div class="ph"><img src="img/profil.svg" alt="Profil" width="600" height="800" loading="lazy"></div><div class="pi"><h3>Name</h3><p data-i18n="profMeta">Nationalität · Sprachen</p><a href="tel:+4369917172031" data-i18n="profAsk">Verfügbarkeit anfragen →</a></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Preise ===== -->
+  <section class="block" id="preise" style="padding-top:0">
+    <div class="wrap">
+      <p class="eyebrow reveal" data-i18n="prEyebrow">Preise</p>
+      <h2 class="reveal" data-i18n="prTitle">Klar und transparent.</h2>
+      <div class="prices reveal">
+        <div class="prow"><span data-i18n="pr1">Eintritt in den Club</span><b data-i18n="pr1v">frei</b></div>
+        <div class="prow"><span data-i18n="pr2">Hotel-Escort · 1 Stunde (inkl. Taxi)</span><b>250 €</b></div>
+        <div class="prow"><span data-i18n="pr3">Hotel-Escort · 4 Stunden (inkl. Taxi)</span><b>750 €</b></div>
+        <div class="prow"><span data-i18n="pr4">Zimmer, Superior &amp; VIP-Suite</span><b data-i18n="prAsk">auf Anfrage</b></div>
+        <div class="prow"><span data-i18n="pr5">Getränke</span><b data-i18n="pr5v">laut Karte</b></div>
+      </div>
+      <p class="note reveal" data-i18n="prNote">Zahlung bar, mit Debit- oder Kreditkarte. Alle weiteren Preise erfährst du gerne telefonisch.</p>
     </div>
   </section>
 
@@ -314,6 +399,9 @@
         <details><summary data-i18n="q2">Muss ich reservieren?</summary><div class="ans" data-i18n="a2">Nein. Für größere Gruppen freuen wir uns aber über einen kurzen Anruf vorab.</div></details>
         <details><summary data-i18n="q3">Wie komme ich hin?</summary><div class="ans" data-i18n="a3">Kärntner Straße 61, 1010 Wien – zu Fuß 2 Minuten von der Staatsoper, U-Bahn-Station Karlsplatz (U1, U2, U4).</div></details>
         <details><summary data-i18n="q4">Gibt es einen Dresscode?</summary><div class="ans" data-i18n="a4">Gepflegte Kleidung genügt. Sportbekleidung ist nicht erwünscht.</div></details>
+        <details><summary data-i18n="q6">Kann ich mit Karte bezahlen?</summary><div class="ans" data-i18n="a6">Ja – bar, mit Debit- oder Kreditkarte.</div></details>
+        <details><summary data-i18n="q7">Sind auch Paare willkommen?</summary><div class="ans" data-i18n="a7">Ja, sehr gerne.</div></details>
+        <details><summary data-i18n="q8">Wie buche ich einen Escort ins Hotel?</summary><div class="ans" data-i18n="a8">Ruf uns an und nenne Hotel und Wunschzeit. Die Dame kommt per Taxi – die Fahrt ist im Preis enthalten.</div></details>
         <details><summary data-i18n="q5">Welche Sprachen spricht das Team?</summary><div class="ans" data-i18n="a5">Unser Team und die Tänzerinnen sprechen unter anderem Deutsch, Englisch und viele weitere Sprachen.</div></details>
       </div>
     </div>
@@ -345,7 +433,7 @@
 <footer>
   <div class="wrap foot">
     <a class="brand" href="#top" aria-label="Maxim Wien"><b>MAXIM</b><small>Wien</small></a>
-    <span>© <span id="yr">2026</span> Maxim Wien · Kärntner Straße 61, 1010 Wien · <span data-i18n="foot18">Nur für Erwachsene (18+)</span></span>
+    <span>© <span id="yr">2026</span> Maxim Wien · Kärntner Straße 61, 1010 Wien · <span data-i18n="foot18">Nur für Erwachsene (18+)</span> · <span data-i18n="footGroup">Teil der Maxim Gentlemen Group</span></span>
   </div>
 </footer>
 
