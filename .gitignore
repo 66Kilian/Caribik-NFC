@@ -1,4 +1,5 @@
 .DS_Store
 .backup-venus-git/
-.claude/
+.claude/*
+!.claude/skills/
 node_modules/
