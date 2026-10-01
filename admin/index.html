@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<title>MK Admin</title>
+<link rel="icon" href="/favicon.svg">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<!-- ============ Betöltés ============ -->
+<div id="vBoot" class="center"><div class="spin" style="width:22px;height:22px"></div></div>
+
+<!-- ============ Nincs beállítva ============ -->
+<div id="vSetup" class="center hidden">
+  <div class="card">
+    <div class="brand" style="margin-bottom:18px"><span class="logo">MK</span> Admin</div>
+    <h1>Az admin még nincs beállítva</h1>
+    <p class="sub">Hiányzik a jelszó, a kétlépcsős kulcs vagy a session-kulcs a Vercel környezeti változói közül.</p>
+    <a class="btn primary" href="setup.html">Beállítás indítása</a>
+  </div>
+</div>
+
+<!-- ============ Bejelentkezés ============ -->
+<div id="vLogin" class="center hidden">
+  <div class="card">
+    <div class="brand" style="margin-bottom:18px"><span class="logo">MK</span> Admin</div>
+    <div class="steps"><i class="on"></i><i id="lgStep2"></i></div>
+    <form id="fPw" autocomplete="on">
+      <h1>Bejelentkezés</h1>
+      <p class="sub">1. lépés: jelszó</p>
+      <input type="text" name="username" value="admin" autocomplete="username" class="hidden" aria-hidden="true">
+      <label class="f"><span>Jelszó</span><input class="inp" id="lgPw" type="password" autocomplete="current-password" required></label>
+      <p class="err-text" id="lgErr1"></p>
+      <button class="btn primary" style="width:100%">Tovább</button>
+    </form>
+    <form id="fCode" class="hidden">
+      <h1>Kétlépcsős azonosítás</h1>
+      <p class="sub">2. lépés: a 6 jegyű kód a hitelesítő alkalmazásból.</p>
+      <label class="f"><span>Kód</span><input class="inp code-inp" id="lgCode" inputmode="numeric" pattern="[0-9 ]*" maxlength="7" autocomplete="one-time-code" required></label>
+      <p class="err-text" id="lgErr2"></p>
+      <button class="btn primary" style="width:100%">Belépés</button>
+      <button type="button" class="btn ghost sm" id="lgBack" style="margin-top:10px">← Vissza</button>
+    </form>
+  </div>
+</div>
+
+<!-- ============ App ============ -->
+<div id="vApp" class="app hidden">
+  <header class="top">
+    <div class="brand"><span class="logo">MK</span><span>Admin</span></div>
+    <div class="grow"></div>
+    <div class="deploy" id="deploy"></div>
+    <a class="btn sm ghost" href="/" target="_blank" rel="noopener">Weboldal ↗</a>
+    <button class="btn sm" id="btnLogout">Kijelentkezés</button>
+  </header>
+
+  <div class="body">
+    <aside class="side">
+      <div class="search"><input class="inp" id="q" placeholder="Keresés a munkák között…" type="search"></div>
+      <div id="siteList"></div>
+      <div id="newWorks"></div>
+    </aside>
+
+    <section class="editor">
+      <div class="ed-head">
+        <h2 id="edTitle"></h2>
+        <div class="url" id="edUrl"></div>
+        <nav class="tabs" id="tabs">
+          <button data-tab="blocks" class="on">Tartalom</button>
+          <button data-tab="settings">Beállítások</button>
+          <button data-tab="history">Verziók</button>
+        </nav>
+      </div>
+      <div class="ed-body">
+        <div id="tabBlocks">
+          <div id="insp"></div>
+          <div class="sec-title">Oldal felépítése</div>
+          <p class="hint" style="margin:-4px 0 10px">Húzd a szekciókat a sorrend változtatásához, a szemmel ki-be kapcsolhatod őket. Szöveget, linket vagy képet az előnézetben kattintva szerkeszthetsz (✎ Szerkesztés mód).</p>
+          <ul class="blocks" id="blocks"></ul>
+          <div id="hiddenEls"></div>
+        </div>
+        <div id="tabSettings" class="hidden"></div>
+        <div id="tabHistory" class="hidden"></div>
+      </div>
+    </section>
+
+    <section class="prev">
+      <div class="prev-bar">
+        <div class="seg" id="devSeg"><button data-dev="mobile" class="on">Mobil</button><button data-dev="desktop">Asztali</button></div>
+        <label class="switch small"><input type="checkbox" id="editMode" checked><span class="tr"></span>✎ Szerkesztés mód</label>
+        <span class="grow" style="flex:1"></span>
+        <span class="edit-flag hidden" id="unpubFlag">Nem közzétett előnézet</span>
+        <button class="btn sm" id="btnReload" title="Előnézet újratöltése">↻</button>
+      </div>
+      <div class="prev-stage"><div class="frame-wrap mobile" id="frameWrap"><iframe id="frame" title="Előnézet"></iframe></div></div>
+    </section>
+  </div>
+</div>
+
+<div class="savebar hidden" id="saveBar">
+  <span id="saveInfo"></span>
+  <button class="btn sm" id="btnDiscard">Elvetés</button>
+  <button class="btn sm primary" id="btnPublish">Közzététel</button>
+</div>
+
+<dialog id="dlg">
+  <h3 id="dlgTitle"></h3>
+  <div id="dlgBody"></div>
+  <div class="row"><button class="btn" id="dlgNo">Mégse</button><button class="btn primary" id="dlgYes">OK</button></div>
+</dialog>
+
+<script src="admin.js"></script>
+</body>
+</html>
