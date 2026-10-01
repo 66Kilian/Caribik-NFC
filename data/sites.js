@@ -1,7 +1,7 @@
 // Automatisch aus data/sites.json erzeugt (Admin) – nicht von Hand bearbeiten.
 export default {
-  "rev": "9fd0nopk",
-  "updatedAt": "2026-10-01T20:26:30.268Z",
+  "rev": "ouhiwofz",
+  "updatedAt": "2026-10-01T20:36:23.938Z",
   "groups": [
     "Hauptseite",
     "Kunden",
@@ -50,7 +50,7 @@ export default {
       "folder": "Munkák/Maxim Wien",
       "slug": "maxim",
       "subdomain": "",
-      "enabled": false,
+      "enabled": true,
       "aliases": [],
       "notes": "Tartalom nyilvános forrásokból (Wikipedia, Yelp, TripAdvisor, 6Austria, Maxim Gentlemen Group, Grokipedia, Trustpilot). Ellenőrizni: telefon (+43 699 17172031), escort-árak (1 óra 250 €, 4 óra 750 € taxival), szoba-árak = auf Anfrage. Képek + Damen-profilok = helyőrzők, a megrendelőtől kérni."
     },
