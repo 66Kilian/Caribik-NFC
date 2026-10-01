@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600">
-<rect width="1200" height="1600" fill="#17110f"/>
-<rect x="36" y="48" width="1128" height="1504" fill="none" stroke="#6b5a4e" stroke-width="2" stroke-dasharray="20 13" rx="15"/>
-<g transform="translate(600 576)" fill="none" stroke="#b9a58a" stroke-width="3.8" stroke-linejoin="round">
+<rect width="1200" height="1600" fill="#0c0e18"/>
+<rect x="36" y="48" width="1128" height="1504" fill="none" stroke="#4a5378" stroke-width="2" stroke-dasharray="20 13" rx="15"/>
+<g transform="translate(600 576)" fill="none" stroke="#9fb0ff" stroke-width="3.8" stroke-linejoin="round">
 <rect x="-72" y="-42" width="144" height="96" rx="12"/><circle r="26" cy="6"/><path d="M-24 -42l10 -17h29l10 17"/></g>
-<text x="50%" y="696" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="25" font-weight="700" letter-spacing="6" fill="#b9a58a">FOTO P2</text>
-<text x="50%" y="754" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="46" font-weight="700" fill="#efe6dc">Profilfoto Dame 2</text>
-<text x="50%" y="802" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="29" fill="#a8998c">Porträt, mit Einverständnis der Dame</text>
-<text x="50%" y="844" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="23" fill="#7d6f63">Hochformat 3:4 · mind. 1200 × 1600 px</text>
+<text x="50%" y="696" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="25" font-weight="700" letter-spacing="6" fill="#9fb0ff">FOTO P2</text>
+<text x="50%" y="754" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="46" font-weight="700" fill="#eef1fb">Profilfoto Dame 2</text>
+<text x="50%" y="802" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="29" fill="#a6adc4">Porträt, mit Einverständnis der Dame</text>
+<text x="50%" y="844" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="23" fill="#6f7690">Hochformat 3:4 · mind. 1200 × 1600 px</text>
 </svg>

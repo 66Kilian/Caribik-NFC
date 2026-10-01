@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1400" viewBox="0 0 2400 1400">
-<rect width="2400" height="1400" fill="#17110f"/>
-<rect x="40" y="40" width="2320" height="1320" fill="none" stroke="#6b5a4e" stroke-width="4" stroke-dasharray="36 24" rx="28"/>
-<g transform="translate(1200 250)" fill="none" stroke="#b9a58a" stroke-width="6" stroke-linejoin="round"><rect x="-70" y="-40" width="140" height="95" rx="12"/><circle r="26" cy="6"/><path d="M-26 -40l10 -18h32l10 18"/></g>
-<text x="1200" y="390" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="26" font-weight="700" letter-spacing="6" fill="#b9a58a">FOTO 01 · TITELBILD</text>
-<text x="1200" y="436" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="30" font-weight="700" fill="#efe6dc">Bar oder Eingang bei Nacht</text>
-<text x="1200" y="476" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="22" fill="#8d7f72">Querformat · mind. 2400 × 1400 px</text>
-</svg>
