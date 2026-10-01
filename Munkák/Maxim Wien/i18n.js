@@ -110,5 +110,5 @@ Object.assign(I18N.hu, {
 Object.assign(I18N.en, {heroSub:"Nightclub on Kärntner Straße. Since 1985."});
 Object.assign(I18N.hu, {heroSub:"Éjszakai klub a Kärntner Straßén. 1985 óta."});
 
-Object.assign(I18N.en, {heroKicker:"Maxim Vienna · since 1985", heroTitle:"Nightclub <span>Maxim.</span>", heroSub2:"The hottest girls in town – every night until 5 am."});
-Object.assign(I18N.hu, {heroKicker:"Maxim Bécs · 1985 óta", heroTitle:"Nightclub <span>Maxim.</span>", heroSub2:"A város legdögösebb lányai – minden éjjel hajnali 5-ig."});
+Object.assign(I18N.en, {heroKicker:"Maxim Vienna · since 1985", heroTitle:"Nightclub <span>Maxim.</span>", heroSub2:"The hottest girls in town\u00a0– every night until 5 am."});
+Object.assign(I18N.hu, {heroKicker:"Maxim Bécs · 1985 óta", heroTitle:"Nightclub <span>Maxim.</span>", heroSub2:"A város legdögösebb lányai\u00a0– minden éjjel hajnali 5-ig."});
