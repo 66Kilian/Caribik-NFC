@@ -1,7 +1,7 @@
 // Automatisch aus data/sites.json erzeugt (Admin) – nicht von Hand bearbeiten.
 export default {
-  "rev": "6fgmzf8f",
-  "updatedAt": "2026-09-30T06:24:31.350Z",
+  "rev": "9fd0nopk",
+  "updatedAt": "2026-10-01T20:26:30.268Z",
   "groups": [
     "Hauptseite",
     "Kunden",
@@ -53,6 +53,17 @@ export default {
       "enabled": false,
       "aliases": [],
       "notes": "Tartalom nyilvános forrásokból (Wikipedia, Yelp, TripAdvisor, 6Austria, Maxim Gentlemen Group, Grokipedia, Trustpilot). Ellenőrizni: telefon (+43 699 17172031), escort-árak (1 óra 250 €, 4 óra 750 € taxival), szoba-árak = auf Anfrage. Képek + Damen-profilok = helyőrzők, a megrendelőtől kérni."
+    },
+    {
+      "id": "lovekino",
+      "name": "Lovekino Wien",
+      "group": "Kunden",
+      "folder": "Munkák/Lovekino",
+      "slug": "lovekino",
+      "subdomain": "",
+      "enabled": false,
+      "aliases": [],
+      "notes": "Tartalom nyilvános forrásokból (herold.at, stadtbekannt.at, Yelp, cylex, gomassage.at, szene1.at). Ellenőrizni: telefon (+43 1 8171648), nyitvatartás (H–Szo 12–22, V 16–21), árak (napijegy 10 €, nők/párok ingyen, loverooms 10 €-tól/60 perc, szerdai esemény 39 €-tól). Hero = generált demókép, többi fotó = helyőrző."
     }
   ]
 };

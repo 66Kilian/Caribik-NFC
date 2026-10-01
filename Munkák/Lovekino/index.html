@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lovekino Wien · Erotikkino in Meidling</title>
+<meta name="description" content="Lovekino – Erotikkino in Wien-Meidling, Michael-Bernhard-Gasse 13: zwei Kinosäle, Kinobar, Loverooms ab 10 €. Tagesticket 10 €, Frauen und Paare gratis. Mo–Sa 12–22, So 16–21 Uhr. Ab 18.">
+<meta name="theme-color" content="#0a0507">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%230a0507%22/%3E%3Cpath d=%22M32 50S12 38 12 25a10 10 0 0 1 20-3 10 10 0 0 1 20 3c0 13-20 25-20 25z%22 fill=%22%23e0234f%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"MovieTheater","name":"Lovekino","telephone":"+4318171648",
+"address":{"@type":"PostalAddress","streetAddress":"Michael-Bernhard-Gasse 13","postalCode":"1120","addressLocality":"Wien","addressCountry":"AT"},
+"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"12:00","closes":"22:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Sunday","opens":"16:00","closes":"21:00"}]}
+</script>
+<style>
+  :root{
+    --bg:#0a0507;--bg-2:#12080b;--card:#170b0f;--line:rgba(255,150,170,.14);
+    --text:#f8f1f2;--text-dim:#b9a7ab;--red:#e0234f;--red-2:#ff6b8b;--gold:#ff8fa6;--gold-2:#ffe3e9;
+    --r:16px;--wrap:1120px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  h1,h2,h3{font-family:Manrope,system-ui,sans-serif;font-weight:800;line-height:1.05;letter-spacing:-.03em;margin:0}
+  .wrap{width:min(var(--wrap),100% - 32px);margin-inline:auto}
+  .eyebrow{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:0 0 14px}
+  .lead{color:var(--text-dim);font-size:17px;max-width:62ch}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border-radius:999px;font-weight:800;text-decoration:none;border:1px solid transparent;transition:transform .15s,filter .15s}
+  .btn:active{transform:scale(.98)}
+  .btn-red{background:var(--red);color:#fff;box-shadow:0 12px 30px -12px rgba(224,35,79,.85)}
+  .btn-red:hover{filter:brightness(1.1)}
+  .btn-ghost{border-color:var(--line);color:var(--gold-2)}
+  .btn-ghost:hover{border-color:var(--gold)}
+
+
+  /* Header */
+  header.top{position:fixed;inset:0 0 auto;z-index:50;transition:background .25s,border-color .25s;border-bottom:1px solid transparent}
+  header.top.solid{background:rgba(10,5,7,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-color:var(--line)}
+  .top-inner{display:flex;align-items:center;gap:18px;height:68px}
+  .brand{display:flex;align-items:baseline;gap:8px;text-decoration:none}
+  .brand b{font-family:Manrope,sans-serif;font-weight:800;font-size:22px;letter-spacing:.22em;color:#fff}
+  .brand small{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--red-2);font-weight:700}
+  .nav-links{display:none;gap:22px;margin-left:auto}
+  .nav-links a{text-decoration:none;font-weight:600;font-size:14px;color:var(--text-dim)}
+  .nav-links a:hover{color:var(--gold-2)}
+  .nav-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+  .nav-phone{display:none;text-decoration:none;font-weight:700;font-size:14px;color:var(--gold-2)}
+  @media(min-width:980px){.nav-links{display:flex}.nav-right{margin-left:12px}.nav-phone{display:inline}}
+  .langbox{position:relative}
+  #langBtn{display:flex;align-items:center;gap:6px;height:38px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:rgba(24,10,14,.6);color:var(--text);font:inherit;font-weight:700;font-size:13px;cursor:pointer}
+  #langPanel{position:absolute;right:0;top:46px;min-width:190px;padding:6px;border-radius:14px;background:var(--card);border:1px solid var(--line);box-shadow:0 20px 40px -12px rgba(0,0,0,.7);display:none}
+  #langPanel.open{display:block}
+  #langPanel button{display:flex;gap:10px;align-items:center;width:100%;padding:9px 10px;border:0;border-radius:9px;background:none;color:var(--text);font:inherit;font-size:14px;cursor:pointer;text-align:left}
+  #langPanel button:hover,#langPanel button[aria-current=true]{background:rgba(255,150,170,.1)}
+  #langPanel .code{margin-left:auto;color:var(--text-dim);font-size:12px}
+
+  /* Hero */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;padding:120px 0 72px;overflow:hidden;background:#0a0507}
+  .hero-photo{position:absolute;inset:0;overflow:hidden}
+  .hero-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 40%;transform:scale(1.04);animation:heroZoom 18s ease-out both}
+  @keyframes heroZoom{from{transform:scale(1.12)}to{transform:scale(1.04)}}
+  .hero-photo::after{content:"";position:absolute;inset:0;background:
+    linear-gradient(90deg,rgba(10,4,6,.88) 0%,rgba(10,4,6,.55) 32%,rgba(10,4,6,0) 58%),
+    linear-gradient(180deg,rgba(10,4,6,.55) 0%,rgba(10,4,6,0) 18%,rgba(10,4,6,0) 62%,var(--bg) 100%)}
+  .hero-body{position:relative;max-width:560px}
+  .hero-kicker{display:flex;align-items:center;gap:12px;margin:0 0 18px;font-size:12px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.72)}
+  .hero-kicker::before{content:"";width:28px;height:1px;background:#ff4d73;box-shadow:0 0 10px #ff4d73}
+  .hero h1{font-family:Manrope,system-ui,sans-serif;font-weight:800;font-size:clamp(44px,6.4vw,84px);line-height:.98;letter-spacing:-.04em;margin:0;color:#fff;text-wrap:balance}
+  .hero h1 span{background:linear-gradient(90deg,#ffb3c3,#fff 60%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero-sub{margin:20px 0 0;max-width:34ch;font-size:clamp(17px,1.6vw,20px);line-height:1.5;color:rgba(255,255,255,.78);text-wrap:balance}
+  .hero-cta{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:32px 0 0}
+  .btn-white{background:#fff;color:#0a0b12;box-shadow:0 10px 40px -10px rgba(255,77,115,.75)}
+  .btn-white:hover{filter:brightness(.94)}
+  .btn-glass{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.26);color:#fff;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+  .btn-glass:hover{background:rgba(255,255,255,.18)}
+  .hero-link{margin-left:6px;color:#fff;text-decoration:none;font-weight:700;font-size:15px;opacity:.9}
+  .hero-link:hover{text-decoration:underline}
+  .status{display:inline-flex;align-items:center;gap:8px;margin:28px 0 0;font-size:13px;font-weight:600;color:rgba(255,255,255,.66)}
+  .status i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.5)}
+  .status.open{color:#fff}
+  .status.open i{background:#35d07f;box-shadow:0 0 10px #35d07f}
+  @media(max-width:759px){
+    .hero{min-height:auto;display:block;padding:0 0 48px}
+    .hero-photo{position:relative;height:62svh;min-height:380px}
+    .hero-photo img{object-position:50% 40%}
+    .hero-photo::after{background:linear-gradient(180deg,rgba(10,4,6,.6) 0%,rgba(10,4,6,0) 22%,rgba(10,4,6,0) 55%,var(--bg) 100%)}
+    .hero-body{margin-top:-48px}
+    .hero-cta .btn{flex:1 1 auto}
+    .hero-link{margin:6px 0 0;width:100%}
+  }
+
+  /* Blöcke */
+  .block{padding:88px 0}
+  .block h2{font-size:clamp(30px,4.6vw,48px);margin-bottom:16px}
+  .split{display:grid;gap:34px;align-items:center}
+  @media(min-width:900px){.split{grid-template-columns:1fr 1fr;gap:56px}.split.rev>:first-child{order:2}}
+  .shot{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);aspect-ratio:3/2;background:var(--card)}
+  .shot img{width:100%;height:100%;object-fit:cover}
+  .list{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:12px}
+  .list li{display:flex;gap:12px;color:var(--text-dim)}
+  .list li::before{content:"";flex:none;width:8px;height:8px;margin-top:9px;border-radius:50%;background:var(--red-2)}
+
+  .hours{display:grid;gap:14px;margin-top:28px}
+  @media(min-width:760px){.hours{grid-template-columns:repeat(3,1fr)}}
+  .hcard{padding:22px;border-radius:var(--r);background:var(--card);border:1px solid var(--line)}
+  .hcard small{display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:800;margin-bottom:8px}
+  .hcard b{display:block;font-family:Manrope,sans-serif;font-weight:800;letter-spacing:-.02em;font-size:26px}
+  .hcard span{color:var(--text-dim);font-size:14px}
+
+  .gallery{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin-top:30px}
+  @media(min-width:900px){.gallery{grid-template-columns:repeat(3,1fr)}}
+  .gallery .shot{aspect-ratio:4/3}
+
+  .rules{display:grid;gap:14px;margin-top:28px}
+  @media(min-width:760px){.rules{grid-template-columns:1fr 1fr}}
+  .rule{padding:20px 22px;border-radius:var(--r);border:1px solid var(--line);background:var(--bg-2)}
+  .rule h3{font-family:Manrope,sans-serif;font-size:16px;font-weight:800;margin-bottom:6px;color:var(--gold-2)}
+  .rule p{margin:0;color:var(--text-dim);font-size:15px}
+
+  .faq{margin-top:26px;border-top:1px solid var(--line)}
+  .faq details{border-bottom:1px solid var(--line)}
+  .faq summary{list-style:none;display:flex;justify-content:space-between;gap:16px;padding:20px 0;font-weight:700;font-size:17px;cursor:pointer}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";color:var(--gold);font-size:22px;line-height:1}
+  .faq details[open] summary::after{content:"–"}
+  .faq .ans{padding:0 0 20px;color:var(--text-dim);max-width:70ch}
+
+  .contact{display:grid;gap:30px}
+  @media(min-width:900px){.contact{grid-template-columns:1.1fr .9fr;align-items:start}}
+  .c-card{padding:26px;border-radius:var(--r);background:var(--card);border:1px solid var(--line);display:grid;gap:16px}
+  .c-row small{display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:800}
+  .c-row a,.c-row span{font-size:18px;font-weight:700;text-decoration:none}
+  .c-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+
+  footer{padding:40px 0 120px;border-top:1px solid var(--line);color:var(--text-dim);font-size:14px}
+  .foot{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center}
+  @media(min-width:760px){footer{padding-bottom:40px}}
+
+  .mobile-bar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;gap:8px;padding:8px;border-radius:18px;background:rgba(20,8,12,.92);border:1px solid var(--line);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    opacity:0;transform:translateY(calc(100% + 24px));pointer-events:none;transition:opacity .25s,transform .35s cubic-bezier(.2,.8,.2,1)}
+  .mobile-bar.show{opacity:1;transform:none;pointer-events:auto}
+  .mobile-bar a{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;border-radius:12px;text-decoration:none;font-weight:800;font-size:14px}
+  .mobile-bar .mb-save{background:#fff;color:#0a0b12}
+  .mobile-bar .mb-alt{border:1px solid var(--line);color:var(--gold-2)}
+  @media(min-width:760px){.mobile-bar{display:none}}
+
+  .cards{display:grid;gap:14px;margin-top:28px}
+  @media(min-width:760px){.cards{grid-template-columns:repeat(3,1fr)}}
+  .card{padding:24px;border-radius:var(--r);background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+  .card.hl{border-color:rgba(255,107,139,.55);box-shadow:0 20px 50px -30px rgba(224,35,79,.6)}
+  .card small{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:800}
+  .card h3{font-size:24px}
+  .card p{margin:0;color:var(--text-dim);font-size:15px}
+  .profiles{display:grid;gap:14px;grid-template-columns:1fr 1fr;margin-top:28px}
+  @media(min-width:900px){.profiles{grid-template-columns:repeat(4,1fr)}}
+  .profile{border-radius:var(--r);overflow:hidden;background:var(--card);border:1px solid var(--line)}
+  .profile .ph{aspect-ratio:3/4;background:var(--bg-2)}
+  .profile .ph img{width:100%;height:100%;object-fit:cover}
+  .profile .pi{padding:14px 16px 16px}
+  .profile h3{font-size:20px;margin-bottom:4px}
+  .profile p{margin:0 0 10px;color:var(--text-dim);font-size:13px}
+  .profile a{font-size:13px;font-weight:800;color:var(--gold-2);text-decoration:none}
+  .prices{margin-top:28px;border-top:1px solid var(--line)}
+  .prow{display:flex;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .prow span{color:var(--text-dim)}
+  .prow b{font-family:Manrope,sans-serif;font-weight:800;letter-spacing:-.02em;font-size:20px;color:var(--gold-2);white-space:nowrap}
+  .note{margin-top:14px;font-size:13px;color:var(--text-dim)}
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s,transform .7s}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="brand" href="#top" aria-label="Lovekino Wien"><b>LOVEKINO</b><small>Wien</small></a>
+    <nav class="nav-links">
+      <a href="#zeiten" data-i18n="navHours">Öffnungszeiten</a>
+      <a href="#kino" data-i18n="navCinema">Kino</a>
+      <a href="#loverooms" data-i18n="navRooms">Loverooms</a>
+      <a href="#events" data-i18n="navEvents">Events</a>
+      <a href="#preise" data-i18n="navPrices">Preise</a>
+      <a href="#kontakt" data-i18n="navContact">Kontakt</a>
+    </nav>
+    <div class="nav-right">
+      <a class="nav-phone" href="tel:+4318171648">01 817 16 48</a>
+      <div class="langbox">
+        <button id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Sprache / Language"><span id="langFlag">🇦🇹</span><span id="langCode">DE</span><span>▾</span></button>
+        <div id="langPanel" role="listbox"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="hero-photo"><img src="img/hero.jpg" alt="Lovekino Wien – Kinosaal" width="2400" height="1400" fetchpriority="high"></div>
+    <div class="wrap"><div class="hero-body">
+      <p class="hero-kicker" data-i18n="heroKicker">Wien-Meidling · Erotikkino</p>
+      <h1 data-i18n-html="heroTitle">Erotikkino <span>Lovekino.</span></h1>
+      <p class="hero-sub" data-i18n="heroSub">Zwei Kinosäle, Loverooms und eine Bar&nbsp;– Frauen und Paare gratis.</p>
+      <div class="hero-cta">
+        <a class="btn btn-white" href="tel:+4318171648"><span data-i18n="ctaCall">Anrufen</span></a>
+        <a class="btn btn-glass" href="lovekino.vcf" download><span data-i18n="ctaSave">Kontakt speichern</span></a>
+        <a class="hero-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=Lovekino,+Michael-Bernhard-Gasse+13,+1120+Wien" target="_blank" rel="noopener"><span data-i18n="ctaRoute">Route planen</span> ›</a>
+      </div>
+      <p class="status" id="status"><i></i><span id="statusText">Mo – Sa 12 – 22 Uhr · So 16 – 21 Uhr</span></p>
+    </div></div>
+  </section>
+
+  <!-- ===== Öffnungszeiten ===== -->
+  <section class="block" id="zeiten">
+    <div class="wrap">
+      <p class="eyebrow reveal" data-i18n="hoursEyebrow">Öffnungszeiten</p>
+      <h2 class="reveal" data-i18n="hoursTitle">Sieben Tage die Woche.</h2>
+      <div class="hours">
+        <div class="hcard reveal"><small data-i18n="hWeek">Montag – Samstag</small><b>12:00 – 22:00</b><span data-i18n="hWeekNote">Tagesticket gilt bis Schluss</span></div>
+        <div class="hcard reveal"><small data-i18n="hSun">Sonntag &amp; Feiertag</small><b>16:00 – 21:00</b><span data-i18n="hSunNote">Gemütlicher Ausklang am Wochenende</span></div>
+        <div class="hcard reveal"><small data-i18n="hWhere">Adresse</small><b>Michael-Bernhard-G. 13</b><span data-i18n="hWhereNote">1120 Wien-Meidling</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Kino ===== -->
+  <section class="block" id="kino" style="padding-top:0">
+    <div class="wrap split">
+      <div class="shot reveal"><img src="img/kino.svg" alt="Kinosaal" width="1600" height="1067" loading="lazy"></div>
+      <div class="reveal">
+        <p class="eyebrow" data-i18n="kinoEyebrow">Das Kino</p>
+        <h2 data-i18n="kinoTitle">Eine Wiener Institution – frisch renoviert.</h2>
+        <p class="lead" data-i18n="kinoLead">Das Lovekino ist ein traditionsreicher Treffpunkt der Wiener Erotikszene. Gleich beim Eingang wartet die gemütliche Kinobar, dahinter zwei Kinosäle.</p>
+        <ul class="list">
+          <li data-i18n="kino1">Zwei Kinosäle mit laufendem Programm</li>
+          <li data-i18n="kino2">Kinobar zum Ankommen und Plaudern</li>
+          <li data-i18n="kino3">Treffpunkt für Paare, Singles und Swinger</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Loverooms ===== -->
+  <section class="block" id="loverooms" style="padding-top:0">
+    <div class="wrap">
+      <p class="eyebrow reveal" data-i18n="roomsEyebrow">Loverooms</p>
+      <h2 class="reveal" data-i18n="roomsTitle">Für ungestörte Momente.</h2>
+      <p class="lead reveal" data-i18n="roomsLead">Loverooms gibt es schon ab 10 € für 60 Minuten.</p>
+      <div class="cards">
+        <div class="card reveal"><small data-i18n="r1s">Solo</small><h3 data-i18n="r1t">Solokabine</h3><p data-i18n="r1d">Für dich allein – diskret und gemütlich.</p></div>
+        <div class="card hl reveal"><small data-i18n="r2s">Paare</small><h3 data-i18n="r2t">Paarkabine</h3><p data-i18n="r2d">Für zwei – mit Gloryhole.</p></div>
+        <div class="card reveal"><small data-i18n="r3s">Kuscheln</small><h3 data-i18n="r3t">Kuschelraum</h3><p data-i18n="r3d">Weich, warm und ganz entspannt.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Events ===== -->
+  <section class="block" id="events" style="padding-top:0">
+    <div class="wrap split rev">
+      <div class="shot reveal"><img src="img/event.svg" alt="Events im Lovekino" width="1600" height="1067" loading="lazy"></div>
+      <div class="reveal">
+        <p class="eyebrow" data-i18n="evEyebrow">Events</p>
+        <h2 data-i18n="evTitle">Jeden Mittwoch ab 19 Uhr.</h2>
+        <p class="lead" data-i18n="evLead">Mittwochs steigt unser Event-Abend mit zwei heißen Girls – Teilnahme ab 39 €. Dazu wöchentliches Programm und im Sommer unsere Feste.</p>
+        <ul class="list">
+          <li data-i18n="ev1">Mittwoch ab 19:00 – Event-Abend</li>
+          <li data-i18n="ev2">Wöchentliches Programm</li>
+          <li data-i18n="ev3">Sommerfeste für die Community</li>
+        </ul>
+        <div class="hero-cta" style="margin:22px 0 0"><a class="btn btn-red" href="https://lovekino.at/forum/" target="_blank" rel="noopener"><span data-i18n="evForum">Zum Forum ›</span></a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Preise ===== -->
+  <section class="block" id="preise" style="padding-top:0">
+    <div class="wrap">
+      <p class="eyebrow reveal" data-i18n="prEyebrow">Preise</p>
+      <h2 class="reveal" data-i18n="prTitle">Einfach und fair.</h2>
+      <div class="prices reveal">
+        <div class="prow"><span data-i18n="pr1">Tagesticket Kino</span><b>10 €</b></div>
+        <div class="prow"><span data-i18n="pr2">Frauen &amp; Paare</span><b data-i18n="pr2v">gratis</b></div>
+        <div class="prow"><span data-i18n="pr3">Loverooms · 60 Minuten</span><b data-i18n="pr3v">ab 10 €</b></div>
+        <div class="prow"><span data-i18n="pr4">Mittwochs-Event</span><b data-i18n="pr4v">ab 39 €</b></div>
+      </div>
+      <p class="note reveal" data-i18n="prNote">Alle Angaben ohne Gewähr – aktuelle Infos gerne telefonisch.</p>
+    </div>
+  </section>
+
+  <!-- ===== Galerie ===== -->
+  <section class="block" id="galerie" style="padding-top:0">
+    <div class="wrap">
+      <p class="eyebrow reveal" data-i18n="galEyebrow">Einblicke</p>
+      <h2 class="reveal" data-i18n="galTitle">Ein Blick ins Lovekino.</h2>
+      <div class="gallery">
+        <div class="shot reveal"><img src="img/galerie-1.svg" alt="Kinobar" width="1600" height="1200" loading="lazy"></div>
+        <div class="shot reveal"><img src="img/galerie-2.svg" alt="Kinosaal" width="1600" height="1200" loading="lazy"></div>
+        <div class="shot reveal"><img src="img/galerie-3.svg" alt="Paarkabine" width="1600" height="1200" loading="lazy"></div>
+        <div class="shot reveal"><img src="img/galerie-4.svg" alt="Kuschelraum" width="1600" height="1200" loading="lazy"></div>
+        <div class="shot reveal"><img src="img/galerie-5.svg" alt="Shop" width="1600" height="1200" loading="lazy"></div>
+        <div class="shot reveal"><img src="img/galerie-6.svg" alt="Eingang" width="1600" height="1200" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="block" id="faq" style="padding-top:0">
+    <div class="wrap">
+      <p class="eyebrow reveal" data-i18n="faqEyebrow">FAQ</p>
+      <h2 class="reveal" data-i18n="faqTitle">Häufige Fragen</h2>
+      <div class="faq reveal">
+        <details><summary data-i18n="q1">Was kostet der Eintritt?</summary><div class="ans" data-i18n="a1">Das Tagesticket kostet 10 € und gilt bis Schluss. Frauen und Paare kommen gratis rein.</div></details>
+        <details><summary data-i18n="q2">Muss ich reservieren?</summary><div class="ans" data-i18n="a2">Nein, komm einfach vorbei.</div></details>
+        <details><summary data-i18n="q3">Was sind Loverooms?</summary><div class="ans" data-i18n="a3">Separate Räume für ungestörte Zweisamkeit – Solokabine, Paarkabine mit Gloryhole oder Kuschelraum, ab 10 € für 60 Minuten.</div></details>
+        <details><summary data-i18n="q4">Wann ist der Event-Abend?</summary><div class="ans" data-i18n="a4">Jeden Mittwoch ab 19 Uhr. Aktuelles findest du im Forum.</div></details>
+        <details><summary data-i18n="q5">Ab welchem Alter?</summary><div class="ans" data-i18n="a5">Zutritt nur ab 18 Jahren.</div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Kontakt ===== -->
+  <section class="block" id="kontakt" style="padding-top:0">
+    <div class="wrap contact">
+      <div class="reveal">
+        <p class="eyebrow" data-i18n="ctEyebrow">Kontakt</p>
+        <h2 data-i18n="ctTitle">Wir sehen uns im Kino.</h2>
+        <p class="lead" data-i18n="ctLead">Fragen zu Programm, Loverooms oder Events? Ruf einfach an.</p>
+        <div class="shot" style="margin-top:24px"><img src="img/eingang.svg" alt="Eingang Lovekino, Michael-Bernhard-Gasse 13" width="1600" height="1067" loading="lazy"></div>
+      </div>
+      <div class="c-card reveal">
+        <div class="c-row"><small data-i18n="ctPhone">Telefon</small><a href="tel:+4318171648">+43 1 817 16 48</a></div>
+        <div class="c-row"><small data-i18n="ctAddr">Adresse</small><span>Michael-Bernhard-Gasse 13, 1120 Wien</span></div>
+        <div class="c-row"><small data-i18n="ctHours">Öffnungszeiten</small><span data-i18n="ctHoursV">Mo – Sa 12 – 22 Uhr · So 16 – 21 Uhr</span></div>
+        <div class="c-actions">
+          <a class="btn btn-red" href="tel:+4318171648"><span data-i18n="ctaCall">Anrufen</span></a>
+          <a class="btn btn-ghost" href="lovekino.vcf" download><span data-i18n="ctaSave">Kontakt speichern</span></a>
+          <a class="btn btn-ghost" href="https://lovekino.at/forum/" target="_blank" rel="noopener"><span data-i18n="ctForum">Forum</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a class="brand" href="#top" aria-label="Lovekino Wien"><b>LOVEKINO</b><small>Wien</small></a>
+    <span>© <span id="yr">2026</span> Lovekino · Michael-Bernhard-Gasse 13, 1120 Wien · <span data-i18n="foot18">Nur für Erwachsene (18+)</span></span>
+  </div>
+</footer>
+
+<div class="mobile-bar" id="mobileBar">
+  <a class="mb-save" href="lovekino.vcf" download><span data-i18n="ctaSave">Kontakt speichern</span></a>
+  <a class="mb-alt" href="https://www.google.com/maps/dir/?api=1&amp;destination=Lovekino,+Michael-Bernhard-Gasse+13,+1120+Wien" target="_blank" rel="noopener"><span data-i18n="mbRoute">Route</span></a>
+</div>
+
+<script src="i18n.js" defer></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  var T = window.I18N || {};
+  var LANGS = [["de","🇦🇹","Deutsch"],["en","🇬🇧","English"],["hu","🇭🇺","Magyar"]];
+
+  /* Deutsch = Inhalt im HTML (SEO), wird beim Start eingesammelt */
+  var DE = {};
+  document.querySelectorAll("[data-i18n]").forEach(function(el){ var k = el.getAttribute("data-i18n"); if(!(k in DE)) DE[k] = el.innerHTML; });
+  document.querySelectorAll("[data-i18n-html]").forEach(function(el){ DE[el.getAttribute("data-i18n-html")] = el.innerHTML; });
+  var DE_EXTRA = { stOpen:"Jetzt geöffnet · bis {t} Uhr", stLater:"Heute ab {t} Uhr geöffnet", stClosed:"Morgen ab {t} Uhr geöffnet" };
+  var cur = "de";
+  function tx(k){ var d = cur === "de" ? DE : (T[cur] || DE); return d[k] != null ? d[k] : (DE[k] != null ? DE[k] : DE_EXTRA[k]); }
+
+  /* ---- Sprache ---- */
+  var langBtn = document.getElementById("langBtn"), langPanel = document.getElementById("langPanel");
+  LANGS.forEach(function(l){
+    var b = document.createElement("button");
+    b.type = "button"; b.setAttribute("role","option"); b.setAttribute("data-code", l[0]);
+    b.innerHTML = "<span>"+l[1]+"</span><span>"+l[2]+"</span><span class=\"code\">"+l[0].toUpperCase()+"</span>";
+    b.addEventListener("click", function(){ apply(l[0]); langPanel.classList.remove("open"); langBtn.setAttribute("aria-expanded","false"); });
+    langPanel.appendChild(b);
+  });
+  langBtn.addEventListener("click", function(e){ e.stopPropagation(); var o = langPanel.classList.toggle("open"); langBtn.setAttribute("aria-expanded", o ? "true" : "false"); });
+  document.addEventListener("click", function(e){ if(!langPanel.contains(e.target)) langPanel.classList.remove("open"); });
+
+  function apply(code){
+    cur = (code === "de" || T[code]) ? code : "de";
+    document.querySelectorAll("[data-i18n]").forEach(function(el){ var v = tx(el.getAttribute("data-i18n")); if(v != null) el.innerHTML = v; });
+    document.querySelectorAll("[data-i18n-html]").forEach(function(el){ var v = tx(el.getAttribute("data-i18n-html")); if(v != null) el.innerHTML = v; });
+    document.documentElement.setAttribute("lang", cur);
+    var meta = LANGS.filter(function(l){ return l[0] === cur; })[0];
+    document.getElementById("langFlag").textContent = meta[1];
+    document.getElementById("langCode").textContent = meta[0].toUpperCase();
+    langPanel.querySelectorAll("button").forEach(function(b){ b.setAttribute("aria-current", b.getAttribute("data-code") === cur ? "true" : "false"); });
+    try{ localStorage.setItem("lk_lang", cur); }catch(e){}
+    renderStatus();
+  }
+
+  /* ---- Live-Status: Mo–Sa 12–22, So 16–21 (Wiener Zeit) ---- */
+  function viennaNow(){
+    try{
+      var p = {};
+      new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Vienna",weekday:"short",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(new Date()).forEach(function(x){ p[x.type] = x.value; });
+      return { day: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(p.weekday), h: (+p.hour % 24) + (+p.minute) / 60 };
+    }catch(e){ var n = new Date(); return { day: n.getDay(), h: n.getHours() + n.getMinutes() / 60 }; }
+  }
+  function hoursFor(day){ return day === 0 ? [16, 21] : [12, 22]; }
+  function renderStatus(){
+    var n = viennaNow(), t = hoursFor(n.day), open = n.h >= t[0] && n.h < t[1], msg;
+    if(open) msg = tx("stOpen").replace("{t}", t[1] + ":00");
+    else if(n.h < t[0]) msg = tx("stLater").replace("{t}", t[0] + ":00");
+    else msg = tx("stClosed").replace("{t}", hoursFor((n.day + 1) % 7)[0] + ":00");
+    document.getElementById("status").classList.toggle("open", open);
+    document.getElementById("statusText").textContent = msg;
+  }
+  setInterval(renderStatus, 60000);
+
+
+  /* ---- Header & Einblenden ---- */
+  var header = document.querySelector("header.top");
+  function onScroll(){ header.classList.toggle("solid", scrollY > 10); }
+  addEventListener("scroll", onScroll, {passive:true}); onScroll();
+  if("IntersectionObserver" in window){
+    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } }); }, {rootMargin:"0px 0px -8% 0px"});
+    document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+  } else document.querySelectorAll(".reveal").forEach(function(el){ el.classList.add("in"); });
+  /* Mobile Leiste erst zeigen, wenn die Hero-Buttons aus dem Bild sind */
+  var bar = document.getElementById("mobileBar"), heroCta = document.querySelector(".hero-cta");
+  if(bar && heroCta && "IntersectionObserver" in window){
+    new IntersectionObserver(function(es){ es.forEach(function(e){ bar.classList.toggle("show", !e.isIntersecting && e.boundingClientRect.top < 0); }); }).observe(heroCta);
+  } else if(bar) bar.classList.add("show");
+  document.getElementById("yr").textContent = new Date().getFullYear();
+
+  var initial = "de";
+  try{ var s = localStorage.getItem("lk_lang"); if(s && T[s]) initial = s; }catch(e){}
+  apply(initial);
+});
+</script>
+</body>
+</html>
