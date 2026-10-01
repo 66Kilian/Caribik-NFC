@@ -107,5 +107,5 @@ Object.assign(I18N.hu, {
   footGroup:"A Maxim Gentlemen Group tagja"
 });
 
-Object.assign(I18N.en, {heroSub:"Kärntner Straße 61, Vienna. Since 1985."});
-Object.assign(I18N.hu, {heroSub:"Kärntner Straße 61, Bécs. 1985 óta."});
+Object.assign(I18N.en, {heroSub:"Nightclub on Kärntner Straße. Since 1985."});
+Object.assign(I18N.hu, {heroSub:"Éjszakai klub a Kärntner Straßén. 1985 óta."});
