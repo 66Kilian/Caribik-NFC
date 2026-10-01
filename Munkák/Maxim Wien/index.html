@@ -87,7 +87,7 @@
   .status.open{color:#fff}
   .status.open i{background:#35d07f;box-shadow:0 0 10px #35d07f}
   @media(max-width:759px){
-    .hero{min-height:auto;display:block;padding:0 0 96px}
+    .hero{min-height:auto;display:block;padding:0 0 48px}
     .hero-photo{position:relative;height:62svh;min-height:380px}
     .hero-photo img{object-position:92% 50%}
     .hero-photo::after{background:linear-gradient(180deg,rgba(4,5,12,.6) 0%,rgba(4,5,12,0) 22%,rgba(4,5,12,0) 55%,var(--bg) 100%)}
@@ -143,9 +143,11 @@
   .foot{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center}
   @media(min-width:760px){footer{padding-bottom:40px}}
 
-  .mobile-bar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;gap:8px;padding:8px;border-radius:18px;background:rgba(10,12,22,.92);border:1px solid var(--line);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+  .mobile-bar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;gap:8px;padding:8px;border-radius:18px;background:rgba(10,12,22,.92);border:1px solid var(--line);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    opacity:0;transform:translateY(calc(100% + 24px));pointer-events:none;transition:opacity .25s,transform .35s cubic-bezier(.2,.8,.2,1)}
+  .mobile-bar.show{opacity:1;transform:none;pointer-events:auto}
   .mobile-bar a{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;border-radius:12px;text-decoration:none;font-weight:800;font-size:14px}
-  .mobile-bar .mb-call{background:#fff;color:#0a0b12}
+  .mobile-bar .mb-save{background:#fff;color:#0a0b12}
   .mobile-bar .mb-alt{border:1px solid var(--line);color:var(--gold-2)}
   @media(min-width:760px){.mobile-bar{display:none}}
 
@@ -430,10 +432,9 @@
   </div>
 </footer>
 
-<div class="mobile-bar">
-  <a class="mb-call" href="tel:+4369917172031"><span data-i18n="ctaCall">Anrufen</span></a>
+<div class="mobile-bar" id="mobileBar">
+  <a class="mb-save" href="maxim.vcf" download><span data-i18n="ctaSave">Kontakt speichern</span></a>
   <a class="mb-alt" href="https://www.google.com/maps/dir/?api=1&amp;destination=Maxim+Wien,+K%C3%A4rntner+Stra%C3%9Fe+61,+1010+Wien" target="_blank" rel="noopener"><span data-i18n="mbRoute">Route</span></a>
-  <a class="mb-alt" href="maxim.vcf" download><span data-i18n="mbSave">Speichern</span></a>
 </div>
 
 <script src="i18n.js" defer></script>
@@ -499,6 +500,11 @@ document.addEventListener("DOMContentLoaded", function(){
     var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } }); }, {rootMargin:"0px 0px -8% 0px"});
     document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
   } else document.querySelectorAll(".reveal").forEach(function(el){ el.classList.add("in"); });
+  /* Mobile Leiste erst zeigen, wenn die Hero-Buttons aus dem Bild sind */
+  var bar = document.getElementById("mobileBar"), heroCta = document.querySelector(".hero-cta");
+  if(bar && heroCta && "IntersectionObserver" in window){
+    new IntersectionObserver(function(es){ es.forEach(function(e){ bar.classList.toggle("show", !e.isIntersecting && e.boundingClientRect.top < 0); }); }).observe(heroCta);
+  } else if(bar) bar.classList.add("show");
   document.getElementById("yr").textContent = new Date().getFullYear();
 
   var initial = "de";
