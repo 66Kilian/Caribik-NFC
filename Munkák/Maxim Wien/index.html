@@ -8,6 +8,94 @@
 <meta name="theme-color" content="#05060d">
 <meta name="robots" content="index,follow">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%230b0708%22/%3E%3Ctext x=%2232%22 y=%2244%22 text-anchor=%22middle%22 font-family=%22Georgia%22 font-size=%2236%22 fill=%22%23e9d3a0%22%3EM%3C/text%3E%3C/svg%3E">
+<!-- ===== Loader: 3D-Flug durch LED-Bögen ===== -->
+<style>
+  html.ld-gone .ld{display:none}
+  .ld{position:fixed;inset:0;z-index:9999;overflow:hidden;background:#03040a;transition:opacity .55s ease,visibility .55s}
+  html.ld-idle .ld,html.ld-out .ld{opacity:0;visibility:hidden;pointer-events:none}
+  .ld-glow{position:absolute;inset:-20%;background:radial-gradient(closest-side at 50% 55%,#4b6bff 0%,#2a3fd6 18%,#141b6e 40%,#070a24 66%,#03040a 100%);opacity:0;transform:scale(.7)}
+  .ld-cam{position:absolute;inset:0;perspective:700px;perspective-origin:50% 50%;overflow:hidden}
+  .ld-world{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d}
+  .ld-arch{position:absolute;left:0;top:0;border:3px solid var(--c);border-radius:28px 28px 6px 6px;
+    box-shadow:0 0 18px var(--c),0 0 46px var(--c),inset 0 0 18px var(--c);opacity:.9}
+  .ld-floor{position:absolute;left:-1400px;top:0;width:2800px;height:4200px;transform-origin:50% 0;
+    background:repeating-linear-gradient(90deg,rgba(111,139,255,.18) 0 2px,transparent 2px 140px),repeating-linear-gradient(0deg,rgba(111,139,255,.14) 0 2px,transparent 2px 140px);
+    -webkit-mask-image:linear-gradient(0deg,transparent,#000 30%,#000 70%,transparent);mask-image:linear-gradient(0deg,transparent,#000 30%,#000 70%,transparent)}
+  .ld-spark{position:absolute;left:0;top:0;width:5px;height:5px;border-radius:50%;background:#fff;box-shadow:0 0 10px 3px rgba(150,175,255,.9);opacity:0}
+  .ld-logo{position:absolute;left:-330px;top:-150px;width:660px;height:300px;transform:translateZ(-2200px);display:flex;flex-direction:column;align-items:center;justify-content:center;
+    font-family:"Arial Black",Impact,system-ui,sans-serif;color:#fff;text-align:center}
+  .ld-stars{font-size:34px;letter-spacing:22px;color:#fff;text-shadow:0 0 14px #9fb2ff;margin-bottom:6px}
+  .ld-pill{display:inline-block;padding:4px 22px;border-radius:999px;background:#fff;color:#1f36c9;font-size:28px;font-weight:900;letter-spacing:.06em;margin-bottom:6px}
+  .ld-name{font-size:150px;line-height:.9;font-weight:900;letter-spacing:-.02em;text-shadow:0 0 22px rgba(120,150,255,.9),0 0 60px rgba(75,107,255,.7)}
+  .ld-sub{font-size:22px;font-weight:800;letter-spacing:.14em;margin-top:8px;opacity:.9}
+  .ld-info{position:absolute;left:0;right:0;bottom:calc(56px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:center;gap:14px;opacity:0;transform:translateY(10px);transition:opacity .6s,transform .6s;padding:0 24px}
+  .ld-fact{font:600 15px/1.4 system-ui,-apple-system,sans-serif;color:#eef1ff;min-height:1.4em;text-align:center;transition:opacity .35s,transform .35s}
+  .ld-fact.swap{opacity:0;transform:translateY(6px)}
+  .ld-bar{width:min(220px,60vw);height:2px;background:rgba(255,255,255,.12);overflow:hidden}
+  .ld-bar span{display:block;height:100%;width:0;background:#8197ff}
+  html.ld-intro .ld-glow{animation:ldGlow 1s cubic-bezier(.3,.6,.2,1) forwards}
+  html.ld-intro .ld-world{animation:ldFly 1.1s cubic-bezier(.55,.05,.35,1) forwards}
+  html.ld-intro .ld-logo{animation:ldFocus 1.1s cubic-bezier(.55,.05,.35,1) forwards}
+  html.ld-intro .ld-spark{animation:ldTw 1.1s ease-in-out forwards;animation-delay:var(--dl0,0s)}
+  @keyframes ldGlow{to{opacity:1;transform:scale(1)}}
+  @keyframes ldFly{from{transform:translateZ(0) rotateZ(-3deg)}to{transform:translateZ(1700px) rotateZ(0)}}
+  @keyframes ldFocus{0%{filter:blur(12px);opacity:0}40%{opacity:1}100%{filter:blur(0);opacity:1}}
+  @keyframes ldTw{0%,100%{opacity:0}50%{opacity:1}}
+  html.ld-long .ld-glow{opacity:1;transform:scale(1);animation:ldBreath 3.4s ease-in-out infinite}
+  html.ld-long .ld-world{animation:ldDrift 7s ease-in-out infinite alternate-reverse}
+  html.ld-long .ld-arch{animation:ldPulse 2.6s ease-in-out infinite;animation-delay:var(--pd,0s)}
+  html.ld-long .ld-spark{animation:ldRise var(--d,6s) linear infinite;animation-delay:var(--dl,0s)}
+  html.ld-long .ld-info{opacity:1;transform:none}
+  html.ld-long .ld-bar span{animation:ldProg 14s cubic-bezier(.1,.7,.2,1) forwards}
+  html.ld-long.ld-out .ld-bar span{animation:none;width:100%;transition:width .25s}
+  @keyframes ldBreath{0%,100%{opacity:.85}50%{opacity:1}}
+  @keyframes ldDrift{from{transform:translateZ(1400px) rotateY(-5deg)}to{transform:translateZ(1700px) rotateY(4deg)}}
+  @keyframes ldPulse{0%,100%{opacity:.55}50%{opacity:1}}
+  @keyframes ldRise{0%{transform:translate3d(var(--x),55vh,var(--z));opacity:0}15%{opacity:1}85%{opacity:.9}100%{transform:translate3d(calc(var(--x) + 30px),-55vh,var(--z));opacity:0}}
+  @keyframes ldProg{0%{width:4%}100%{width:92%}}
+  @media (prefers-reduced-motion:reduce){.ld *{animation-duration:.01ms!important;animation-iteration-count:1!important}}
+</style>
+<script>
+(function(){
+  var d = document.documentElement;
+  var seen = false; try{ seen = localStorage.getItem("mx_intro1") === "1"; }catch(e){}
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var loaded = false, introDone = seen, shown = !seen, finished = false;
+  d.classList.add(seen ? "ld-idle" : "ld-intro");
+  function finish(){
+    if(finished) return; finished = true;
+    if(!shown){ d.classList.add("ld-gone"); return; }
+    d.classList.add("ld-out");
+    setTimeout(function(){ d.classList.add("ld-gone"); }, 700);
+  }
+  function check(){ if(loaded && introDone) finish(); }
+  function goLong(){ d.classList.remove("ld-intro","ld-idle"); d.classList.add("ld-long"); startFacts(); }
+  if(!seen){
+    setTimeout(function(){
+      introDone = true;
+      try{ localStorage.setItem("mx_intro1","1"); }catch(e){}
+      if(!loaded) goLong();
+      check();
+    }, reduce ? 300 : 1150);
+  } else {
+    setTimeout(function(){ if(!loaded){ shown = true; goLong(); } }, 700);
+  }
+  window.addEventListener("load", function(){ loaded = true; check(); });
+  setTimeout(function(){ loaded = true; introDone = true; check(); }, 14000);
+  var facts = ["Der Vorhang hebt sich gleich …","Seit 1985 in der Kärntner Straße","20+ Girls – jede Nacht","Eintritt frei"];
+  var factTimer = null;
+  function startFacts(){
+    if(factTimer) return;
+    var i = 0;
+    function put(){
+      var el = document.getElementById("ldFact"); if(!el) return;
+      el.classList.add("swap");
+      setTimeout(function(){ el.textContent = facts[i % facts.length]; el.classList.remove("swap"); i++; }, 300);
+    }
+    put(); factTimer = setInterval(function(){ if(finished){ clearInterval(factTimer); return; } put(); }, 2300);
+  }
+})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
@@ -178,6 +266,43 @@
 </style>
 </head>
 <body>
+<!-- ===== 3D-Loader ===== -->
+<div class="ld" aria-hidden="true">
+  <div class="ld-glow"></div>
+  <div class="ld-cam"><div class="ld-world" id="ldWorld">
+    <div class="ld-logo"><div class="ld-stars">★★★★★</div><span class="ld-pill">VARIETÉ</span><div class="ld-name">MAXIM</div><div class="ld-sub">SEX IN THE CITY</div></div>
+  </div></div>
+  <div class="ld-info"><div class="ld-fact" id="ldFact"></div><div class="ld-bar"><span></span></div></div>
+</div>
+<script>
+(function(){
+  var w = document.getElementById("ldWorld"); if(!w) return;
+  var vw = Math.max(320, innerWidth), vh = Math.max(480, innerHeight), frag = document.createDocumentFragment();
+  var cols = ["#4b6bff","#8197ff","#c04bff","#4b6bff","#2fd0ff"];
+  var AW = Math.max(vw * 1.5, 620), AH = Math.max(vh * 1.25, 760);
+  for(var i = 0; i < 12; i++){
+    var z = -400 - i * 260;
+    var a = document.createElement("div"); a.className = "ld-arch";
+    a.style.width = AW.toFixed(0) + "px"; a.style.height = AH.toFixed(0) + "px";
+    a.style.transform = "translate3d(" + (-AW/2).toFixed(0) + "px," + (-AH*0.56).toFixed(0) + "px," + z + "px)";
+    a.style.setProperty("--c", cols[i % cols.length]); a.style.setProperty("--pd", (-i * .23) + "s");
+    frag.appendChild(a);
+  }
+  var lg = w.querySelector(".ld-logo"); if(lg) lg.style.transform = "translateZ(-2200px) scale(" + Math.min(1, vw / 760).toFixed(3) + ")";
+  var f = document.createElement("div"); f.className = "ld-floor";
+  f.style.transform = "translate3d(0," + (AH * 0.44).toFixed(0) + "px,-200px) rotateX(90deg)";
+  frag.appendChild(f);
+  for(var k = 0; k < 26; k++){
+    var sp = document.createElement("i"); sp.className = "ld-spark";
+    var x = ((k * 61) % 100) - 50, y = ((k * 37) % 80) - 40, zz = -400 - (k * 113) % 2000;
+    sp.style.transform = "translate3d(" + (x * vw / 60).toFixed(0) + "px," + (y * vh / 60).toFixed(0) + "px," + zz + "px)";
+    sp.style.setProperty("--x", x + "vw"); sp.style.setProperty("--z", zz + "px");
+    sp.style.setProperty("--d", (5 + (k % 5)) + "s"); sp.style.setProperty("--dl", (-(k * .6)) + "s"); sp.style.setProperty("--dl0", ((k % 6) * .12) + "s");
+    frag.appendChild(sp);
+  }
+  w.insertBefore(frag, w.firstChild);
+})();
+</script>
 
 <header class="top">
   <div class="wrap top-inner">
