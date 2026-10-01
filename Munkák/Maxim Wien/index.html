@@ -260,6 +260,53 @@
   .prow span{color:var(--text-dim)}
   .prow b{font-family:Manrope,sans-serif;font-weight:800;letter-spacing:-.02em;font-size:20px;color:var(--gold-2);white-space:nowrap}
   .note{margin-top:14px;font-size:13px;color:var(--text-dim)}
+
+  /* ===== Story: fixiertes Bild, Überblendung beim Scrollen ===== */
+  .story{position:relative}
+  .st-media{position:sticky;top:0;height:100svh;z-index:0}
+  .st-stage{position:relative;width:100%;height:100%;overflow:hidden;background:#05060d}
+  .st-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity 1s ease,transform 1.6s cubic-bezier(.2,.7,.2,1)}
+  .st-img.on{opacity:1;transform:scale(1)}
+  .st-stage::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(6,7,13,.55) 0%,rgba(6,7,13,0) 22%,rgba(6,7,13,0) 45%,rgba(6,7,13,.92) 100%)}
+  .st-dots{position:absolute;z-index:2;right:16px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px}
+  .st-dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.35);transition:height .3s,background .3s}
+  .st-dots i.on{height:22px;border-radius:3px;background:#fff}
+  .st-text{position:relative;z-index:1;margin-top:-100svh}
+  .st-panel{min-height:100svh;display:flex;align-items:flex-end;padding:0 16px 14svh}
+  .st-card{max-width:520px;padding:26px 22px;border-radius:22px;background:rgba(8,10,20,.62);border:1px solid rgba(160,178,255,.16);backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);
+    opacity:.35;transform:translateY(24px);transition:opacity .6s,transform .6s}
+  .st-panel.on .st-card{opacity:1;transform:none}
+  .st-card h2{font-size:clamp(28px,7vw,44px);margin-bottom:12px}
+  .st-card .lead{font-size:16px}
+  .st-card .list{margin-top:16px;gap:8px}
+  .st-card .list li{font-size:15px}
+  .st-card .hero-cta{margin:20px 0 0}
+  @media(min-width:900px){
+    .story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:0 48px;max-width:1280px;margin:0 auto;padding:0 32px}
+    .st-media{grid-column:2;grid-row:1;height:100vh;padding:24px 0}
+    .st-stage{border-radius:28px}
+    .st-stage::after{background:linear-gradient(180deg,rgba(6,7,13,.15),rgba(6,7,13,0) 30%,rgba(6,7,13,0) 70%,rgba(6,7,13,.35))}
+    .st-text{grid-column:1;grid-row:1;margin-top:0}
+    .st-panel{min-height:100vh;align-items:center;padding:0}
+    .st-card{background:none;border:0;backdrop-filter:none;-webkit-backdrop-filter:none;padding:0}
+    .st-card h2{font-size:clamp(36px,4vw,56px)}
+    .st-card .lead{font-size:18px}
+  }
+
+  /* Bilder: weich einblenden + leichter Zoom */
+  .shot.reveal img{transform:scale(1.1);transition:transform 1.6s cubic-bezier(.2,.7,.2,1)}
+  .shot.reveal.in img{transform:none}
+
+  /* Galerie als Wisch-Streifen mit Überblendung */
+  .gallery{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin:30px calc(50% - 50vw) 0;padding:0 max(16px,calc((100vw - var(--wrap))/2));scrollbar-width:none;grid-template-columns:none}
+  .gallery::-webkit-scrollbar{display:none}
+  .gallery .shot{flex:0 0 min(80vw,520px);aspect-ratio:4/3;scroll-snap-align:center;border-radius:22px;transition:opacity .35s,transform .35s}
+  .gallery .shot.reveal{opacity:var(--gf,1);transform:scale(calc(.92 + .08 * var(--gf,1)))}
+
+  /* Gut zu wissen als ruhige Liste */
+  .rules{gap:0;border-top:1px solid var(--line)}
+  .rule{background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:20px 0}
+  @media(min-width:760px){.rules{grid-template-columns:1fr 1fr;column-gap:48px}}
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s,transform .7s}
   .reveal.in{opacity:1;transform:none}
   @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
@@ -358,11 +405,21 @@
     </div>
   </section>
 
-  <!-- ===== Der Club ===== -->
-  <section class="block" id="club" style="padding-top:0">
-    <div class="wrap split">
-      <div class="shot reveal"><img src="img/club.svg" alt="Der Club" width="900" height="600" loading="lazy"></div>
-      <div class="reveal">
+  <!-- ===== Story (Scroll-Überblendung) ===== -->
+  <section class="story" id="story" aria-label="Der Club">
+    <div class="st-media">
+      <div class="st-stage">
+        <img class="st-img on" fetchpriority="low" src="img/club.svg" alt="Der Club" width="1600" height="1067">
+        <img class="st-img" src="img/buehne.svg" alt="Bühne und Shows" width="1600" height="1067">
+        <img class="st-img" src="img/bar.svg" alt="Bar und Lounge" width="1600" height="1067">
+        <img class="st-img" src="img/studio.svg" alt="Domina-Studio" width="1600" height="1067">
+        <img class="st-img" src="img/escort.svg" alt="Maxim Escort Service" width="1600" height="1067" loading="lazy">
+        <div class="st-dots"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+      </div>
+    </div>
+    <div class="st-text">
+      <article class="st-panel" id="club" data-i="0">
+        <div class="st-card">
         <p class="eyebrow" data-i18n="clubEyebrow">Der Club</p>
         <h2 data-i18n="clubTitle">Eine Wiener Institution.</h2>
         <p class="lead" data-i18n="clubLead">Seit 1985 gehört das Maxim zum Wiener Nachtleben – als eines der ältesten und bekanntesten Häuser der Stadt. Unten Bar, Lounge und Bühne, oben die Zimmer: alles unter einem Dach, diskret und herzlich.</p>
@@ -371,15 +428,10 @@
           <li data-i18n="club2">Mitten im 1. Bezirk, direkt an der Kärntner Straße</li>
           <li data-i18n="club3">Auch Paare sind herzlich willkommen</li>
         </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Shows ===== -->
-  <section class="block" id="shows" style="padding-top:0">
-    <div class="wrap split rev">
-      <div class="shot reveal"><img src="img/buehne.svg" alt="Bühne und Shows" width="900" height="600" loading="lazy"></div>
-      <div class="reveal">
+        </div>
+      </article>
+      <article class="st-panel" id="shows" data-i="1">
+        <div class="st-card">
         <p class="eyebrow" data-i18n="showsEyebrow">Bühne &amp; Shows</p>
         <h2 data-i18n="showsTitle">Showtime – die ganze Nacht.</h2>
         <p class="lead" data-i18n="showsLead">Auf unserer Bühne wechseln sich die Tänzerinnen die ganze Nacht ab. Lehn dich zurück, genieß die Show – oder lade deine Favoritin auf einen Drink ein.</p>
@@ -388,19 +440,35 @@
           <li data-i18n="shows2">Private Tänze auf Wunsch</li>
           <li data-i18n="shows3">Ideal für Junggesellenabschiede und Gruppen</li>
         </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Bar ===== -->
-  <section class="block" id="bar" style="padding-top:0">
-    <div class="wrap split">
-      <div class="shot reveal"><img src="img/bar.svg" alt="Bar und Lounge" width="900" height="600" loading="lazy"></div>
-      <div class="reveal">
+        </div>
+      </article>
+      <article class="st-panel" id="bar" data-i="2">
+        <div class="st-card">
         <p class="eyebrow" data-i18n="barEyebrow">Bar &amp; Lounge</p>
         <h2 data-i18n="barTitle">Champagner, Cocktails, gute Gesellschaft.</h2>
         <p class="lead" data-i18n="barLead">An unserer Bar gibt es alles von Bier bis Champagner. In der Lounge lässt sich der Abend in Ruhe beginnen – oder ausklingen. Bezahlen kannst du bar, mit Debit- oder Kreditkarte.</p>
-      </div>
+        </div>
+      </article>
+      <article class="st-panel" id="studio" data-i="3">
+        <div class="st-card">
+        <p class="eyebrow" data-i18n="bdsmEyebrow">Domina-Studio</p>
+        <h2 data-i18n="bdsmTitle">Für Kenner: unser BDSM-Raum.</h2>
+        <p class="lead" data-i18n="bdsmLead">Seit 2017 hat das Maxim einen eigenen, voll ausgestatteten BDSM-Raum. Professionelle Dominas nehmen sich Zeit für deine Wünsche – mit klaren Absprachen und viel Erfahrung.</p>
+        </div>
+      </article>
+      <article class="st-panel" id="escort" data-i="4">
+        <div class="st-card">
+        <p class="eyebrow" data-i18n="escEyebrow">Escort Service</p>
+        <h2 data-i18n="escTitle">Das Maxim kommt zu dir.</h2>
+        <p class="lead" data-i18n="escLead">Unser exklusiver Escort-Service bringt eine Maxim-Dame diskret in dein Hotel in Wien. Die Anfahrt per Taxi ist im Preis bereits enthalten – je länger die Buchung, desto günstiger die Stunde.</p>
+        <ul class="list">
+          <li data-i18n="esc1">Hotelbesuche in ganz Wien</li>
+          <li data-i18n="esc2">Taxi-Anfahrt inklusive</li>
+          <li data-i18n="esc3">Buchung diskret per Telefon</li>
+        </ul>
+        <div class="hero-cta"><a class="btn btn-red" href="tel:+4369917172031"><span data-i18n="escCta">Escort buchen</span></a></div>
+        </div>
+      </article>
     </div>
   </section>
 
@@ -414,36 +482,6 @@
         <div class="card reveal"><small data-i18n="rm1s">Standard</small><h3 data-i18n="rm1t">Standard-Zimmer</h3><p data-i18n="rm1d">Gemütlich und diskret – ideal für einen spontanen Moment zu zweit.</p></div>
         <div class="card reveal"><small data-i18n="rm2s">Superior</small><h3 data-i18n="rm2t">Superior-Zimmer</h3><p data-i18n="rm2d">Mehr Platz, mehr Komfort, mehr Atmosphäre.</p></div>
         <div class="card hl reveal"><small data-i18n="rm3s">VIP</small><h3 data-i18n="rm3t">VIP-Suite</h3><p data-i18n="rm3d">Mit eigenem Jacuzzi und Kingsize-Bett – für besondere Nächte.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Domina-Studio ===== -->
-  <section class="block" id="studio" style="padding-top:0">
-    <div class="wrap split rev">
-      <div class="shot reveal"><img src="img/studio.svg" alt="Domina-Studio" width="900" height="600" loading="lazy"></div>
-      <div class="reveal">
-        <p class="eyebrow" data-i18n="bdsmEyebrow">Domina-Studio</p>
-        <h2 data-i18n="bdsmTitle">Für Kenner: unser BDSM-Raum.</h2>
-        <p class="lead" data-i18n="bdsmLead">Seit 2017 hat das Maxim einen eigenen, voll ausgestatteten BDSM-Raum. Professionelle Dominas nehmen sich Zeit für deine Wünsche – mit klaren Absprachen und viel Erfahrung.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Escort ===== -->
-  <section class="block" id="escort" style="padding-top:0">
-    <div class="wrap split">
-      <div class="shot reveal"><img src="img/escort.svg" alt="Maxim Escort Service" width="900" height="600" loading="lazy"></div>
-      <div class="reveal">
-        <p class="eyebrow" data-i18n="escEyebrow">Escort Service</p>
-        <h2 data-i18n="escTitle">Das Maxim kommt zu dir.</h2>
-        <p class="lead" data-i18n="escLead">Unser exklusiver Escort-Service bringt eine Maxim-Dame diskret in dein Hotel in Wien. Die Anfahrt per Taxi ist im Preis bereits enthalten – je länger die Buchung, desto günstiger die Stunde.</p>
-        <ul class="list">
-          <li data-i18n="esc1">Hotelbesuche in ganz Wien</li>
-          <li data-i18n="esc2">Taxi-Anfahrt inklusive</li>
-          <li data-i18n="esc3">Buchung diskret per Telefon</li>
-        </ul>
-        <div class="hero-cta" style="margin:22px 0 0"><a class="btn btn-red" href="tel:+4369917172031"><span data-i18n="escCta">Escort buchen</span></a></div>
       </div>
     </div>
   </section>
@@ -630,6 +668,29 @@ document.addEventListener("DOMContentLoaded", function(){
   if(bar && heroCta && "IntersectionObserver" in window){
     new IntersectionObserver(function(es){ es.forEach(function(e){ bar.classList.toggle("show", !e.isIntersecting && e.boundingClientRect.top < 0); }); }).observe(heroCta);
   } else if(bar) bar.classList.add("show");
+  /* Story: aktives Bild je nach Textabschnitt */
+  var panels = document.querySelectorAll(".st-panel"), stImgs = document.querySelectorAll(".st-img"), stDots = document.querySelectorAll(".st-dots i");
+  function setStory(i){
+    stImgs.forEach(function(im, k){ im.classList.toggle("on", k === i); });
+    stDots.forEach(function(d, k){ d.classList.toggle("on", k === i); });
+    panels.forEach(function(p, k){ p.classList.toggle("on", k === i); });
+  }
+  if(panels.length && "IntersectionObserver" in window){
+    var sio = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) setStory(+e.target.getAttribute("data-i")); }); }, {rootMargin:"-45% 0px -45% 0px"});
+    panels.forEach(function(p){ sio.observe(p); });
+    setStory(0);
+  }
+  /* Galerie: Bilder am Rand blenden aus */
+  var gal = document.querySelector(".gallery");
+  function galFade(){
+    if(!gal) return;
+    var r = gal.getBoundingClientRect(), c = r.left + r.width / 2;
+    gal.querySelectorAll(".shot").forEach(function(sh){
+      var b = sh.getBoundingClientRect(), dist = Math.abs(b.left + b.width / 2 - c) / (r.width / 2 + b.width / 2);
+      sh.style.setProperty("--gf", Math.max(.25, 1 - dist * 1.1).toFixed(3));
+    });
+  }
+  if(gal){ gal.addEventListener("scroll", galFade, {passive:true}); addEventListener("resize", galFade); galFade(); }
   document.getElementById("yr").textContent = new Date().getFullYear();
 
   var initial = "de";
