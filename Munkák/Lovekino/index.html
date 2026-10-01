@@ -6,10 +6,99 @@
 <title>Lovekino Wien · Erotikkino in Meidling</title>
 <meta name="description" content="Lovekino – Erotikkino in Wien-Meidling, Michael-Bernhard-Gasse 13: zwei Kinosäle, Kinobar, Loverooms ab 10 €. Tagesticket 10 €, Frauen und Paare gratis. Mo–Sa 12–22, So 16–21 Uhr. Ab 18.">
 <meta name="theme-color" content="#0a0507">
+<meta name="robots" content="index,follow">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%230a0507%22/%3E%3Cpath d=%22M32 50S12 38 12 25a10 10 0 0 1 20-3 10 10 0 0 1 20 3c0 13-20 25-20 25z%22 fill=%22%23e0234f%22/%3E%3C/svg%3E">
+<!-- ===== Loader: 3D-Flug durch LED-Bögen ===== -->
+<style>
+  html.ld-gone .ld{display:none}
+  .ld{position:fixed;inset:0;z-index:9999;overflow:hidden;background:#0a0305;transition:opacity .55s ease,visibility .55s}
+  html.ld-idle .ld,html.ld-out .ld{opacity:0;visibility:hidden;pointer-events:none}
+  .ld-glow{position:absolute;inset:-20%;background:radial-gradient(closest-side at 50% 55%,#e0234f 0%,#b0153a 18%,#5a0a1e 40%,#1c0509 66%,#0a0305 100%);opacity:0;transform:scale(.7)}
+  .ld-cam{position:absolute;inset:0;perspective:700px;perspective-origin:50% 50%;overflow:hidden}
+  .ld-world{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d}
+  .ld-arch{position:absolute;left:0;top:0;border:3px solid var(--c);border-radius:28px 28px 6px 6px;
+    box-shadow:0 0 18px var(--c),0 0 46px var(--c),inset 0 0 18px var(--c);opacity:.9}
+  .ld-floor{position:absolute;left:-1400px;top:0;width:2800px;height:4200px;transform-origin:50% 0;
+    background:repeating-linear-gradient(90deg,rgba(255,107,139,.18) 0 2px,transparent 2px 140px),repeating-linear-gradient(0deg,rgba(255,107,139,.14) 0 2px,transparent 2px 140px);
+    -webkit-mask-image:linear-gradient(0deg,transparent,#000 30%,#000 70%,transparent);mask-image:linear-gradient(0deg,transparent,#000 30%,#000 70%,transparent)}
+  .ld-spark{position:absolute;left:0;top:0;width:5px;height:5px;border-radius:50%;background:#fff;box-shadow:0 0 10px 3px rgba(255,150,175,.9);opacity:0}
+  .ld-logo{position:absolute;left:-330px;top:-150px;width:660px;height:300px;transform:translateZ(-2200px);display:flex;flex-direction:column;align-items:center;justify-content:center;
+    font-family:"Arial Black",Impact,system-ui,sans-serif;color:#fff;text-align:center}
+  .ld-heart{width:64px;height:64px;fill:#fff;filter:drop-shadow(0 0 14px #ffb3c3);margin-bottom:10px}
+  .ld-pill{display:inline-block;padding:4px 22px;border-radius:999px;background:#fff;color:#c4123f;font-size:28px;font-weight:900;letter-spacing:.06em;margin-bottom:6px}
+  .ld-name{font-size:104px;line-height:.9;font-weight:900;letter-spacing:-.02em;text-shadow:0 0 22px rgba(255,120,150,.9),0 0 60px rgba(224,35,79,.7)}
+  .ld-sub{font-size:22px;font-weight:800;letter-spacing:.14em;margin-top:8px;opacity:.9}
+  .ld-info{position:absolute;left:0;right:0;bottom:calc(56px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:center;gap:14px;opacity:0;transform:translateY(10px);transition:opacity .6s,transform .6s;padding:0 24px}
+  .ld-fact{font:600 15px/1.4 system-ui,-apple-system,sans-serif;color:#ffeef1;min-height:1.4em;text-align:center;transition:opacity .35s,transform .35s}
+  .ld-fact.swap{opacity:0;transform:translateY(6px)}
+  .ld-bar{width:min(220px,60vw);height:2px;background:rgba(255,255,255,.12);overflow:hidden}
+  .ld-bar span{display:block;height:100%;width:0;background:#ff6b8b}
+  html.ld-intro .ld-glow{animation:ldGlow 1s cubic-bezier(.3,.6,.2,1) forwards}
+  html.ld-intro .ld-world{animation:ldFly 1.1s cubic-bezier(.55,.05,.35,1) forwards}
+  html.ld-intro .ld-logo{animation:ldFocus 1.1s cubic-bezier(.55,.05,.35,1) forwards}
+  html.ld-intro .ld-spark{animation:ldTw 1.1s ease-in-out forwards;animation-delay:var(--dl0,0s)}
+  @keyframes ldGlow{to{opacity:1;transform:scale(1)}}
+  @keyframes ldFly{from{transform:translateZ(0) rotateZ(-3deg)}to{transform:translateZ(1700px) rotateZ(0)}}
+  @keyframes ldFocus{0%{filter:blur(12px);opacity:0}40%{opacity:1}100%{filter:blur(0);opacity:1}}
+  @keyframes ldTw{0%,100%{opacity:0}50%{opacity:1}}
+  html.ld-long .ld-glow{opacity:1;transform:scale(1);animation:ldBreath 3.4s ease-in-out infinite}
+  html.ld-long .ld-world{animation:ldDrift 7s ease-in-out infinite alternate-reverse}
+  html.ld-long .ld-arch{animation:ldPulse 2.6s ease-in-out infinite;animation-delay:var(--pd,0s)}
+  html.ld-long .ld-spark{animation:ldRise var(--d,6s) linear infinite;animation-delay:var(--dl,0s)}
+  html.ld-long .ld-info{opacity:1;transform:none}
+  html.ld-long .ld-bar span{animation:ldProg 14s cubic-bezier(.1,.7,.2,1) forwards}
+  html.ld-long.ld-out .ld-bar span{animation:none;width:100%;transition:width .25s}
+  @keyframes ldBreath{0%,100%{opacity:.85}50%{opacity:1}}
+  @keyframes ldDrift{from{transform:translateZ(1400px) rotateY(-5deg)}to{transform:translateZ(1700px) rotateY(4deg)}}
+  @keyframes ldPulse{0%,100%{opacity:.55}50%{opacity:1}}
+  @keyframes ldRise{0%{transform:translate3d(var(--x),55vh,var(--z));opacity:0}15%{opacity:1}85%{opacity:.9}100%{transform:translate3d(calc(var(--x) + 30px),-55vh,var(--z));opacity:0}}
+  @keyframes ldProg{0%{width:4%}100%{width:92%}}
+  @media (prefers-reduced-motion:reduce){.ld *{animation-duration:.01ms!important;animation-iteration-count:1!important}}
+</style>
+<script>
+(function(){
+  var d = document.documentElement;
+  var seen = false; try{ seen = localStorage.getItem("lk_intro1") === "1"; }catch(e){}
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var loaded = false, introDone = seen, shown = !seen, finished = false;
+  d.classList.add(seen ? "ld-idle" : "ld-intro");
+  function finish(){
+    if(finished) return; finished = true;
+    if(!shown){ d.classList.add("ld-gone"); return; }
+    d.classList.add("ld-out");
+    setTimeout(function(){ d.classList.add("ld-gone"); }, 700);
+  }
+  function check(){ if(loaded && introDone) finish(); }
+  function goLong(){ d.classList.remove("ld-intro","ld-idle"); d.classList.add("ld-long"); startFacts(); }
+  if(!seen){
+    setTimeout(function(){
+      introDone = true;
+      try{ localStorage.setItem("lk_intro1","1"); }catch(e){}
+      if(!loaded) goLong();
+      check();
+    }, reduce ? 300 : 1150);
+  } else {
+    setTimeout(function(){ if(!loaded){ shown = true; goLong(); } }, 700);
+  }
+  window.addEventListener("load", function(){ loaded = true; check(); });
+  setTimeout(function(){ loaded = true; introDone = true; check(); }, 14000);
+  var facts = ["Gleich geht das Licht aus …","Frauen und Paare gratis","Zwei Kinosäle · Loverooms","Mo – Sa 12 – 22 · So 16 – 21"];
+  var factTimer = null;
+  function startFacts(){
+    if(factTimer) return;
+    var i = 0;
+    function put(){
+      var el = document.getElementById("ldFact"); if(!el) return;
+      el.classList.add("swap");
+      setTimeout(function(){ el.textContent = facts[i % facts.length]; el.classList.remove("swap"); i++; }, 300);
+    }
+    put(); factTimer = setInterval(function(){ if(finished){ clearInterval(factTimer); return; } put(); }, 2300);
+  }
+})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap">
+<link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"MovieTheater","name":"Lovekino","telephone":"+4318171648",
 "address":{"@type":"PostalAddress","streetAddress":"Michael-Bernhard-Gasse 13","postalCode":"1120","addressLocality":"Wien","addressCountry":"AT"},
@@ -74,7 +163,7 @@
   .hero h1 span{background:linear-gradient(90deg,#ffb3c3,#fff 60%);-webkit-background-clip:text;background-clip:text;color:transparent}
   .hero-sub{margin:20px 0 0;max-width:34ch;font-size:clamp(17px,1.6vw,20px);line-height:1.5;color:rgba(255,255,255,.78);text-wrap:balance}
   .hero-cta{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:32px 0 0}
-  .btn-white{background:#fff;color:#0a0b12;box-shadow:0 10px 40px -10px rgba(255,77,115,.75)}
+  .btn-white{background:#fff;color:#0a0b12;box-shadow:0 10px 40px -10px rgba(255,107,139,.8)}
   .btn-white:hover{filter:brightness(.94)}
   .btn-glass{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.26);color:#fff;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
   .btn-glass:hover{background:rgba(255,255,255,.18)}
@@ -95,100 +184,185 @@
   }
 
   /* Blöcke */
-  .block{padding:112px 0}
-  .sec-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px 30px;margin-bottom:38px}
-  .sec-head h2{font-size:clamp(40px,6vw,76px);line-height:1;letter-spacing:-.045em}
-  .sec-head p{margin:0;color:var(--text-dim);font-size:17px}
+  .block{padding:88px 0}
+  .block h2{font-size:clamp(30px,4.6vw,48px);margin-bottom:16px}
+  .split{display:grid;gap:34px;align-items:center}
+  @media(min-width:900px){.split{grid-template-columns:1fr 1fr;gap:56px}.split.rev>:first-child{order:2}}
+  .shot{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);aspect-ratio:3/2;background:var(--card)}
+  .shot img{width:100%;height:100%;object-fit:cover}
+  .list{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:12px}
+  .list li{display:flex;gap:12px;color:var(--text-dim)}
+  .list li::before{content:"";flex:none;width:8px;height:8px;margin-top:9px;border-radius:50%;background:var(--red-2)}
 
-  /* Eckdaten */
-  .facts{border-block:1px solid var(--line);background:var(--bg-2)}
-  .facts-row{display:grid;grid-template-columns:repeat(3,1fr)}
-  .fact{padding:30px 22px 30px 0}
-  .fact+.fact{padding-left:22px;border-left:1px solid var(--line)}
-  .fact b{display:block;font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-.04em;line-height:1}
-  .fact span{display:block;margin-top:8px;font-size:14px;color:var(--text-dim)}
-  @media(max-width:640px){.facts-row{grid-template-columns:1fr}.fact,.fact+.fact{padding:20px 0;border-left:0}.fact+.fact{border-top:1px solid var(--line)}}
+  .hours{display:grid;gap:14px;margin-top:28px}
+  @media(min-width:760px){.hours{grid-template-columns:repeat(3,1fr)}}
+  .hcard{padding:22px;border-radius:var(--r);background:var(--card);border:1px solid var(--line)}
+  .hcard small{display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:800;margin-bottom:8px}
+  .hcard b{display:block;font-family:Manrope,sans-serif;font-weight:800;letter-spacing:-.02em;font-size:26px}
+  .hcard span{color:var(--text-dim);font-size:14px}
 
-  /* Statement */
-  .statement-wrap{padding:120px 0 40px}
-  .statement{margin:0;max-width:21ch;font-size:clamp(30px,4.8vw,62px);font-weight:700;line-height:1.12;letter-spacing:-.035em}
-  .statement .w{opacity:.18;transition:opacity .25s}
-  .statement .w.on,.statement.still .w{opacity:1}
+  .gallery{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin-top:30px}
+  @media(min-width:900px){.gallery{grid-template-columns:repeat(3,1fr)}}
+  .gallery .shot{aspect-ratio:4/3}
 
-  /* Loverooms als Programmliste */
-  .menu{border-top:1px solid var(--line)}
-  .menu-row{display:grid;grid-template-columns:56px 1fr auto;align-items:baseline;gap:18px;padding:28px 0;border-bottom:1px solid var(--line);transition:background .2s}
-  .menu-row:hover{background:linear-gradient(90deg,rgba(224,35,79,.08),transparent 60%)}
-  .m-no{font-size:13px;font-weight:800;color:var(--red-2);letter-spacing:.1em}
-  .m-main h3{font-size:clamp(26px,3.4vw,40px);letter-spacing:-.035em}
-  .m-main p{margin:6px 0 0;color:var(--text-dim)}
-  .m-price{font-size:18px;font-weight:800;white-space:nowrap}
-  @media(max-width:640px){.menu-row{grid-template-columns:34px 1fr}.m-price{grid-column:2}}
+  .rules{display:grid;gap:14px;margin-top:28px}
+  @media(min-width:760px){.rules{grid-template-columns:1fr 1fr}}
+  .rule{padding:20px 22px;border-radius:var(--r);border:1px solid var(--line);background:var(--bg-2)}
+  .rule h3{font-family:Manrope,sans-serif;font-size:16px;font-weight:800;margin-bottom:6px;color:var(--gold-2)}
+  .rule p{margin:0;color:var(--text-dim);font-size:15px}
 
-  /* Mittwoch-Band */
-  .band{position:relative;overflow:hidden;padding:110px 0;background:
-    radial-gradient(ellipse at 20% 30%,rgba(255,107,139,.35),transparent 60%),
-    linear-gradient(135deg,#7a0a24 0%,#c4123f 55%,#e0234f 100%)}
-  .band::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(0,0,0,.08) 0 1px,transparent 1px 120px);pointer-events:none}
-  .band-in{position:relative;display:grid;gap:34px;align-items:end}
-  @media(min-width:900px){.band-in{grid-template-columns:1.2fr 1fr}}
-  .band-big span{display:block;font-size:clamp(18px,2vw,22px);font-weight:800;letter-spacing:.24em;text-transform:uppercase;opacity:.85}
-  .band-big b{display:block;font-size:clamp(96px,17vw,220px);font-weight:800;letter-spacing:-.06em;line-height:.85;margin-top:8px}
-  .band-text p{margin:0 0 24px;font-size:clamp(18px,1.8vw,22px);line-height:1.5;color:rgba(255,255,255,.92)}
-
-  /* Galerie-Streifen */
-  .strip{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 max(16px,calc((100vw - var(--wrap))/2));scrollbar-width:none}
-  .strip::-webkit-scrollbar{display:none}
-  .strip figure{flex:0 0 min(78vw,520px);margin:0;aspect-ratio:4/3;border-radius:20px;overflow:hidden;scroll-snap-align:center;background:var(--card)}
-  .strip img{width:100%;height:100%;object-fit:cover}
-
-  /* Besuch */
-  .visit{display:grid;gap:56px}
-  @media(min-width:900px){.visit{grid-template-columns:1.25fr 1fr;align-items:start}}
-  .v-label{margin:0 0 14px;font-size:13px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--red-2)}
-  .v-addr{display:block;text-decoration:none;font-size:clamp(24px,6.4vw,52px);font-weight:800;letter-spacing:-.045em;line-height:1.02}
-  .v-addr span{display:block;margin-top:10px;font-size:18px;font-weight:600;letter-spacing:0;color:var(--text-dim)}
-  .v-addr:hover span{color:var(--text)}
-  .v-phone{display:inline-block;margin:26px 0 26px;font-size:clamp(22px,2.6vw,30px);font-weight:700;text-decoration:none;color:var(--gold-2)}
-  .c-actions{display:flex;flex-wrap:wrap;gap:10px}
-  .days{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
-  .days li{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--line);color:var(--text-dim)}
-  .days li b{font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}
-  .days li.today{color:var(--text)}
-  .days li.today span::after{content:" · heute";color:var(--red-2);font-weight:700}
-  html[lang=en] .days li.today span::after{content:" · today"}
-  html[lang=hu] .days li.today span::after{content:" · ma"}
-
-  /* FAQ */
-  .faq-wrap{display:grid;gap:30px}
-  @media(min-width:900px){.faq-wrap{grid-template-columns:1fr 1.6fr}}
-  .faq-wrap h2{font-size:clamp(36px,4.6vw,56px);letter-spacing:-.045em;line-height:1}
-  .faq{border-top:1px solid var(--line)}
+  .faq{margin-top:26px;border-top:1px solid var(--line)}
   .faq details{border-bottom:1px solid var(--line)}
-  .faq summary{list-style:none;display:flex;justify-content:space-between;gap:16px;padding:22px 0;font-weight:700;font-size:18px;cursor:pointer}
+  .faq summary{list-style:none;display:flex;justify-content:space-between;gap:16px;padding:20px 0;font-weight:700;font-size:17px;cursor:pointer}
   .faq summary::-webkit-details-marker{display:none}
-  .faq summary::after{content:"+";color:var(--red-2);font-size:24px;line-height:1;transition:transform .2s}
-  .faq details[open] summary::after{transform:rotate(45deg)}
-  .faq .ans{padding:0 0 22px;color:var(--text-dim);max-width:62ch}
+  .faq summary::after{content:"+";color:var(--gold);font-size:22px;line-height:1}
+  .faq details[open] summary::after{content:"–"}
+  .faq .ans{padding:0 0 20px;color:var(--text-dim);max-width:70ch}
+
+  .contact{display:grid;gap:30px}
+  @media(min-width:900px){.contact{grid-template-columns:1.1fr .9fr;align-items:start}}
+  .c-card{padding:26px;border-radius:var(--r);background:var(--card);border:1px solid var(--line);display:grid;gap:16px}
+  .c-row small{display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:800}
+  .c-row a,.c-row span{font-size:18px;font-weight:700;text-decoration:none}
+  .c-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
 
   footer{padding:40px 0 120px;border-top:1px solid var(--line);color:var(--text-dim);font-size:14px}
   .foot{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center}
   @media(min-width:760px){footer{padding-bottom:40px}}
+
+  .mobile-bar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;gap:8px;padding:8px;border-radius:18px;background:rgba(20,8,11,.92);border:1px solid var(--line);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    opacity:0;transform:translateY(calc(100% + 24px));pointer-events:none;transition:opacity .25s,transform .35s cubic-bezier(.2,.8,.2,1)}
+  .mobile-bar.show{opacity:1;transform:none;pointer-events:auto}
+  .mobile-bar a{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;border-radius:12px;text-decoration:none;font-weight:800;font-size:14px}
+  .mobile-bar .mb-save{background:#fff;color:#0a0b12}
+  .mobile-bar .mb-alt{border:1px solid var(--line);color:var(--gold-2)}
+  @media(min-width:760px){.mobile-bar{display:none}}
+
+  .cards{display:grid;gap:14px;margin-top:28px}
+  @media(min-width:760px){.cards{grid-template-columns:repeat(3,1fr)}}
+  .card{padding:24px;border-radius:var(--r);background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+  .card.hl{border-color:rgba(255,107,139,.55);box-shadow:0 20px 50px -30px rgba(224,35,79,.6)}
+  .card small{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:800}
+  .card h3{font-size:24px}
+  .card p{margin:0;color:var(--text-dim);font-size:15px}
+  .profiles{display:grid;gap:14px;grid-template-columns:1fr 1fr;margin-top:28px}
+  @media(min-width:900px){.profiles{grid-template-columns:repeat(4,1fr)}}
+  .profile{border-radius:var(--r);overflow:hidden;background:var(--card);border:1px solid var(--line)}
+  .profile .ph{aspect-ratio:3/4;background:var(--bg-2)}
+  .profile .ph img{width:100%;height:100%;object-fit:cover}
+  .profile .pi{padding:14px 16px 16px}
+  .profile h3{font-size:20px;margin-bottom:4px}
+  .profile p{margin:0 0 10px;color:var(--text-dim);font-size:13px}
+  .profile a{font-size:13px;font-weight:800;color:var(--gold-2);text-decoration:none}
+  .prices{margin-top:28px;border-top:1px solid var(--line)}
+  .prow{display:flex;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .prow span{color:var(--text-dim)}
+  .prow b{font-family:Manrope,sans-serif;font-weight:800;letter-spacing:-.02em;font-size:20px;color:var(--gold-2);white-space:nowrap}
+  .note{margin-top:14px;font-size:13px;color:var(--text-dim)}
+
+  /* ===== Story: fixiertes Bild, Überblendung beim Scrollen ===== */
+  .story{position:relative}
+  .st-media{position:sticky;top:0;height:100svh;z-index:0}
+  .st-stage{position:relative;width:100%;height:100%;overflow:hidden;background:#0a0507}
+  .st-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity 1s ease,transform 1.6s cubic-bezier(.2,.7,.2,1)}
+  .st-img.on{opacity:1;transform:scale(1)}
+  .st-stage::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(10,5,7,.55) 0%,rgba(10,5,7,0) 22%,rgba(10,5,7,0) 45%,rgba(10,5,7,.92) 100%)}
+  .st-dots{position:absolute;z-index:2;right:16px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px}
+  .st-dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.35);transition:height .3s,background .3s}
+  .st-dots i.on{height:22px;border-radius:3px;background:#fff}
+  .st-text{position:relative;z-index:1;margin-top:-100svh}
+  .st-panel{min-height:100svh;display:flex;align-items:flex-end;padding:0 16px 14svh}
+  .st-card{max-width:520px;padding:26px 22px;border-radius:22px;background:rgba(20,8,11,.62);border:1px solid rgba(255,150,170,.16);backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);
+    opacity:.35;transform:translateY(24px);transition:opacity .6s,transform .6s}
+  .st-panel.on .st-card{opacity:1;transform:none}
+  .st-card h2{font-size:clamp(28px,7vw,44px);margin-bottom:12px}
+  .st-card .lead{font-size:16px}
+  .st-card .list{margin-top:16px;gap:8px}
+  .st-card .list li{font-size:15px}
+  .st-card .hero-cta{margin:20px 0 0}
+  @media(min-width:900px){
+    .story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:0 48px;max-width:1280px;margin:0 auto;padding:0 32px}
+    .st-media{grid-column:2;grid-row:1;height:100vh;padding:24px 0}
+    .st-stage{border-radius:28px}
+    .st-stage::after{background:linear-gradient(180deg,rgba(10,5,7,.15),rgba(10,5,7,0) 30%,rgba(10,5,7,0) 70%,rgba(10,5,7,.35))}
+    .st-text{grid-column:1;grid-row:1;margin-top:0}
+    .st-panel{min-height:100vh;align-items:center;padding:0}
+    .st-card{background:none;border:0;backdrop-filter:none;-webkit-backdrop-filter:none;padding:0}
+    .st-card h2{font-size:clamp(36px,4vw,56px)}
+    .st-card .lead{font-size:18px}
+  }
+
+  /* Bilder: weich einblenden + leichter Zoom */
+  .shot.reveal img{transform:scale(1.1);transition:transform 1.6s cubic-bezier(.2,.7,.2,1)}
+  .shot.reveal.in img{transform:none}
+
+  /* Galerie als Wisch-Streifen mit Überblendung */
+  .gallery{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin:30px calc(50% - 50vw) 0;padding:0 max(16px,calc((100vw - var(--wrap))/2));scrollbar-width:none;grid-template-columns:none}
+  .gallery::-webkit-scrollbar{display:none}
+  .gallery .shot{flex:0 0 min(80vw,520px);aspect-ratio:4/3;scroll-snap-align:center;border-radius:22px;transition:opacity .35s,transform .35s}
+  .gallery .shot.reveal{opacity:var(--gf,1);transform:scale(calc(.92 + .08 * var(--gf,1)))}
+
+  /* Gut zu wissen als ruhige Liste */
+  .rules{gap:0;border-top:1px solid var(--line)}
+  .rule{background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:20px 0}
+  @media(min-width:760px){.rules{grid-template-columns:1fr 1fr;column-gap:48px}}
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s,transform .7s}
   .reveal.in{opacity:1;transform:none}
   @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+  .hcard.today{border-color:rgba(255,107,139,.55);box-shadow:0 20px 50px -30px rgba(224,35,79,.6)}
+  .hcard.today small::after{content:" · heute"}
+  html[lang=en] .hcard.today small::after{content:" · today"}
+  html[lang=hu] .hcard.today small::after{content:" · ma"}
 </style>
 </head>
 <body>
-
+<!-- ===== 3D-Loader ===== -->
+<div class="ld" aria-hidden="true">
+  <div class="ld-glow"></div>
+  <div class="ld-cam"><div class="ld-world" id="ldWorld">
+    <div class="ld-logo"><svg class="ld-heart" viewBox="0 0 24 24"><path d="M12 21s-8-5.1-8-11a4.6 4.6 0 0 1 8-3 4.6 4.6 0 0 1 8 3c0 5.9-8 11-8 11z"/></svg><span class="ld-pill">EROTIKKINO</span><div class="ld-name">LOVEKINO</div><div class="ld-sub">WIEN · MEIDLING</div></div>
+  </div></div>
+  <div class="ld-info"><div class="ld-fact" id="ldFact"></div><div class="ld-bar"><span></span></div></div>
+</div>
+<script>
+(function(){
+  var w = document.getElementById("ldWorld"); if(!w) return;
+  var vw = Math.max(320, innerWidth), vh = Math.max(480, innerHeight), frag = document.createDocumentFragment();
+  var cols = ["#e0234f","#ff6b8b","#ff2d6f","#c4123f","#ff8fa6"];
+  var AW = Math.max(vw * 1.5, 620), AH = Math.max(vh * 1.25, 760);
+  for(var i = 0; i < 12; i++){
+    var z = -400 - i * 260;
+    var a = document.createElement("div"); a.className = "ld-arch";
+    a.style.width = AW.toFixed(0) + "px"; a.style.height = AH.toFixed(0) + "px";
+    a.style.transform = "translate3d(" + (-AW/2).toFixed(0) + "px," + (-AH*0.56).toFixed(0) + "px," + z + "px)";
+    a.style.setProperty("--c", cols[i % cols.length]); a.style.setProperty("--pd", (-i * .23) + "s");
+    frag.appendChild(a);
+  }
+  var lg = w.querySelector(".ld-logo"); if(lg) lg.style.transform = "translateZ(-2200px) scale(" + Math.min(1, vw / 760).toFixed(3) + ")";
+  var f = document.createElement("div"); f.className = "ld-floor";
+  f.style.transform = "translate3d(0," + (AH * 0.44).toFixed(0) + "px,-200px) rotateX(90deg)";
+  frag.appendChild(f);
+  for(var k = 0; k < 26; k++){
+    var sp = document.createElement("i"); sp.className = "ld-spark";
+    var x = ((k * 61) % 100) - 50, y = ((k * 37) % 80) - 40, zz = -400 - (k * 113) % 2000;
+    sp.style.transform = "translate3d(" + (x * vw / 60).toFixed(0) + "px," + (y * vh / 60).toFixed(0) + "px," + zz + "px)";
+    sp.style.setProperty("--x", x + "vw"); sp.style.setProperty("--z", zz + "px");
+    sp.style.setProperty("--d", (5 + (k % 5)) + "s"); sp.style.setProperty("--dl", (-(k * .6)) + "s"); sp.style.setProperty("--dl0", ((k % 6) * .12) + "s");
+    frag.appendChild(sp);
+  }
+  w.insertBefore(frag, w.firstChild);
+})();
+</script>
 <header class="top">
   <div class="wrap top-inner">
     <a class="brand" href="#top" aria-label="Lovekino Wien"><b>LOVEKINO</b><small>Wien</small></a>
     <nav class="nav-links">
+      <a href="#zeiten" data-i18n="navHours">Öffnungszeiten</a>
+      <a href="#kino" data-i18n="navCinema">Das Kino</a>
       <a href="#loverooms" data-i18n="navRooms">Loverooms</a>
-      <a href="#events" data-i18n="navEvents">Mittwoch</a>
-      <a href="#galerie" data-i18n="navGallery">Drinnen</a>
-      <a href="#kontakt" data-i18n="navContact">Besuch</a>
+      <a href="#mittwoch" data-i18n="navEvents">Mittwoch</a>
+      <a href="#preise" data-i18n="navPrices">Preise</a>
+      <a href="#kontakt" data-i18n="navContact">Kontakt</a>
     </nav>
     <div class="nav-right">
       <a class="nav-phone" href="tel:+4318171648">01 817 16 48</a>
@@ -218,101 +392,154 @@
     </div></div>
   </section>
 
-  <!-- ===== Eckdaten ===== -->
-  <section class="facts" id="eckdaten" aria-label="Eckdaten">
-    <div class="wrap facts-row">
-      <div class="fact"><b>10&nbsp;€</b><span data-i18n="f1">Tagesticket – gilt bis Schluss</span></div>
-      <div class="fact"><b data-i18n="f2b">Gratis</b><span data-i18n="f2">für Frauen und Paare</span></div>
-      <div class="fact"><b>2</b><span data-i18n="f3">Kinosäle, eine Bar</span></div>
-    </div>
-  </section>
-
-  <!-- ===== Statement ===== -->
-  <section class="statement-wrap" id="kino">
+  <!-- ===== Öffnungszeiten ===== -->
+  <section class="block" id="zeiten">
     <div class="wrap">
-      <p class="statement" data-i18n="statement">Ein Klassiker der Wiener Nachtszene, frisch renoviert. Gleich beim Eingang die Kinobar, dahinter zwei Säle. Für Paare, Singles und Swinger – und für alle, die ungestört bleiben wollen.</p>
+      <p class="eyebrow reveal" data-i18n="hoursEyebrow">Öffnungszeiten</p>
+      <h2 class="reveal" data-i18n="hoursTitle">Sieben Tage die Woche.</h2>
+      <p class="lead reveal" data-i18n="hoursLead">Komm einfach vorbei – eine Reservierung ist nicht nötig. Das Tagesticket gilt bis Schluss.</p>
+      <div class="hours">
+        <div class="hcard reveal" data-days="1-6"><small data-i18n="hWeek">Montag – Samstag</small><b>12:00 – 22:00</b><span data-i18n="hWeekNote">Tagesticket 10 € – gilt bis Schluss</span></div>
+        <div class="hcard reveal" data-days="0"><small data-i18n="hSun">Sonntag &amp; Feiertag</small><b>16:00 – 21:00</b><span data-i18n="hSunNote">Frauen und Paare gratis</span></div>
+        <div class="hcard reveal"><small data-i18n="hWhere">Lage</small><b>Michael-Bernhard-G.&nbsp;13</b><span data-i18n="hWhereNote">1120 Wien-Meidling</span></div>
+      </div>
     </div>
   </section>
 
-  <!-- ===== Loverooms ===== -->
-  <section class="block" id="loverooms">
+  <!-- ===== Story (Scroll-Überblendung) ===== -->
+  <section class="story" id="story" aria-label="Das Kino">
+    <div class="st-media">
+      <div class="st-stage">
+        <img class="st-img on" fetchpriority="low" src="img/kino.svg" alt="Kinosaal" width="1600" height="1067">
+        <img class="st-img" src="img/bar.svg" alt="Kinobar" width="1600" height="1067">
+        <img class="st-img" src="img/loverooms.svg" alt="Loverooms" width="1600" height="1067">
+        <img class="st-img" src="img/event.svg" alt="Event-Abend am Mittwoch" width="1600" height="1067" loading="lazy">
+        <div class="st-dots"><i class="on"></i><i></i><i></i><i></i></div>
+      </div>
+    </div>
+    <div class="st-text">
+      <article class="st-panel" id="kino" data-i="0">
+        <div class="st-card">
+        <p class="eyebrow" data-i18n="kinoEyebrow">Das Kino</p>
+        <h2 data-i18n="kinoTitle">Zwei Säle, ein Klassiker.</h2>
+        <p class="lead" data-i18n="kinoLead">Das Lovekino ist ein fixer Treffpunkt der Wiener Erotikszene. Zwei Kinosäle mit laufendem Programm – für Paare, Singles und Swinger.</p>
+        <ul class="list">
+          <li data-i18n="kino1">Zwei Kinosäle mit laufendem Programm</li>
+          <li data-i18n="kino2">Tagesticket 10 € – gilt bis Schluss</li>
+          <li data-i18n="kino3">Frauen und Paare kommen gratis rein</li>
+        </ul>
+        </div>
+      </article>
+      <article class="st-panel" id="bar" data-i="1">
+        <div class="st-card">
+        <p class="eyebrow" data-i18n="barEyebrow">Kinobar</p>
+        <h2 data-i18n="barTitle">Erst ankommen, dann rein.</h2>
+        <p class="lead" data-i18n="barLead">Gleich beim Eingang wartet die gemütliche Kinobar – zum Ankommen, Plaudern und Kennenlernen.</p>
+        </div>
+      </article>
+      <article class="st-panel" id="loverooms" data-i="2">
+        <div class="st-card">
+        <p class="eyebrow" data-i18n="roomsEyebrow">Loverooms</p>
+        <h2 data-i18n="roomsTitle">Für ungestörte Momente.</h2>
+        <p class="lead" data-i18n="roomsLead">Separate Räume, wenn ihr für euch sein wollt – ab 10 € für 60 Minuten.</p>
+        <ul class="list">
+          <li data-i18n="room1">Solokabine – diskret und gemütlich</li>
+          <li data-i18n="room2">Paarkabine – für zwei, mit Gloryhole</li>
+          <li data-i18n="room3">Kuschelraum – weich, warm und entspannt</li>
+        </ul>
+        </div>
+      </article>
+      <article class="st-panel" id="mittwoch" data-i="3">
+        <div class="st-card">
+        <p class="eyebrow" data-i18n="evEyebrow">Jeden Mittwoch</p>
+        <h2 data-i18n="evTitle">Event-Abend ab 19 Uhr.</h2>
+        <p class="lead" data-i18n="evLead">Jeden Mittwoch steigt unser Event-Abend mit zwei heißen Girls. Teilnahme ab 39 € – was sonst noch läuft, steht im Forum.</p>
+        <div class="hero-cta"><a class="btn btn-red" href="https://lovekino.at/forum/" target="_blank" rel="noopener"><span data-i18n="evForum">Zum Forum</span></a></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== Preise ===== -->
+  <section class="block" id="preise">
     <div class="wrap">
-      <div class="sec-head reveal">
-        <h2 data-i18n="roomsTitle">Loverooms</h2>
-        <p data-i18n="roomsLead">Separate Räume, ab 10&nbsp;€ für 60 Minuten.</p>
+      <p class="eyebrow reveal" data-i18n="prEyebrow">Preise</p>
+      <h2 class="reveal" data-i18n="prTitle">Einfach und fair.</h2>
+      <div class="prices reveal">
+        <div class="prow"><span data-i18n="pr1">Tagesticket Kino · gilt bis Schluss</span><b>10 €</b></div>
+        <div class="prow"><span data-i18n="pr2">Frauen &amp; Paare</span><b data-i18n="pr2v">gratis</b></div>
+        <div class="prow"><span data-i18n="pr3">Loverooms · 60 Minuten</span><b data-i18n="pr3v">ab 10 €</b></div>
+        <div class="prow"><span data-i18n="pr4">Event-Abend am Mittwoch</span><b data-i18n="pr4v">ab 39 €</b></div>
       </div>
-      <div class="menu">
-        <div class="menu-row reveal"><span class="m-no">01</span><div class="m-main"><h3 data-i18n="r1t">Solokabine</h3><p data-i18n="r1d">Für dich allein – diskret und gemütlich.</p></div><span class="m-price">ab 10&nbsp;€</span></div>
-        <div class="menu-row reveal"><span class="m-no">02</span><div class="m-main"><h3 data-i18n="r2t">Paarkabine</h3><p data-i18n="r2d">Für zwei – mit Gloryhole.</p></div><span class="m-price">ab 10&nbsp;€</span></div>
-        <div class="menu-row reveal"><span class="m-no">03</span><div class="m-main"><h3 data-i18n="r3t">Kuschelraum</h3><p data-i18n="r3d">Weich, warm und ganz entspannt.</p></div><span class="m-price">ab 10&nbsp;€</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Mittwoch ===== -->
-  <section class="band" id="events">
-    <div class="wrap band-in">
-      <div class="band-big reveal"><span data-i18n="evDay">Mittwoch</span><b>19:00</b></div>
-      <div class="band-text reveal">
-        <p data-i18n="evLead">Jeden Mittwoch steigt unser Event-Abend mit zwei heißen Girls. Teilnahme ab 39&nbsp;€ – was sonst noch läuft, steht im Forum.</p>
-        <a class="btn btn-white" href="https://lovekino.at/forum/" target="_blank" rel="noopener"><span data-i18n="evForum">Zum Forum ›</span></a>
-      </div>
+      <p class="note reveal" data-i18n="prNote">Alle Angaben ohne Gewähr – aktuelle Infos gerne telefonisch.</p>
     </div>
   </section>
 
   <!-- ===== Galerie ===== -->
-  <section class="block" id="galerie">
-    <div class="wrap sec-head reveal">
-      <h2 data-i18n="galTitle">Drinnen</h2>
-      <p data-i18n="galLead">Bar, Säle, Kabinen – wischen für mehr.</p>
-    </div>
-    <div class="strip" tabindex="0" aria-label="Galerie">
-      <figure><img src="img/galerie-1.svg" alt="Kinobar" width="1600" height="1200" loading="lazy"></figure>
-      <figure><img src="img/galerie-2.svg" alt="Kinosaal" width="1600" height="1200" loading="lazy"></figure>
-      <figure><img src="img/galerie-3.svg" alt="Paarkabine" width="1600" height="1200" loading="lazy"></figure>
-      <figure><img src="img/galerie-4.svg" alt="Kuschelraum" width="1600" height="1200" loading="lazy"></figure>
-      <figure><img src="img/galerie-5.svg" alt="Shop" width="1600" height="1200" loading="lazy"></figure>
-      <figure><img src="img/galerie-6.svg" alt="Eingang" width="1600" height="1200" loading="lazy"></figure>
+  <section class="block" id="galerie" style="padding-top:0">
+    <div class="wrap">
+      <p class="eyebrow reveal" data-i18n="galEyebrow">Einblicke</p>
+      <h2 class="reveal" data-i18n="galTitle">Ein Blick ins Lovekino.</h2>
+      <div class="gallery">
+        <div class="shot reveal"><img src="img/galerie-1.svg" alt="Kinobar" width="1600" height="1200" loading="lazy"></div>
+        <div class="shot reveal"><img src="img/galerie-2.svg" alt="Kinosaal" width="1600" height="1200" loading="lazy"></div>
+        <div class="shot reveal"><img src="img/galerie-3.svg" alt="Paarkabine" width="1600" height="1200" loading="lazy"></div>
+        <div class="shot reveal"><img src="img/galerie-4.svg" alt="Kuschelraum" width="1600" height="1200" loading="lazy"></div>
+        <div class="shot reveal"><img src="img/galerie-5.svg" alt="Zweiter Saal" width="1600" height="1200" loading="lazy"></div>
+        <div class="shot reveal"><img src="img/galerie-6.svg" alt="Eingang" width="1600" height="1200" loading="lazy"></div>
+      </div>
     </div>
   </section>
 
-  <!-- ===== Besuch ===== -->
-  <section class="block" id="kontakt">
-    <div class="wrap visit">
-      <div class="reveal">
-        <p class="v-label" data-i18n="vLabel">Hier findest du uns</p>
-        <a class="v-addr" href="https://www.google.com/maps/dir/?api=1&amp;destination=Lovekino,+Michael-Bernhard-Gasse+13,+1120+Wien" target="_blank" rel="noopener">Michael&#8209;Bernhard&#8209;Gasse&nbsp;13<span>1120 Wien-Meidling ›</span></a>
-        <a class="v-phone" href="tel:+4318171648">+43 1 817 16 48</a>
-        <div class="c-actions">
-          <a class="btn btn-white" href="tel:+4318171648"><span data-i18n="ctaCall">Anrufen</span></a>
-          <a class="btn btn-ghost" href="lovekino.vcf" download><span data-i18n="ctaSave">Kontakt speichern</span></a>
-        </div>
-      </div>
-      <div class="reveal" id="zeiten">
-        <p class="v-label" data-i18n="hoursTitle">Öffnungszeiten</p>
-        <ul class="days" id="days">
-          <li data-d="1"><span data-i18n="d1">Montag</span><b>12 – 22</b></li>
-          <li data-d="2"><span data-i18n="d2">Dienstag</span><b>12 – 22</b></li>
-          <li data-d="3"><span data-i18n="d3">Mittwoch</span><b>12 – 22</b></li>
-          <li data-d="4"><span data-i18n="d4">Donnerstag</span><b>12 – 22</b></li>
-          <li data-d="5"><span data-i18n="d5">Freitag</span><b>12 – 22</b></li>
-          <li data-d="6"><span data-i18n="d6">Samstag</span><b>12 – 22</b></li>
-          <li data-d="0"><span data-i18n="d0">Sonntag &amp; Feiertag</span><b>16 – 21</b></li>
-        </ul>
+  <!-- ===== Gut zu wissen ===== -->
+  <section class="block" id="infos" style="padding-top:0">
+    <div class="wrap">
+      <p class="eyebrow reveal" data-i18n="infoEyebrow">Gut zu wissen</p>
+      <h2 class="reveal" data-i18n="infoTitle">Bevor du kommst.</h2>
+      <div class="rules">
+        <div class="rule reveal"><h3 data-i18n="r1t">Ab 18 Jahren</h3><p data-i18n="r1d">Zutritt nur für Erwachsene.</p></div>
+        <div class="rule reveal"><h3 data-i18n="r2t">Ohne Reservierung</h3><p data-i18n="r2d">Komm einfach vorbei – während der Öffnungszeiten jederzeit.</p></div>
+        <div class="rule reveal"><h3 data-i18n="r3t">Ein Ticket, den ganzen Tag</h3><p data-i18n="r3d">Das Tagesticket um 10 € gilt bis Schluss – rausgehen und wiederkommen inklusive.</p></div>
+        <div class="rule reveal"><h3 data-i18n="r4t">Aktuelles im Forum</h3><p data-i18n="r4d">Events und Neuigkeiten findest du immer im Lovekino-Forum.</p></div>
       </div>
     </div>
   </section>
 
   <!-- ===== FAQ ===== -->
   <section class="block" id="faq" style="padding-top:0">
-    <div class="wrap faq-wrap">
-      <h2 class="reveal" data-i18n="faqTitle">Gut zu wissen</h2>
+    <div class="wrap">
+      <p class="eyebrow reveal" data-i18n="faqEyebrow">FAQ</p>
+      <h2 class="reveal" data-i18n="faqTitle">Häufige Fragen</h2>
       <div class="faq reveal">
         <details><summary data-i18n="q1">Was kostet der Eintritt?</summary><div class="ans" data-i18n="a1">Das Tagesticket kostet 10 € und gilt bis Schluss. Frauen und Paare kommen gratis rein.</div></details>
         <details><summary data-i18n="q2">Muss ich reservieren?</summary><div class="ans" data-i18n="a2">Nein, komm einfach vorbei.</div></details>
         <details><summary data-i18n="q3">Was sind Loverooms?</summary><div class="ans" data-i18n="a3">Separate Räume für ungestörte Zweisamkeit – Solokabine, Paarkabine mit Gloryhole oder Kuschelraum, ab 10 € für 60 Minuten.</div></details>
         <details><summary data-i18n="q4">Wann ist der Event-Abend?</summary><div class="ans" data-i18n="a4">Jeden Mittwoch ab 19 Uhr. Aktuelles findest du im Forum.</div></details>
+        <details><summary data-i18n="q6">Wie komme ich hin?</summary><div class="ans" data-i18n="a6">Michael-Bernhard-Gasse 13, 1120 Wien-Meidling. Tippe auf „Route planen“ – Google Maps führt dich direkt hin.</div></details>
         <details><summary data-i18n="q5">Ab welchem Alter?</summary><div class="ans" data-i18n="a5">Zutritt nur ab 18 Jahren.</div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Kontakt ===== -->
+  <section class="block" id="kontakt" style="padding-top:0">
+    <div class="wrap contact">
+      <div class="reveal">
+        <p class="eyebrow" data-i18n="ctEyebrow">Kontakt</p>
+        <h2 data-i18n="ctTitle">Wir sehen uns im Kino.</h2>
+        <p class="lead" data-i18n="ctLead">Fragen zum Programm, zu den Loverooms oder zum Event-Abend? Ruf einfach an.</p>
+        <div class="shot" style="margin-top:24px"><img src="img/eingang.svg" alt="Eingang Lovekino, Michael-Bernhard-Gasse 13" width="900" height="600" loading="lazy"></div>
+      </div>
+      <div class="c-card reveal">
+        <div class="c-row"><small data-i18n="ctPhone">Telefon</small><a href="tel:+4318171648">+43 1 817 16 48</a></div>
+        <div class="c-row"><small data-i18n="ctAddr">Adresse</small><span>Michael-Bernhard-Gasse 13, 1120 Wien</span></div>
+        <div class="c-row"><small data-i18n="ctHours">Öffnungszeiten</small><span data-i18n="ctHoursV">Mo – Sa 12 – 22 Uhr · So &amp; Feiertag 16 – 21 Uhr</span></div>
+        <div class="c-row"><small data-i18n="ctForum">Forum</small><a href="https://lovekino.at/forum/" target="_blank" rel="noopener">lovekino.at/forum</a></div>
+        <div class="c-actions">
+          <a class="btn btn-red" href="tel:+4318171648"><span data-i18n="ctaCall">Anrufen</span></a>
+          <a class="btn btn-ghost" href="lovekino.vcf" download><span data-i18n="ctaSave">Kontakt speichern</span></a>
+          <a class="btn btn-ghost" href="https://www.google.com/maps/dir/?api=1&amp;destination=Lovekino,+Michael-Bernhard-Gasse+13,+1120+Wien" target="_blank" rel="noopener"><span data-i18n="ctaRoute">Route planen</span></a>
+        </div>
       </div>
     </div>
   </section>
@@ -367,7 +594,6 @@ document.addEventListener("DOMContentLoaded", function(){
     langPanel.querySelectorAll("button").forEach(function(b){ b.setAttribute("aria-current", b.getAttribute("data-code") === cur ? "true" : "false"); });
     try{ localStorage.setItem("lk_lang", cur); }catch(e){}
     renderStatus();
-    if(typeof splitWords === "function") splitWords();
   }
 
   /* ---- Live-Status: Mo–Sa 12–22, So 16–21 (Wiener Zeit) ---- */
@@ -387,6 +613,9 @@ document.addEventListener("DOMContentLoaded", function(){
     document.getElementById("status").classList.toggle("open", open);
     document.getElementById("statusText").textContent = msg;
   }
+  /* Heutige Öffnungszeit hervorheben */
+  var today = viennaNow().day;
+  document.querySelectorAll(".hcard[data-days]").forEach(function(c){ c.classList.toggle("today", c.getAttribute("data-days") === "0" ? today === 0 : today !== 0); });
   setInterval(renderStatus, 60000);
 
 
@@ -403,26 +632,29 @@ document.addEventListener("DOMContentLoaded", function(){
   if(bar && heroCta && "IntersectionObserver" in window){
     new IntersectionObserver(function(es){ es.forEach(function(e){ bar.classList.toggle("show", !e.isIntersecting && e.boundingClientRect.top < 0); }); }).observe(heroCta);
   } else if(bar) bar.classList.add("show");
-  /* Statement: Wörter leuchten beim Scrollen auf */
-  var st = document.querySelector(".statement");
-  function splitWords(){
-    if(!st) return;
-    st.innerHTML = st.textContent.trim().split(/\s+/).map(function(w){ return '<span class="w">' + w.replace(/[&<>]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c]; }) + '</span>'; }).join(" ");
-    lightWords();
+  /* Story: aktives Bild je nach Textabschnitt */
+  var panels = document.querySelectorAll(".st-panel"), stImgs = document.querySelectorAll(".st-img"), stDots = document.querySelectorAll(".st-dots i");
+  function setStory(i){
+    stImgs.forEach(function(im, k){ im.classList.toggle("on", k === i); });
+    stDots.forEach(function(d, k){ d.classList.toggle("on", k === i); });
+    panels.forEach(function(p, k){ p.classList.toggle("on", k === i); });
   }
-  function lightWords(){
-    if(!st) return;
-    var r = st.getBoundingClientRect(), vh = innerHeight;
-    var p = Math.min(1, Math.max(0, (vh * 0.85 - r.top) / (r.height + vh * 0.35)));
-    var ws = st.querySelectorAll(".w"), n = Math.round(p * ws.length);
-    ws.forEach(function(w, i){ w.classList.toggle("on", i < n); });
+  if(panels.length && "IntersectionObserver" in window){
+    var sio = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) setStory(+e.target.getAttribute("data-i")); }); }, {rootMargin:"-45% 0px -45% 0px"});
+    panels.forEach(function(p){ sio.observe(p); });
+    setStory(0);
   }
-  addEventListener("scroll", lightWords, {passive:true});
-  if(matchMedia("(prefers-reduced-motion: reduce)").matches && st) st.classList.add("still");
-
-  /* Heutigen Tag markieren */
-  var today = viennaNow().day;
-  document.querySelectorAll("#days li").forEach(function(li){ li.classList.toggle("today", +li.getAttribute("data-d") === today); });
+  /* Galerie: Bilder am Rand blenden aus */
+  var gal = document.querySelector(".gallery");
+  function galFade(){
+    if(!gal) return;
+    var r = gal.getBoundingClientRect(), c = r.left + r.width / 2;
+    gal.querySelectorAll(".shot").forEach(function(sh){
+      var b = sh.getBoundingClientRect(), dist = Math.abs(b.left + b.width / 2 - c) / (r.width / 2 + b.width / 2);
+      sh.style.setProperty("--gf", Math.max(.25, 1 - dist * 1.1).toFixed(3));
+    });
+  }
+  if(gal){ gal.addEventListener("scroll", galFade, {passive:true}); addEventListener("resize", galFade); galFade(); }
   document.getElementById("yr").textContent = new Date().getFullYear();
 
   var initial = "de";
