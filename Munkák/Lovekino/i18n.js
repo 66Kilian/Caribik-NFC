@@ -54,3 +54,21 @@ I18N.hu = {
   ctPhone:"Telefon", ctAddr:"Cím", ctHours:"Nyitvatartás", ctHoursV:"H – Szo 12 – 22 · V 16 – 21", ctForum:"Fórum",
   foot18:"Csak felnőtteknek (18+)", mbRoute:"Útvonal"
 };
+
+/* Neues Layout */
+Object.assign(I18N.en, {
+  navGallery:"Inside", navEvents:"Wednesday", navContact:"Visit", f1:"Day ticket – valid until closing", f2b:"Free", f2:"for women and couples", f3:"cinemas, one bar",
+  statement:"A classic of Vienna’s nightlife, freshly renovated. The cinema bar right at the entrance, two cinemas behind it. For couples, singles and swingers – and for everyone who wants to stay undisturbed.",
+  roomsTitle:"Loverooms", roomsLead:"Separate rooms, from €10 for 60 minutes.", evDay:"Wednesday",
+  evLead:"Every Wednesday it’s our event night with two hot girls. Participation from €39 – everything else that’s on is in the forum.",
+  galTitle:"Inside", galLead:"Bar, cinemas, cabins – swipe for more.", vLabel:"Find us here", hoursTitle:"Opening hours",
+  d1:"Monday", d2:"Tuesday", d3:"Wednesday", d4:"Thursday", d5:"Friday", d6:"Saturday", d0:"Sunday &amp; holidays", faqTitle:"Good to know"
+});
+Object.assign(I18N.hu, {
+  navGallery:"Belül", navEvents:"Szerda", navContact:"Látogatás", f1:"Napijegy – zárásig érvényes", f2b:"Ingyen", f2:"nőknek és pároknak", f3:"moziterem, egy bár",
+  statement:"A bécsi éjszakai élet klasszikusa, frissen felújítva. Rögtön a bejáratnál a mozibár, mögötte két terem. Pároknak, egyedülállóknak és swingereknek – és mindenkinek, aki zavartalan akar maradni.",
+  roomsTitle:"Loverooms", roomsLead:"Külön szobák, 10 €-tól 60 percre.", evDay:"Szerda",
+  evLead:"Minden szerdán eseményest két dögös lánnyal. Részvétel 39 €-tól – minden más a fórumon.",
+  galTitle:"Belül", galLead:"Bár, termek, kabinok – lapozz tovább.", vLabel:"Itt találsz minket", hoursTitle:"Nyitvatartás",
+  d1:"Hétfő", d2:"Kedd", d3:"Szerda", d4:"Csütörtök", d5:"Péntek", d6:"Szombat", d0:"Vasárnap &amp; ünnepnap", faqTitle:"Jó tudni"
+});
