@@ -2,7 +2,6 @@
 var I18N = window.I18N = {};
 
 I18N.en = {
-  gateT:"Adults only", gateP:"This website is intended exclusively for persons aged 18 and over. Please confirm your age.", gateYes:"I am 18 or older", gateNo:"Leave site",
   navHours:"Opening hours", navClub:"The club", navShows:"Shows", navBar:"Bar", navInfo:"Good to know", navContact:"Contact",
   heroEyebrow:"Nightclub &amp; Variety · since 1985", h1:"Vienna’s legendary nightclub on <em>Kärntner Straße</em>.",
   heroLead:"Right in the city centre, a few steps from the Opera: stage, bar and private rooms – every night until 5 am. Free entry.",
@@ -32,7 +31,6 @@ I18N.en = {
 };
 
 I18N.hu = {
-  gateT:"Csak felnőtteknek", gateP:"Ez a weboldal kizárólag 18 éven felülieknek szól. Kérjük, erősítsd meg az életkorodat.", gateYes:"Elmúltam 18 éves", gateNo:"Oldal elhagyása",
   navHours:"Nyitvatartás", navClub:"A klub", navShows:"Show", navBar:"Bár", navInfo:"Jó tudni", navContact:"Kapcsolat",
   heroEyebrow:"Nightclub &amp; varieté · 1985 óta", h1:"Bécs legendás éjszakai klubja a <em>Kärntner Straßén</em>.",
   heroLead:"A belváros szívében, pár lépésre az Operától: színpad, bár és szeparék – minden éjjel hajnali 5-ig. A belépés ingyenes.",
@@ -108,3 +106,6 @@ Object.assign(I18N.hu, {
   q8:"Hogyan foglalhatok escortot a szállodámba?", a8:"Hívj fel, és mondd meg a szállodát és az időpontot. A hölgy taxival érkezik – az út benne van az árban.",
   footGroup:"A Maxim Gentlemen Group tagja"
 });
+
+Object.assign(I18N.en, {heroSub:"Kärntner Straße 61, Vienna. Since 1985."});
+Object.assign(I18N.hu, {heroSub:"Kärntner Straße 61, Bécs. 1985 óta."});

@@ -7,7 +7,7 @@
 <meta name="description" content="Maxim Wien – All-in-One-Nightclub seit 1985 in der Kärntner Straße 61, 1010 Wien: Bühne, Bar, Zimmer mit VIP-Suite, Domina-Studio und Hotel-Escort. Täglich 20:00 – 05:00 Uhr, Eintritt frei, ab 18.">
 <meta name="theme-color" content="#0b0708">
 <meta name="robots" content="index,follow">
-<link rel="icon" href="img/hero.svg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%230b0708%22/%3E%3Ctext x=%2232%22 y=%2244%22 text-anchor=%22middle%22 font-family=%22Georgia%22 font-size=%2236%22 fill=%22%23e9d3a0%22%3EM%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Manrope:wght@400;500;600;700;800&display=swap">
@@ -39,15 +39,6 @@
   .btn-ghost{border-color:var(--line);color:var(--gold-2)}
   .btn-ghost:hover{border-color:var(--gold)}
 
-  /* Altersabfrage */
-  .gate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px;background:rgba(8,5,6,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-  .gate[hidden]{display:none}
-  .gate-card{max-width:420px;text-align:center}
-  .gate .b18{display:inline-grid;place-items:center;width:64px;height:64px;border-radius:50%;border:2px solid var(--red);color:var(--red-2);font-weight:800;font-size:20px;margin-bottom:18px}
-  .gate h2{font-size:28px;margin-bottom:10px}
-  .gate p{color:var(--text-dim);margin:0 0 22px}
-  .gate-btns{display:grid;gap:10px}
-  .gate .leave{color:var(--text-dim);font-size:14px}
 
   /* Header */
   header.top{position:fixed;inset:0 0 auto;z-index:50;transition:background .25s,border-color .25s;border-bottom:1px solid transparent}
@@ -71,21 +62,21 @@
   #langPanel .code{margin-left:auto;color:var(--text-dim);font-size:12px}
 
   /* Hero */
-  .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;padding:120px 0 56px;overflow:hidden}
+  .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;justify-content:center;padding:120px 0 9vh;overflow:hidden;text-align:center}
+  @media(max-width:759px){.hero{padding-bottom:calc(9vh + 72px)}}
   .hero-photo{position:absolute;inset:0}
   .hero-photo img{width:100%;height:100%;object-fit:cover}
-  .hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,7,8,.35) 0%,rgba(11,7,8,.55) 45%,var(--bg) 100%)}
-  .hero-body{position:relative}
-  .hero h1{font-size:clamp(38px,7vw,76px);max-width:15ch;margin-bottom:18px}
-  .hero h1 em{font-style:italic;color:var(--gold-2)}
-  .status{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(20,12,14,.7);font-weight:700;font-size:14px;margin-bottom:22px}
-  .status i{width:9px;height:9px;border-radius:50%;background:var(--text-dim)}
-  .status.open i{background:#35d07f;box-shadow:0 0 0 4px rgba(53,208,127,.2)}
-  .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin:26px 0 34px}
-  .stats{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--line);padding-top:20px;max-width:560px}
-  .stats div{flex:1;min-width:120px;padding-right:18px}
-  .stats b{display:block;font-family:"Playfair Display",serif;font-size:30px;color:var(--gold-2)}
-  .stats span{font-size:13px;color:var(--text-dim)}
+  .hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,7,8,0) 40%,rgba(11,7,8,.75) 78%,var(--bg) 100%)}
+  .hero-body{position:relative;display:flex;flex-direction:column;align-items:center}
+  .hero h1{font-family:Manrope,system-ui,sans-serif;font-weight:800;font-size:clamp(64px,13vw,168px);letter-spacing:-.045em;line-height:.9;margin:0}
+  .hero-sub{margin:18px 0 0;font-size:clamp(17px,2.2vw,22px);font-weight:500;color:var(--text-dim);letter-spacing:-.01em}
+  .hero-cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:22px;margin:30px 0 0}
+  .hero-link{color:var(--text);text-decoration:none;font-weight:600;font-size:17px}
+  .hero-link:hover{text-decoration:underline}
+  .status{display:inline-flex;align-items:center;gap:8px;margin:28px 0 0;font-size:14px;font-weight:600;color:var(--text-dim)}
+  .status i{width:7px;height:7px;border-radius:50%;background:var(--text-dim)}
+  .status.open{color:var(--text)}
+  .status.open i{background:#35d07f}
 
   /* Blöcke */
   .block{padding:88px 0}
@@ -168,18 +159,6 @@
 </head>
 <body>
 
-<div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateT" hidden>
-  <div class="gate-card">
-    <div class="b18">18+</div>
-    <h2 id="gateT" data-i18n="gateT">Nur für Erwachsene</h2>
-    <p data-i18n="gateP">Diese Website richtet sich ausschließlich an Personen ab 18 Jahren. Bitte bestätige dein Alter.</p>
-    <div class="gate-btns">
-      <button class="btn btn-red" id="gateYes" type="button" data-i18n="gateYes">Ich bin 18 oder älter</button>
-      <a class="leave" href="https://www.google.com" data-i18n="gateNo">Seite verlassen</a>
-    </div>
-  </div>
-</div>
-
 <header class="top">
   <div class="wrap top-inner">
     <a class="brand" href="#top" aria-label="Maxim Wien"><b>MAXIM</b><small>Wien</small></a>
@@ -206,21 +185,15 @@
 
   <!-- ===== Hero ===== -->
   <section class="hero">
-    <div class="hero-photo"><img src="img/hero.svg" alt="Maxim Wien – Nightclub in der Kärntner Straße" width="1400" height="900" fetchpriority="high"></div>
+    <div class="hero-photo"><img src="img/hero.svg" alt="Maxim Wien bei Nacht" width="2400" height="1400" fetchpriority="high"></div>
     <div class="wrap hero-body">
-      <p class="eyebrow" data-i18n="heroEyebrow">Nightclub · Escort · seit 1985</p>
-      <h1 data-i18n-html="h1">Wiens All-in-One-Nightclub an der <em>Kärntner Straße</em>.</h1>
-      <p class="lead" data-i18n="heroLead">Mitten in der Innenstadt, wenige Schritte von der Oper: Bühne, Bar, stilvolle Zimmer und diskreter Escort-Service – jede Nacht bis 5 Uhr früh. Eintritt frei.</p>
+      <h1>Maxim</h1>
+      <p class="hero-sub" data-i18n="heroSub">Kärntner Straße 61, Wien. Seit 1985.</p>
       <div class="hero-cta">
         <a class="btn btn-red" href="tel:+4369917172031"><span data-i18n="ctaCall">Anrufen</span></a>
-        <a class="btn btn-ghost" href="https://www.google.com/maps/dir/?api=1&amp;destination=Maxim+Wien,+K%C3%A4rntner+Stra%C3%9Fe+61,+1010+Wien" target="_blank" rel="noopener"><span data-i18n="ctaRoute">Route planen</span></a>
+        <a class="hero-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=Maxim+Wien,+K%C3%A4rntner+Stra%C3%9Fe+61,+1010+Wien" target="_blank" rel="noopener"><span data-i18n="ctaRoute">Route planen</span> ›</a>
       </div>
-      <div class="status" id="status"><i></i><span id="statusText">Täglich 20:00 – 05:00 Uhr</span></div>
-      <div class="stats">
-        <div><b>1985</b><span data-i18n="stat1">Tradition seit</span></div>
-        <div><b>20+</b><span data-i18n="stat2">internationale Damen</span></div>
-        <div><b>0 €</b><span data-i18n="stat3">Eintritt</span></div>
-      </div>
+      <p class="status" id="status"><i></i><span id="statusText">Täglich 20:00 – 05:00 Uhr</span></p>
     </div>
   </section>
 
@@ -301,7 +274,7 @@
   <!-- ===== Domina-Studio ===== -->
   <section class="block" id="studio" style="padding-top:0">
     <div class="wrap split rev">
-      <div class="shot reveal"><img src="img/separee.svg" alt="Domina-Studio" width="900" height="600" loading="lazy"></div>
+      <div class="shot reveal"><img src="img/studio.svg" alt="Domina-Studio" width="900" height="600" loading="lazy"></div>
       <div class="reveal">
         <p class="eyebrow" data-i18n="bdsmEyebrow">Domina-Studio</p>
         <h2 data-i18n="bdsmTitle">Für Kenner: unser BDSM-Raum.</h2>
@@ -313,7 +286,7 @@
   <!-- ===== Escort ===== -->
   <section class="block" id="escort" style="padding-top:0">
     <div class="wrap split">
-      <div class="shot reveal"><img src="img/lounge.svg" alt="Maxim Escort Service" width="900" height="600" loading="lazy"></div>
+      <div class="shot reveal"><img src="img/escort.svg" alt="Maxim Escort Service" width="900" height="600" loading="lazy"></div>
       <div class="reveal">
         <p class="eyebrow" data-i18n="escEyebrow">Escort Service</p>
         <h2 data-i18n="escTitle">Das Maxim kommt zu dir.</h2>
@@ -335,10 +308,10 @@
       <h2 class="reveal" data-i18n="ladTitle">Maxim Girls.</h2>
       <p class="lead reveal" data-i18n="ladLead">Jede Nacht sind 20 bis 25 Damen aus vielen Ländern im Club. Wer heute da ist, erfährst du am Telefon.</p>
       <div class="profiles">
-        <div class="profile reveal"><div class="ph"><img src="img/profil.svg" alt="Profil" width="600" height="800" loading="lazy"></div><div class="pi"><h3>Name</h3><p data-i18n="profMeta">Nationalität · Sprachen</p><a href="tel:+4369917172031" data-i18n="profAsk">Verfügbarkeit anfragen →</a></div></div>
-        <div class="profile reveal"><div class="ph"><img src="img/profil.svg" alt="Profil" width="600" height="800" loading="lazy"></div><div class="pi"><h3>Name</h3><p data-i18n="profMeta">Nationalität · Sprachen</p><a href="tel:+4369917172031" data-i18n="profAsk">Verfügbarkeit anfragen →</a></div></div>
-        <div class="profile reveal"><div class="ph"><img src="img/profil.svg" alt="Profil" width="600" height="800" loading="lazy"></div><div class="pi"><h3>Name</h3><p data-i18n="profMeta">Nationalität · Sprachen</p><a href="tel:+4369917172031" data-i18n="profAsk">Verfügbarkeit anfragen →</a></div></div>
-        <div class="profile reveal"><div class="ph"><img src="img/profil.svg" alt="Profil" width="600" height="800" loading="lazy"></div><div class="pi"><h3>Name</h3><p data-i18n="profMeta">Nationalität · Sprachen</p><a href="tel:+4369917172031" data-i18n="profAsk">Verfügbarkeit anfragen →</a></div></div>
+        <div class="profile reveal"><div class="ph"><img src="img/profil-1.svg" alt="Profilfoto" width="600" height="800" loading="lazy"></div><div class="pi"><h3>Name</h3><p data-i18n="profMeta">Nationalität · Sprachen</p><a href="tel:+4369917172031" data-i18n="profAsk">Verfügbarkeit anfragen →</a></div></div>
+        <div class="profile reveal"><div class="ph"><img src="img/profil-2.svg" alt="Profilfoto" width="600" height="800" loading="lazy"></div><div class="pi"><h3>Name</h3><p data-i18n="profMeta">Nationalität · Sprachen</p><a href="tel:+4369917172031" data-i18n="profAsk">Verfügbarkeit anfragen →</a></div></div>
+        <div class="profile reveal"><div class="ph"><img src="img/profil-3.svg" alt="Profilfoto" width="600" height="800" loading="lazy"></div><div class="pi"><h3>Name</h3><p data-i18n="profMeta">Nationalität · Sprachen</p><a href="tel:+4369917172031" data-i18n="profAsk">Verfügbarkeit anfragen →</a></div></div>
+        <div class="profile reveal"><div class="ph"><img src="img/profil-4.svg" alt="Profilfoto" width="600" height="800" loading="lazy"></div><div class="pi"><h3>Name</h3><p data-i18n="profMeta">Nationalität · Sprachen</p><a href="tel:+4369917172031" data-i18n="profAsk">Verfügbarkeit anfragen →</a></div></div>
       </div>
     </div>
   </section>
@@ -365,12 +338,12 @@
       <p class="eyebrow reveal" data-i18n="galEyebrow">Einblicke</p>
       <h2 class="reveal" data-i18n="galTitle">Ein Blick ins Maxim.</h2>
       <div class="gallery">
-        <div class="shot reveal"><img src="img/lounge.svg" alt="Lounge" width="900" height="600" loading="lazy"></div>
-        <div class="shot reveal"><img src="img/bar.svg" alt="Bar" width="900" height="600" loading="lazy"></div>
-        <div class="shot reveal"><img src="img/buehne.svg" alt="Bühne" width="900" height="600" loading="lazy"></div>
-        <div class="shot reveal"><img src="img/separee.svg" alt="Séparée" width="900" height="600" loading="lazy"></div>
-        <div class="shot reveal"><img src="img/club.svg" alt="Club" width="900" height="600" loading="lazy"></div>
-        <div class="shot reveal"><img src="img/eingang.svg" alt="Eingang Kärntner Straße 61" width="900" height="600" loading="lazy"></div>
+        <div class="shot reveal"><img src="img/galerie-1.svg" alt="Lounge" width="1600" height="1200" loading="lazy"></div>
+        <div class="shot reveal"><img src="img/galerie-2.svg" alt="Bar" width="1600" height="1200" loading="lazy"></div>
+        <div class="shot reveal"><img src="img/galerie-3.svg" alt="Bühne" width="1600" height="1200" loading="lazy"></div>
+        <div class="shot reveal"><img src="img/galerie-4.svg" alt="VIP-Suite" width="1600" height="1200" loading="lazy"></div>
+        <div class="shot reveal"><img src="img/galerie-5.svg" alt="Superior-Zimmer" width="1600" height="1200" loading="lazy"></div>
+        <div class="shot reveal"><img src="img/galerie-6.svg" alt="Champagner" width="1600" height="1200" loading="lazy"></div>
       </div>
     </div>
   </section>
@@ -497,11 +470,6 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   setInterval(renderStatus, 60000);
 
-  /* ---- Altersabfrage ---- */
-  var gate = document.getElementById("gate"), ok = false;
-  try{ ok = localStorage.getItem("mx_18") === "1"; }catch(e){}
-  if(!ok) gate.hidden = false;
-  document.getElementById("gateYes").addEventListener("click", function(){ gate.hidden = true; try{ localStorage.setItem("mx_18","1"); }catch(e){} });
 
   /* ---- Header & Einblenden ---- */
   var header = document.querySelector("header.top");
