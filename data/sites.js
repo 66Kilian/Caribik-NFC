@@ -19,7 +19,8 @@ export default {
       "aliases": [],
       "notes": "Startseite – immer online.",
       "repo": "",
-      "brand": {}
+      "brand": {},
+      "clientAdmin": false
     },
     {
       "id": "caribik",
@@ -34,7 +35,8 @@ export default {
       ],
       "notes": "",
       "repo": "66Kilian/CaribikADMIN",
-      "brand": {}
+      "brand": {},
+      "clientAdmin": false
     },
     {
       "id": "venus",
@@ -49,7 +51,8 @@ export default {
       "repo": "66Kilian/Venus-PornrudiADMIN",
       "brand": {
         "wordmark": "erotik-homepage .com"
-      }
+      },
+      "clientAdmin": false
     },
     {
       "id": "maxim",
@@ -62,7 +65,8 @@ export default {
       "aliases": [],
       "notes": "Tartalom nyilvános forrásokból (Wikipedia, Yelp, TripAdvisor, 6Austria, Maxim Gentlemen Group, Grokipedia, Trustpilot). Ellenőrizni: telefon (+43 699 17172031), escort-árak (1 óra 250 €, 4 óra 750 € taxival), szoba-árak = auf Anfrage. Képek + Damen-profilok = helyőrzők, a megrendelőtől kérni.",
       "repo": "66Kilian/MaximADMIN",
-      "brand": {}
+      "brand": {},
+      "clientAdmin": false
     },
     {
       "id": "lovekino",
@@ -77,7 +81,8 @@ export default {
       "repo": "66Kilian/LoveKinoADMIN",
       "brand": {
         "logo": "img/logo.png"
-      }
+      },
+      "clientAdmin": false
     }
   ]
 };
