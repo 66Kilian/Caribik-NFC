@@ -383,7 +383,7 @@
   if(ta) cols = [ta, tcs.getPropertyValue("--t-accent2").trim(), tcs.getPropertyValue("--t-gold").trim(), ta, tcs.getPropertyValue("--t-gold2").trim()];
   var AW = Math.max(vw * 1.5, 620), AH = Math.max(vh * 1.25, 760);
   for(var i = 0; i < 12; i++){
-    var z = -400 - i * 260;
+    var z = -1300 - i * 260; /* nie näher als 300px an die Kamera (perspective 700, Flug bis +1700) – sonst stürzt iOS-Safari ab */
     var a = document.createElement("div"); a.className = "ld-arch";
     a.style.width = AW.toFixed(0) + "px"; a.style.height = AH.toFixed(0) + "px";
     a.style.transform = "translate3d(" + (-AW/2).toFixed(0) + "px," + (-AH*0.56).toFixed(0) + "px," + z + "px)";
@@ -392,11 +392,11 @@
   }
   var lg = w.querySelector(".ld-logo"); if(lg) lg.style.transform = "translateZ(-2200px) scale(" + Math.min(1, vw / 760).toFixed(3) + ")";
   var f = document.createElement("div"); f.className = "ld-floor";
-  f.style.transform = "translate3d(0," + (AH * 0.44).toFixed(0) + "px,-200px) rotateX(90deg)";
+  f.style.transform = "translate3d(0," + (AH * 0.44).toFixed(0) + "px,-1100px) rotateX(-90deg)"; /* Boden zeigt von der Kamera weg */
   frag.appendChild(f);
   for(var k = 0; k < 26; k++){
     var sp = document.createElement("i"); sp.className = "ld-spark";
-    var x = ((k * 61) % 100) - 50, y = ((k * 37) % 80) - 40, zz = -400 - (k * 113) % 2000;
+    var x = ((k * 61) % 100) - 50, y = ((k * 37) % 80) - 40, zz = -1300 - (k * 113) % 1400;
     sp.style.transform = "translate3d(" + (x * vw / 60).toFixed(0) + "px," + (y * vh / 60).toFixed(0) + "px," + zz + "px)";
     sp.style.setProperty("--x", x + "vw"); sp.style.setProperty("--z", zz + "px");
     sp.style.setProperty("--d", (5 + (k % 5)) + "s"); sp.style.setProperty("--dl", (-(k * .6)) + "s"); sp.style.setProperty("--dl0", ((k % 6) * .12) + "s");
