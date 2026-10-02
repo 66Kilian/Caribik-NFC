@@ -144,7 +144,8 @@
       $("regTitle").textContent = reset ? "Neues Passwort" : "Willkommen!";
       $("regSub").textContent = reset ? "Hallo " + j.name + ", lege jetzt dein neues Passwort fest. Dein Benutzername bleibt: " + j.username : "Lege jetzt deinen persönlichen Zugang für " + S.info.site.name + " an. Damit kannst du deine Website jederzeit selbst bearbeiten.";
       $("rgBtn").textContent = reset ? "Passwort speichern" : "Zugang anlegen";
-      (reset ? $("rgPw") : $("rgName")).focus();
+      if (!reset && j.name) $("rgName").value = j.name;
+      (reset ? $("rgPw") : j.name ? $("rgUser") : $("rgName")).focus();
     }).catch(function (e) {
       history.replaceState(null, "", location.pathname);
       showLogin(e.message);

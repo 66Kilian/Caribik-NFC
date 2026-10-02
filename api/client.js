@@ -63,7 +63,7 @@ const actions = {
     if (!inv) return send(res, 404, { error: "Dieser Einladungslink ist ungültig oder abgelaufen. Bitte fordere einen neuen an." });
     const acc = inv.account ? ctx.data.accounts.find(a => a.id === inv.account) : null;
     const site = ctx.config.sites.find(s => s.id === inv.site);
-    send(res, 200, { kind: inv.kind, site: site ? site.slug : null, name: acc ? acc.name : "", username: acc ? acc.username : "" });
+    send(res, 200, { kind: inv.kind, site: site ? site.slug : null, name: acc ? acc.name : (inv.name || ""), username: acc ? acc.username : "" });
   },
 
   // Registrierung (neues Konto) oder neues Passwort (Reset-Link)

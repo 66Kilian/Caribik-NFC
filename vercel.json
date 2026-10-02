@@ -1,5 +1,5 @@
 {
-  "ignoreCommand": "git diff --quiet HEAD^ HEAD -- . ':(exclude)data/accounts.enc.json'",
+  "ignoreCommand": "if git diff --quiet HEAD^ HEAD -- . ':(exclude)data/accounts.enc.json' 2>/dev/null; then exit 0; else exit 1; fi",
   "headers": [
     {
       "source": "/(.*)\\.vcf",

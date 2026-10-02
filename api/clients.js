@@ -1,8 +1,8 @@
 // Betreiber: Kunden-Admins verwalten (einladen, Passwort-Link, 2FA zurücksetzen,
 // löschen) und das Kunden-Repo vollständig synchronisieren.
 import { send, guard, body } from "./_lib/http.js";
-import { randomToken, sha256 } from "./_lib/crypto.js";
-import { load, update, publicAccount, INVITE_TTL } from "./_lib/accounts.js";
+import { randomToken, sha256, hashPassword } from "./_lib/crypto.js";
+import { load, update, publicAccount, INVITE_TTL, checkPassword, normUser, USERNAME_RE } from "./_lib/accounts.js";
 import { mirrorAll } from "./_lib/mirror.js";
 
 function inviteLink(req, site, token) {
@@ -15,7 +15,7 @@ function siteView(data, siteId) {
   const now = Date.now();
   return {
     accounts: data.accounts.filter(a => a.site === siteId).map(publicAccount),
-    invites: data.invites.filter(i => i.site === siteId && i.exp > now).map(i => ({ id: i.id, kind: i.kind, account: i.account || null, exp: i.exp, createdAt: i.createdAt })),
+    invites: data.invites.filter(i => i.site === siteId && i.exp > now).map(i => ({ id: i.id, kind: i.kind, account: i.account || null, name: i.name || "", exp: i.exp, createdAt: i.createdAt })),
   };
 }
 
@@ -25,6 +25,12 @@ export default async function handler(req, res) {
   try {
     if (isGet) {
       const { data, config } = await load();
+      // Ohne ?site: Anzahl der Kunden-Admins je Seite (für die Seitenleiste)
+      if (!req.query.site) {
+        const counts = {};
+        for (const a of data.accounts) counts[a.site] = (counts[a.site] || 0) + 1;
+        return send(res, 200, { counts });
+      }
       if (!config.sites.some(s => s.id === req.query.site)) return send(res, 404, { error: "Seite nicht gefunden" });
       return send(res, 200, siteView(data, req.query.site));
     }
@@ -41,14 +47,37 @@ export default async function handler(req, res) {
     }
 
     let link = null;
+    const bad = msg => Object.assign(new Error(msg), { status: 400 });
     const view = await update((data) => {
       const acc = b.account ? data.accounts.find(a => a.id === b.account && a.site === site.id) : null;
-      if (b.account && !acc) throw Object.assign(new Error("Konto nicht gefunden"), { status: 404 });
-      if (b.action === "invite" || b.action === "reset") {
+      if ((b.account || ["update", "setpw", "delete", "reset2fa", "reset"].includes(b.action)) && !acc) throw Object.assign(new Error("Konto nicht gefunden"), { status: 404 });
+      const checkUser = (u, self) => {
+        if (!USERNAME_RE.test(u)) throw bad("Felhasználónév: min. 3 karakter, kisbetű, szám, . _ - @");
+        if (data.accounts.some(x => x.site === site.id && x.username === u && x !== self)) throw bad("Ez a felhasználónév már foglalt ennél az oldalnál.");
+      };
+      if (b.action === "create") {
+        // Betreiber legt den Zugang direkt an (Name, Benutzername, Passwort)
+        const name = String(b.name || "").trim().slice(0, 80), username = normUser(b.username);
+        if (!name) throw bad("Add meg a nevet.");
+        checkUser(username);
+        const pwErr = checkPassword(b.password);
+        if (pwErr) throw bad("A jelszó legalább 10 karakter legyen.");
+        data.accounts.push({ id: randomToken(9), site: site.id, name, username, pw: hashPassword(b.password), totp: null, ver: 1, createdAt: new Date().toISOString() });
+      } else if (b.action === "update") {
+        const name = String(b.name || "").trim().slice(0, 80), username = normUser(b.username);
+        if (!name) throw bad("Add meg a nevet.");
+        checkUser(username, acc);
+        if (acc.username !== username) acc.ver = (acc.ver || 1) + 1; // neu anmelden
+        acc.name = name; acc.username = username;
+      } else if (b.action === "setpw") {
+        if (checkPassword(b.password)) throw bad("A jelszó legalább 10 karakter legyen.");
+        acc.pw = hashPassword(b.password); acc.ver = (acc.ver || 1) + 1;
+      } else if (b.action === "invite" || b.action === "reset") {
         const token = randomToken(24);
         data.invites.push({
           id: randomToken(6), hash: sha256(token), site: site.id,
           kind: b.action === "reset" ? "reset" : "register", account: acc ? acc.id : undefined,
+          name: b.action === "invite" ? String(b.name || "").trim().slice(0, 80) || undefined : undefined,
           exp: Date.now() + INVITE_TTL, createdAt: new Date().toISOString(),
         });
         link = inviteLink(req, site, token);
