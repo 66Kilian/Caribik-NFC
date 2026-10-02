@@ -12,7 +12,7 @@
   var IMG_MSG = { type: "Bitte ein JPG-, PNG-, WebP- oder GIF-Bild wählen.", read: "Das Bild kann nicht gelesen werden.", size: "Das Bild ist zu groß (max. 3 MB)." };
   var LANG_NAMES = { de: "Deutsch", en: "Englisch", hu: "Ungarisch", sk: "Slowakisch", cs: "Tschechisch", pl: "Polnisch", it: "Italienisch", fr: "Französisch", es: "Spanisch", ro: "Rumänisch", hr: "Kroatisch" };
 
-  var S = { info: null, page: null, base: "/", sel: null, device: "mobile", pending: {}, invite: null };
+  var S = { info: null, page: null, base: "/", sel: null, device: "mobile", pending: {}, invite: null, unlocked: {} };
 
   // ------------------------------------------------------------ Hilfen
   function show(id) { ["vBoot", "vMissing", "vAuth", "vApp"].forEach(function (v) { $(v).classList.toggle("hidden", v !== id); }); }
@@ -419,14 +419,55 @@
           : l === "de" ? ((I.de && I.de[key] != null) ? I.de[key] : el.innerHTML.trim())
           : (I[l] && I[l][key] != null ? I[l][key] : "");
       };
-      var mk = function (l) {
-        var cur = valOf(l), ta = h("textarea", { class: "inp", rows: Math.min(7, Math.max(2, Math.ceil(String(cur).length / 38))) });
-        ta.value = E.toEditable(cur);
-        ta.addEventListener("input", function () { setI18n(el, key, l, E.fromEditable(ta.value)); });
-        return h("label", { class: "f" }, h("span", null, h("span", { class: "lang-tag", text: l.toUpperCase() }), LANG_NAMES[l] || l), ta);
+      var others = langs.slice(1), tas = {};
+      var locked = function (l) { return !S.unlocked[key + "|" + l]; };
+      var status = h("p", { class: "tr-status" });
+      var setStatus = function (st, msg) {
+        status.className = "tr-status " + st;
+        status.textContent = st === "busy" || st === "wait" ? "Übersetzt…" : st === "error" ? "Übersetzung fehlgeschlagen: " + msg
+          : others.some(locked) ? "🔒 Andere Sprachen werden automatisch aus dem Deutschen übersetzt." : "";
       };
-      wrap.append(mk("de"));
-      if (langs.length > 1) wrap.append(h("details", { class: "more" }, h("summary", { text: "Übersetzungen (" + langs.slice(1).map(function (l) { return l.toUpperCase(); }).join(", ") + ")" }), langs.slice(1).map(mk)));
+      var translate = E.autoTranslator(function (l, txt) {
+        if (!locked(l)) return;
+        setI18n(el, key, l, txt);
+        if (tas[l]) tas[l].value = E.toEditable(txt);
+      }, setStatus);
+      var rows = function (n) { return Math.min(7, Math.max(2, Math.ceil(String(n).length / 38))); };
+      var deVal = valOf("de"), de = h("textarea", { class: "inp", rows: rows(deVal) });
+      de.value = E.toEditable(deVal);
+      de.addEventListener("input", function () {
+        var v = E.fromEditable(de.value);
+        setI18n(el, key, "de", v);
+        translate(v, others.filter(locked));
+      });
+      wrap.append(h("label", { class: "f" }, h("span", null, h("span", { class: "lang-tag", text: "DE" }), "Deutsch"), de));
+      if (others.length) {
+        wrap.append(status);
+        var box2 = h("div", { class: "tr-list" });
+        others.forEach(function (l) {
+          var cur = valOf(l), ta = h("textarea", { class: "inp", rows: rows(cur) });
+          ta.value = E.toEditable(cur); tas[l] = ta;
+          var btn = h("button", { class: "btn sm ghost", type: "button" });
+          var paint = function () {
+            var lk = locked(l);
+            ta.readOnly = lk; ta.classList.toggle("locked", lk);
+            btn.textContent = lk ? "🔒 Entsperren" : "Automatisch";
+            btn.title = lk ? "Diese Sprache selbst bearbeiten" : "Wieder automatisch aus dem Deutschen übersetzen";
+          };
+          btn.onclick = function () {
+            var k = key + "|" + l;
+            if (S.unlocked[k]) { delete S.unlocked[k]; translate(E.fromEditable(de.value), [l], true); }
+            else { S.unlocked[k] = true; ta.focus(); }
+            paint(); setStatus("idle");
+          };
+          ta.addEventListener("input", function () { if (!locked(l)) setI18n(el, key, l, E.fromEditable(ta.value)); });
+          paint();
+          box2.append(h("div", { class: "tr-row" },
+            h("div", { class: "tr-head" }, h("span", null, h("span", { class: "lang-tag", text: l.toUpperCase() }), LANG_NAMES[l] || l), btn), ta));
+        });
+        wrap.append(h("details", { class: "more" }, h("summary", { text: "Übersetzungen (" + others.map(function (l) { return l.toUpperCase(); }).join(", ") + ")" }), box2));
+        setStatus("idle");
+      }
     } else if (E.isTexty(el)) {
       var hasTags = el.children.length > 0;
       var ta = h("textarea", { class: "inp", rows: 3 });

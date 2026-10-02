@@ -1,0 +1,353 @@
+/* Sprache des Betreiber-Admins: Deutsch (Standard) oder Ungarisch.
+   Der Quelltext enthält die ungarischen Texte; hier steht die deutsche Fassung.
+   Ganze Sätze werden direkt übersetzt, zusammengesetzte Texte über Bruchstücke. */
+(function () {
+  "use strict";
+  var KEY = "mk-admin-lang";
+  var lang = "de";
+  try { lang = localStorage.getItem(KEY) === "hu" ? "hu" : "de"; } catch (e) {}
+
+  var DE = {
+    // Anmeldung / Einrichtung
+    "MK Admin": "MK Admin",
+    "Az admin még nincs beállítva": "Der Admin ist noch nicht eingerichtet",
+    "Hiányzik a jelszó, a kétlépcsős kulcs vagy a session-kulcs a Vercel környezeti változói közül.": "In den Vercel-Umgebungsvariablen fehlt das Passwort, der 2FA-Schlüssel oder der Session-Schlüssel.",
+    "Beállítás indítása": "Einrichtung starten",
+    "Bejelentkezés": "Anmelden",
+    "1. lépés: jelszó": "Schritt 1: Passwort",
+    "Jelszó": "Passwort",
+    "Tovább": "Weiter",
+    "Kétlépcsős azonosítás": "Zwei-Faktor-Anmeldung",
+    "2. lépés: a 6 jegyű kód a hitelesítő alkalmazásból.": "Schritt 2: der 6-stellige Code aus der Authenticator-App.",
+    "Kód": "Code",
+    "Belépés": "Anmelden",
+    "← Vissza": "← Zurück",
+    "Weboldal ↗": "Website ↗",
+    "Kijelentkezés": "Abmelden",
+    "A munkamenet lejárt – jelentkezz be újra. A változtatásaid megmaradtak.": "Die Sitzung ist abgelaufen – bitte erneut anmelden. Deine Änderungen bleiben erhalten.",
+    "30 perc inaktivitás után automatikusan kiléptettünk.": "Nach 30 Minuten ohne Aktivität wurdest du automatisch abgemeldet.",
+    "Falsches Passwort": "Falsches Passwort",
+
+    // Aufbau
+    "Keresés a munkák között…": "Projekte durchsuchen…",
+    "Tartalom": "Inhalt",
+    "Beállítások": "Einstellungen",
+    "Verziók": "Versionen",
+    "Oldal felépítése": "Aufbau der Seite",
+    "Húzd a szekciókat a sorrend változtatásához, a szemmel ki-be kapcsolhatod őket. Szöveget, linket vagy képet az előnézetben kattintva szerkeszthetsz (✎ Szerkesztés mód).": "Ziehe die Abschnitte, um die Reihenfolge zu ändern; mit dem Auge blendest du sie ein oder aus. Texte, Links und Bilder bearbeitest du per Klick in der Vorschau (✎ Bearbeiten).",
+    "Mobil": "Handy",
+    "Asztali": "Computer",
+    "✎ Szerkesztés mód": "✎ Bearbeiten",
+    "Nem közzétett előnézet": "Unveröffentlichte Vorschau",
+    "Előnézet újratöltése": "Vorschau neu laden",
+    "Előnézet": "Vorschau",
+    "Elvetés": "Verwerfen",
+    "Közzététel": "Veröffentlichen",
+    "Mégse": "Abbrechen",
+
+    // Entwürfe
+    "Folytatod, ahol abbahagytad?": "Weitermachen, wo du aufgehört hast?",
+    "Beállítások (címek, be/ki, csoportok)": "Einstellungen (Adressen, an/aus, Gruppen)",
+    ": tartalom / szekciók": ": Inhalt / Abschnitte",
+    "Mentetlen változtatásokat találtunk (": "Nicht gespeicherte Änderungen gefunden (",
+    "Figyelem: azóta más is mentett. Ha visszaállítod, a piszkozat felülírhatja azokat a változásokat.": "Achtung: Inzwischen wurde etwas anderes gespeichert. Der Entwurf kann diese Änderungen überschreiben.",
+    "Visszaállítás": "Wiederherstellen",
+
+    // Seitenleiste & Gruppen
+    "Online": "Online",
+    "Kikapcsolva": "Ausgeschaltet",
+    "Főoldal": "Hauptseite",
+    " ügyfél-admin": " Kunden-Admin(s)",
+    "Nem közzétett változás": "Unveröffentlichte Änderung",
+    "Csoport átnevezése": "Gruppe umbenennen",
+    "Üres csoport törlése": "Leere Gruppe löschen",
+    "Csoport törlése": "Gruppe löschen",
+    "Húzz ide egy munkát": "Projekt hierher ziehen",
+    "+ Új csoport": "+ Neue Gruppe",
+    "Új munka a mappában: ": "Neues Projekt im Ordner: ",
+    "Felvétel az adminba": "In den Admin aufnehmen",
+    "Mentés": "Speichern",
+    "Új csoport": "Neue Gruppe",
+    "Csoport neve": "Name der Gruppe",
+    "pl. Szaunák, Bárok, Demók, 2026 …": "z. B. Saunen, Bars, Demos, 2026 …",
+    "Új név": "Neuer Name",
+    "Ilyen nevű csoport már van.": "Eine Gruppe mit diesem Namen gibt es schon.",
+    "Felvéve – kikapcsolt állapotban. Nézd át, aztán kapcsold be és tedd közzé.": "Aufgenommen – ausgeschaltet. Prüfe die Seite, schalte sie ein und veröffentliche.",
+    "Még nincs közzétéve": "Noch nicht veröffentlicht",
+
+    // Abschnitte & Inspektor
+    "Navigáció / fejléc": "Navigation / Kopfzeile",
+    "Lábléc": "Fußzeile",
+    "Mobil alsó gombsor": "Untere Buttonleiste (Handy)",
+    "Betöltő animáció": "Lade-Animation",
+    "Görgetési csík": "Fortschrittsbalken",
+    "Képnagyító (lightbox)": "Bildvergrößerung (Lightbox)",
+    "Hero (nyitó rész)": "Startbereich (Hero)",
+    "Húzd a sorrendhez": "Ziehen zum Sortieren",
+    "Fix helyen": "Feste Position",
+    "Feljebb": "Nach oben",
+    "Lejjebb": "Nach unten",
+    "Megjelenítés": "Einblenden",
+    "Elrejtés": "Ausblenden",
+    "Elrejtett elemek": "Ausgeblendete Elemente",
+    "Kép: ": "Bild: ",
+    "↖ Szülő elem": "↖ Übergeordnetes Element",
+    "Mutasd": "Zeigen",
+    "Bezárás": "Schließen",
+    "). Minden nyelvet itt tudsz átírni.": "). Alle Sprachen kannst du hier ändern.",
+    "Német (alap)": "Deutsch (Basis)",
+    "Szöveg": "Text",
+    " (HTML: <b>, <br> stb. megengedett)": " (HTML wie <b>, <br> erlaubt)",
+    "Ez egy tároló elem. Kattints az előnézetben egy konkrét szövegre, képre vagy linkre a szerkesztéshez.": "Das ist ein Container. Klicke in der Vorschau auf einen Text, ein Bild oder einen Link, um ihn zu bearbeiten.",
+    "Link címe": "Link-Adresse",
+    "pl. https://…, tel:+43…, mailto:…, #szekcio": "z. B. https://…, tel:+43…, mailto:…, #abschnitt",
+    "Új lapon nyíljon": "In neuem Tab öffnen",
+    "A link szövegét a benne lévő elemre kattintva szerkesztheted.": "Den Linktext bearbeitest du, indem du auf das Element darin klickst.",
+    "Kép cseréje": "Bild ersetzen",
+    "JPG/PNG/WebP. A nagy képeket automatikusan kicsinyítjük.": "JPG/PNG/WebP. Große Bilder werden automatisch verkleinert.",
+    "Alternatív szöveg (alt)": "Bildbeschreibung (alt)",
+    "Google és képernyőolvasók számára.": "Für Google und Screenreader.",
+    "Csak JPG, PNG, WebP vagy GIF tölthető fel.": "Nur JPG, PNG, WebP oder GIF.",
+    "A kép nem olvasható.": "Das Bild kann nicht gelesen werden.",
+    "A kép túl nagy (max. 3 MB).": "Das Bild ist zu groß (max. 3 MB).",
+
+    // Einstellungen
+    "Csak kisbetű, szám és kötőjel (a–z, 0–9, -).": "Nur Kleinbuchstaben, Zahlen und Bindestrich (a–z, 0–9, -).",
+    "Ez a cím foglalt.": "Diese Adresse ist reserviert.",
+    "Már használja: ": "Wird schon verwendet von: ",
+    "Csak kisbetű, szám és kötőjel.": "Nur Kleinbuchstaben, Zahlen und Bindestrich.",
+    "Az oldal online": "Die Seite ist online",
+    "Az oldal ki van kapcsolva": "Die Seite ist ausgeschaltet",
+    "A főoldal mindig online.": "Die Hauptseite ist immer online.",
+    "Bárki elérheti a címén.": "Jeder erreicht sie unter ihrer Adresse.",
+    "A látogatók egy „nem elérhető” oldalt látnak. Az NFC-kártya linkje nem változik.": "Besucher sehen eine „Nicht verfügbar“-Seite. Der Link auf der NFC-Karte bleibt gleich.",
+    "Alapadatok": "Grunddaten",
+    "Név (csak az adminban látszik)": "Name (nur im Admin sichtbar)",
+    "+ Új csoport…": "+ Neue Gruppe…",
+    "Csoport": "Gruppe",
+    "Csoportot a bal oldali listában is válthatsz: húzd a munkát a csoport fölé.": "Die Gruppe kannst du auch links ändern: Projekt einfach auf die Gruppe ziehen.",
+    "Cím és domain": "Adresse & Domain",
+    "A régi címek közzététel után automatikusan átirányítanak, így a kiadott NFC-kártyák mindig működnek.": "Alte Adressen leiten nach dem Veröffentlichen automatisch weiter – ausgegebene NFC-Karten funktionieren immer.",
+    "Cím a meinekontaktkarte.com alatt": "Adresse unter meinekontaktkarte.com",
+    "✓ A régi cím (/": "✓ Die alte Adresse (/",
+    ") közzététel után átirányít ide.": ") leitet nach dem Veröffentlichen hierher weiter.",
+    "Aldomain (opcionális)": "Subdomain (optional)",
+    "pl. caribik": "z. B. caribik",
+    "Egyszeri beállítás kell hozzá a Vercelben (*.": "Einmalig in Vercel einzurichten (*.",
+    " wildcard domain), lásd ADMIN.md.": " Wildcard-Domain), siehe ADMIN.md.",
+    "Régi címek (átirányítanak ide)": "Alte Adressen (leiten hierher weiter)",
+    "Törlés": "Löschen",
+    "Átirányítás törlése?": "Weiterleitung löschen?",
+    "Ha van kint NFC-kártya ezzel a címmel (/": "Gibt es NFC-Karten mit dieser Adresse (/",
+    "), az utána nem fog működni.": "), funktionieren sie danach nicht mehr.",
+    "Mappa a repóban: ": "Ordner im Repo: ",
+    "Saját GitHub-repó": "Eigenes GitHub-Repo",
+    "Minden mentés (a tiéd és az ügyfélé is) ide is bekerül: a weboldal mappájának tartalma.": "Jede Speicherung (deine und die des Kunden) landet auch hier: der Inhalt des Website-Ordners.",
+    "Repó (tulajdonos/név)": "Repo (Besitzer/Name)",
+    "A GitHub-tokennek ehhez a repóhoz is kell írási jog.": "Der GitHub-Token braucht auch für dieses Repo Schreibrechte.",
+    "Megnyitás ↗": "Öffnen ↗",
+    "Teljes szinkron most": "Jetzt komplett synchronisieren",
+    "Szinkronizálva → ": "Synchronisiert → ",
+    "Belső jegyzet": "Interne Notiz",
+    "Csak te látod: ügyfél, határidő, számla, teendők …": "Nur für dich: Kunde, Termine, Rechnung, To-dos …",
+    "Felvétel visszavonása": "Aufnahme rückgängig machen",
+
+    // Kunden-Admins
+    "Ügyfél-adminok": "Kunden-Admins",
+    "Az ügyfél a saját, márkázott adminjában szerkesztheti az oldalát. Mentéskor azonnal élesedik.": "Der Kunde bearbeitet seine Seite in seinem eigenen Admin in seinem Design. Beim Speichern geht es sofort live.",
+    "Közzététel után hozhatsz létre ügyfél-admint.": "Nach dem Veröffentlichen kannst du Kunden-Admins anlegen.",
+    "Másolás": "Kopieren",
+    "Kimásolva ✓": "Kopiert ✓",
+    "Szerkesztés": "Bearbeiten",
+    "Továbbiak": "Mehr",
+    "Új jelszó beállítása": "Neues Passwort setzen",
+    "Jelszó-visszaállító link": "Link zum Zurücksetzen des Passworts",
+    "2FA törlése": "2FA zurücksetzen",
+    "2FA törlése?": "2FA zurücksetzen?",
+    " legközelebb csak jelszóval lép be, és újra bekapcsolhatja.": " meldet sich beim nächsten Mal nur mit Passwort an und kann 2FA neu einrichten.",
+    "Fiók törlése": "Konto löschen",
+    "Ügyfél-admin törlése?": "Kunden-Admin löschen?",
+    ") nem tud többé belépni.": ") kann sich nicht mehr anmelden.",
+    "2FA nincs": "ohne 2FA",
+    "Jelszó-link": "Passwort-Link",
+    "Meghívó": "Einladung",
+    "még nem használt · lejár: ": "noch nicht verwendet · läuft ab: ",
+    "Visszavonás": "Widerrufen",
+    "Még nincs ügyfél-admin ennél az oldalnál.": "Für diese Seite gibt es noch keinen Kunden-Admin.",
+    "+ Admin létrehozása": "+ Admin anlegen",
+    "Meghívó link küldése": "Einladungslink senden",
+    "Név": "Name",
+    "Így szólítja meg az admin, és ez látszik nálad a listában.": "So wird der Kunde im Admin angesprochen; so erscheint er in deiner Liste.",
+    "Felhasználónév": "Benutzername",
+    "Ezzel lép be. Kisbetű, szám, pont, kötőjel.": "Damit meldet er sich an. Kleinbuchstaben, Zahlen, Punkt, Bindestrich.",
+    "Új": "Neu",
+    "Legalább 10 karakter. Belépés után az ügyfél megváltoztathatja.": "Mindestens 10 Zeichen. Der Kunde kann es nach dem Login ändern.",
+    "Ügyfél-admin létrehozása · ": "Kunden-Admin anlegen · ",
+    "Létrehozás": "Anlegen",
+    "pl. Marcus Waikat": "z. B. Marcus Waikat",
+    "pl. marcus": "z. B. marcus",
+    "pl. Marcus (opcionális)": "z. B. Marcus (optional)",
+    "Meghívó link · ": "Einladungslink · ",
+    "Az ügyfél a linken maga adja meg a felhasználónevét és jelszavát. 7 napig érvényes, egyszer használható.": "Über den Link wählt der Kunde Benutzername und Passwort selbst. Gültig 7 Tage, nur einmal verwendbar.",
+    "Név (előre kitöltve, opcionális)": "Name (vorausgefüllt, optional)",
+    "Link létrehozása": "Link erstellen",
+    "Meghívó link": "Einladungslink",
+    "Fiók szerkesztése": "Konto bearbeiten",
+    " új jelszava. Minden eszközről kilépteti.": " – neues Passwort. Meldet ihn auf allen Geräten ab.",
+    "Új jelszó": "Neues Passwort",
+    "Beállítás": "Setzen",
+    "Mentve ✓": "Gespeichert ✓",
+    "Belépési adatok": "Zugangsdaten",
+    "Küldd el az ügyfélnek. A jelszót később már nem látod (csak újat adhatsz).": "Schick sie dem Kunden. Das Passwort siehst du später nicht mehr (du kannst nur ein neues setzen).",
+    "Cím": "Adresse",
+    "Minden másolása": "Alles kopieren",
+    "Küldés WhatsAppon": "Per WhatsApp senden",
+    "Küldd el ezt a linket az ügyfélnek. 7 napig érvényes, egyszer használható.": "Schick diesen Link dem Kunden. Gültig 7 Tage, nur einmal verwendbar.",
+    "Ügyfél-admin arculata": "Design des Kunden-Admins",
+    "Automatikusan a weboldal logóját és színeit használja. Itt felülírhatod.": "Verwendet automatisch Logo und Farben der Website. Hier kannst du sie überschreiben.",
+    "Automatikus": "Automatisch",
+    "auto (a weboldalból)": "auto (aus der Website)",
+    "img/logo.png (üres = automatikus)": "img/logo.png (leer = automatisch)",
+    "pl. LOVEKINO (ha nincs logó)": "z. B. LOVEKINO (wenn kein Logo)",
+    "Fő szín": "Hauptfarbe",
+    "Háttér": "Hintergrund",
+    "Logó (kép a weboldal mappájában)": "Logo (Bild im Website-Ordner)",
+    "Felirat logó helyett": "Schriftzug statt Logo",
+    "Add meg a nevet.": "Bitte einen Namen eingeben.",
+    "Felhasználónév: min. 3 karakter, kisbetű, szám, . _ - @": "Benutzername: mind. 3 Zeichen, Kleinbuchstaben, Zahlen, . _ - @",
+    "Ez a felhasználónév már foglalt ennél az oldalnál.": "Dieser Benutzername ist bei dieser Seite schon vergeben.",
+    "A jelszó legalább 10 karakter legyen.": "Das Passwort muss mindestens 10 Zeichen haben.",
+
+    // Versionen
+    "Közzététel után itt jelennek meg a verziók.": "Nach dem Veröffentlichen erscheinen hier die Versionen.",
+    "Ennek az oldalnak a tartalma": "Inhalt dieser Seite",
+    "Címek & be/ki (összes)": "Adressen & an/aus (alle)",
+    "Minden közzététel egy mentett verzió. A visszaállítás is új verzióként kerül be, így semmi nem vész el.": "Jede Veröffentlichung ist eine gespeicherte Version. Auch das Wiederherstellen wird eine neue Version – es geht nichts verloren.",
+    "Még nincs korábbi verzió.": "Noch keine frühere Version.",
+    " · aktuális": " · aktuell",
+    "Visszaállítás erre a verzióra?": "Diese Version wiederherstellen?",
+    "A még nem közzétett változtatásaid elvesznek.": "Deine unveröffentlichten Änderungen gehen verloren.",
+    "Élesben kb. 1 perc múlva jelenik meg.": "Ist in ca. 1 Minute live.",
+    "Visszaállítva ✓": "Wiederhergestellt ✓",
+
+    // Veröffentlichen
+    "Új munka: ": "Neues Projekt: ",
+    "bekapcsolva": "eingeschaltet",
+    "kikapcsolva": "ausgeschaltet",
+    ": cím /": ": Adresse /",
+    ": aldomain ": ": Subdomain ",
+    "eltávolítva": "entfernt",
+    "Átnevezve: ": "Umbenannt: ",
+    ": csoport → ": ": Gruppe → ",
+    ": jegyzet": ": Notiz",
+    ": régi címek": ": alte Adressen",
+    ": GitHub-repó → ": ": GitHub-Repo → ",
+    "nincs": "keins",
+    ": ügyfél-admin arculat": ": Design des Kunden-Admins",
+    "Eltávolítva: ": "Entfernt: ",
+    "Csoportok módosítva": "Gruppen geändert",
+    "szekciók/tartalom": "Abschnitte/Inhalt",
+    "fordítások": "Übersetzungen",
+    " új kép": " neue(s) Bild(er)",
+    " nem közzétett változás": " unveröffentlichte Änderung(en)",
+    "Javítsd a hibás mezőket a Beállításokban": "Bitte die markierten Felder in den Einstellungen korrigieren",
+    "Ezek a változások kerülnek élesbe:": "Diese Änderungen gehen live:",
+    "Élesben kb. 30–60 mp múlva látszik (Vercel deploy). Minden közzététel visszaállítható a Verziók fülön.": "In ca. 30–60 Sekunden live (Vercel-Deploy). Jede Veröffentlichung lässt sich unter „Versionen“ wiederherstellen.",
+    "Mentés…": "Speichert…",
+    "Közzétéve ✓ – élesítés folyamatban": "Veröffentlicht ✓ – wird live geschaltet",
+    "Ütközés": "Konflikt",
+    " A piszkozatod el van mentve.": " Dein Entwurf ist gesichert.",
+    "Újratöltés": "Neu laden",
+    "Minden változás elvetése?": "Alle Änderungen verwerfen?",
+    "A még nem közzétett módosítások elvesznek.": "Unveröffentlichte Änderungen gehen verloren.",
+    "Élesítés folyamatban…": "Wird live geschaltet…",
+    "Élesben ✓ ": "Live ✓ ",
+    "A deploy még nem látszik – nézd meg a Vercelben": "Deploy noch nicht sichtbar – bitte in Vercel prüfen",
+
+    // Automatische Übersetzung
+    "Automatikus fordítás": "Automatische Übersetzung",
+    "zárolva – a német szövegből fordul": "gesperrt – wird aus dem Deutschen übersetzt",
+    "kézzel szerkesztve": "manuell bearbeitet",
+    "Feloldás": "Entsperren",
+    "Zárolás": "Sperren",
+    "Fordítás…": "Übersetzt…",
+    "🔒 A többi nyelv automatikusan fordul a német szövegből.": "🔒 Die anderen Sprachen werden automatisch aus dem Deutschen übersetzt.",
+    "🔒 Feloldás": "🔒 Entsperren",
+    "Többnyelvű szöveg (": "Mehrsprachiger Text (",
+    "A fordítás nem sikerült: ": "Übersetzung fehlgeschlagen: ",
+
+    // Setup-Seite
+    "Admin beállítása": "Admin einrichten",
+    "1. Jelszó": "1. Passwort",
+    "Legalább 12 karakter. Minden a böngésződben készül, semmi nem megy el sehova.": "Mindestens 12 Zeichen. Alles entsteht in deinem Browser, nichts wird gesendet.",
+    "Jelszó még egyszer": "Passwort wiederholen",
+    "2. Kétlépcsős azonosítás": "2. Zwei-Faktor-Anmeldung",
+    "Olvasd be a QR-kódot egy hitelesítő alkalmazással (Google Authenticator, Microsoft Authenticator, 1Password, Authy …), majd írd be a 6 jegyű kódot.": "Scanne den QR-Code mit einer Authenticator-App (Google Authenticator, Microsoft Authenticator, 1Password, Authy …) und gib den 6-stelligen Code ein.",
+    "Kézi megadáshoz a titkos kulcs:": "Geheimer Schlüssel zur manuellen Eingabe:",
+    "Tipp: mentsd el ezt a kulcsot a jelszókezelődbe is. Ha elveszik a telefonod, ezzel tudod visszaállítani.": "Tipp: Speichere den Schlüssel auch im Passwortmanager. Geht das Handy verloren, stellst du damit alles wieder her.",
+    "6 jegyű kód az alkalmazásból": "6-stelliger Code aus der App",
+    "Ellenőrzés": "Prüfen",
+    "3. Beállítás a Vercelben": "3. Einrichtung in Vercel",
+    "Vercel → a projekted →": "Vercel → dein Projekt →",
+    ". Add hozzá az alábbi értékeket (Environment:": ". Füge diese Werte hinzu (Environment:",
+    "), majd indíts egy": ") und starte einen",
+    "-t.": ".",
+    "Plusz a mentéshez szükséges GitHub-token (lásd ADMIN.md):": "Dazu der GitHub-Token zum Speichern (siehe ADMIN.md):",
+    "Fine-grained token → Repository access: csak": "Fine-grained Token → Repository access: nur",
+    "Az a branch, amiből az éles oldal települ (általában": "Der Branch, aus dem die Live-Seite gebaut wird (meist",
+    "Ezt az oldalt zárd be, ha kész vagy. Az értékeket ne küldd el senkinek.": "Schließe diese Seite, wenn du fertig bist. Schick die Werte niemandem.",
+    "Tovább a bejelentkezéshez": "Weiter zur Anmeldung",
+    "Legalább 12 karakter kell.": "Mindestens 12 Zeichen.",
+    "A két jelszó nem egyezik.": "Die Passwörter stimmen nicht überein.",
+    "A kód nem egyezik. Ellenőrizd a telefon óráját, és próbáld újra.": "Der Code stimmt nicht. Prüfe die Uhrzeit am Handy und versuche es erneut.",
+    "Másolva ✓": "Kopiert ✓"
+  };
+
+  // Bruchstücke (für zusammengesetzte Texte), längste zuerst
+  var FRAG = Object.keys(DE).filter(function (k) { return k.length >= 5; }).sort(function (a, b) { return b.length - a.length; });
+
+  function t(s) {
+    if (lang === "hu" || s == null) return s;
+    s = String(s);
+    if (Object.prototype.hasOwnProperty.call(DE, s)) return DE[s];
+    var key = s.trim();
+    if (key !== s && Object.prototype.hasOwnProperty.call(DE, key)) return s.replace(key, DE[key]);
+    for (var i = 0; i < FRAG.length; i++) if (s.indexOf(FRAG[i]) >= 0) s = s.split(FRAG[i]).join(DE[FRAG[i]]);
+    return s;
+  }
+
+  var ATTRS = ["placeholder", "title", "aria-label"];
+  /** Statisches HTML übersetzen (Textknoten + Attribute). */
+  function dom(root) {
+    if (lang === "hu") return;
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), n, list = [];
+    while ((n = w.nextNode())) if (n.nodeValue.trim() && !/^(SCRIPT|STYLE|TEXTAREA)$/.test(n.parentNode.nodeName)) list.push(n);
+    list.forEach(function (x) { var v = x.nodeValue, k = v.trim(); if (Object.prototype.hasOwnProperty.call(DE, k)) x.nodeValue = v.replace(k, DE[k]); });
+    Array.prototype.forEach.call(root.querySelectorAll("[placeholder],[title],[aria-label]"), function (el) {
+      ATTRS.forEach(function (a) { if (el.hasAttribute(a)) el.setAttribute(a, t(el.getAttribute(a))); });
+    });
+    if (document.title) document.title = t(document.title);
+    document.documentElement.lang = lang;
+  }
+
+  /** Sprachumschalter DE | HU. Beim Wechsel wird die Seite neu geladen. */
+  function switcher(onBeforeReload) {
+    var seg = document.createElement("div");
+    seg.className = "seg lang-seg";
+    ["de", "hu"].forEach(function (l) {
+      var b = document.createElement("button");
+      b.type = "button"; b.textContent = l.toUpperCase(); b.className = l === lang ? "on" : "";
+      b.setAttribute("aria-pressed", l === lang ? "true" : "false");
+      b.onclick = function () {
+        if (l === lang) return;
+        try { localStorage.setItem(KEY, l); } catch (e) {}
+        if (onBeforeReload) onBeforeReload();
+        location.reload();
+      };
+      seg.appendChild(b);
+    });
+    return seg;
+  }
+
+  window.MKI18N = { lang: lang, t: t, dom: dom, switcher: switcher, locale: lang === "hu" ? "hu-HU" : "de-AT" };
+})();

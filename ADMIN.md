@@ -20,6 +20,17 @@ Az adminból kezelheted a munkáidat (`Munkák/` mappa) és a főoldalt:
   (a tiéd és az ügyfélé is) oda is bekerül; a „Teljes szinkron most” gomb a teljes mappát átmásolja.
 - **Arculat**: az ügyfél-admin automatikusan a weboldal logóját, színeit és betűtípusát használja – felülírható.
 
+## Nyelv
+
+- Az ügyfél-admin mindig **német**.
+- A saját admin (`/admin/`) alapból német; fent a **DE | HU** gombbal átválthatsz magyarra (a böngésző megjegyzi).
+
+## Automatikus fordítás
+
+Többnyelvű szövegnél a német a fő szöveg. A többi nyelv (EN, HU …) **zárolva** van, és a német
+átírásakor automatikusan lefordul (DeepL). „🔒 Entsperren” után kézzel átírható, és onnantól nem írja
+felül a fordítás; az „Automatisch” gomb visszakapcsolja (és újrafordítja).
+
 ## Ügyfél-admin (`/<cím>/admin/`)
 
 - Német nyelvű, a weboldal saját logójával és színeivel.
@@ -84,6 +95,7 @@ Vercel → projekt → **Settings → Environment Variables** (Environment: Prod
 | `GITHUB_TOKEN` | a GitHub-token |
 | `GITHUB_REPO` | `66Kilian/meinekontaktkarte` (alapértelmezett, elhagyható) |
 | `GITHUB_BRANCH` | az a branch, amiből az éles oldal települ (alapértelmezett: `main`) |
+| `DEEPL_API_KEY` | DeepL API-kulcs az automatikus fordításhoz (deepl.com → API Free, a kulcs `:fx`-re végződik). Nélküle a többi nyelv kézzel szerkeszthető, csak nem fordul magától. |
 | `MK_DATA_KEY` | véletlen kulcs az ügyfélfiókok titkosításához (min. 32 karakter, pl. `openssl rand -base64 48`). **Soha ne cseréld le** – különben az ügyfélfiókok elvesznek. Ha nincs megadva, az `ADMIN_SESSION_SECRET` szolgál kulcsként. |
 
 Utána: **Deployments → Redeploy**.

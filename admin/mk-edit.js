@@ -196,7 +196,34 @@
     return "img/up-" + Date.now().toString(36) + "-" + slugify(file.name.replace(/\.[^.]+$/, "")).slice(0, 30) + "." + ext;
   }
 
+  /**
+   * Automatische Übersetzung: nach einer Tipp-Pause wird der deutsche Text in alle
+   * gesperrten Sprachen übersetzt (/api/translate). Ältere Antworten werden verworfen.
+   */
+  function autoTranslator(onResult, onStatus) {
+    var timer = null, seq = 0;
+    return function schedule(text, langs, now) {
+      clearTimeout(timer);
+      if (!langs.length) { onStatus("idle"); return; }
+      var my = ++seq;
+      onStatus("wait");
+      timer = setTimeout(function () {
+        onStatus("busy");
+        fetch("/api/translate", { method: "POST", credentials: "same-origin", headers: { "x-mk-admin": "1", "content-type": "application/json" }, body: JSON.stringify({ text: text, to: langs }) })
+          .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || ("HTTP " + r.status)); return j; }); })
+          .then(function (j) {
+            if (my !== seq) return;
+            Object.keys(j.translations || {}).forEach(function (l) { onResult(l, j.translations[l]); });
+            var f = Object.keys(j.failed || {});
+            onStatus(f.length ? "error" : "done", f.length ? f.map(function (l) { return l.toUpperCase() + ": " + j.failed[l]; }).join(" · ") : "");
+          })
+          .catch(function (e) { if (my === seq) onStatus("error", e.message); });
+      }, now ? 0 : 900);
+    };
+  }
+
   window.MKEdit = {
+    autoTranslator: autoTranslator,
     h: h, encPath: encPath, toEditable: toEditable, fromEditable: fromEditable, slugify: slugify,
     loadPage: loadPage, serialize: serialize, pageDirty: pageDirty, blockList: blockList, blockName: blockName,
     updateMkStyle: updateMkStyle, overridesJs: overridesJs, ensureOverridesTag: ensureOverridesTag,

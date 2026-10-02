@@ -19,16 +19,22 @@
   };
 
   // ------------------------------------------------------------ Hilfen
-  var h = E.h;
+  var L = window.MKI18N, t = L.t; // Sprache: Deutsch (Standard) oder Ungarisch
+  // Alle Texte, die über h() entstehen, laufen durch die Übersetzung (Werte von Eingabefeldern nicht).
+  var h = function (tag, attrs) {
+    if (attrs) ["text", "title", "aria-label", "placeholder"].forEach(function (k) { if (typeof attrs[k] === "string") attrs[k] = t(attrs[k]); });
+    var kids = Array.prototype.slice.call(arguments, 2).map(function (c) { return typeof c === "string" ? t(c) : c; });
+    return E.h.apply(null, [tag, attrs].concat(kids));
+  };
   function show(id) { ["vBoot", "vSetup", "vLogin", "vApp"].forEach(function (v) { $(v).classList.toggle("hidden", v !== id); }); }
   function toast(msg, bad) {
-    var t = h("div", { class: "toast" + (bad ? " bad" : ""), text: msg, role: "status" });
-    document.body.appendChild(t);
-    setTimeout(function () { t.remove(); }, bad ? 6000 : 2600);
+    var el = h("div", { class: "toast" + (bad ? " bad" : ""), text: msg, role: "status" });
+    document.body.appendChild(el);
+    setTimeout(function () { el.remove(); }, bad ? 6000 : 2600);
   }
   function encPath(p) { return p.split("/").map(encodeURIComponent).join("/"); }
   function clone(o) { return JSON.parse(JSON.stringify(o)); }
-  function fmtDate(iso) { try { return new Date(iso).toLocaleString("hu-HU", { dateStyle: "medium", timeStyle: "short" }); } catch (e) { return iso; } }
+  function fmtDate(iso) { try { return new Date(iso).toLocaleString(L.locale, { dateStyle: "medium", timeStyle: "short" }); } catch (e) { return iso; } }
   var toEditable = E.toEditable, fromEditable = E.fromEditable;
   function slugify(s) {
     return String(s).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40) || "oldal";
@@ -48,10 +54,10 @@
 
   function ask(title, body, yes, danger) {
     return new Promise(function (resolve) {
-      $("dlgTitle").textContent = title;
+      $("dlgTitle").textContent = t(title);
       var b = $("dlgBody"); b.innerHTML = "";
       if (typeof body === "string") b.append(h("p", { class: "muted", text: body })); else if (body) b.append(body);
-      $("dlgYes").textContent = yes || "OK";
+      $("dlgYes").textContent = t(yes || "OK");
       $("dlgYes").className = "btn " + (danger ? "danger" : "primary");
       $("dlgNo").classList.toggle("hidden", yes === null);
       var d = $("dlg");
@@ -68,7 +74,7 @@
   function showLogin(msg) {
     show("vLogin");
     $("fPw").classList.remove("hidden"); $("fCode").classList.add("hidden"); $("lgStep2").classList.remove("on");
-    $("lgErr1").textContent = msg || ""; $("lgPw").value = ""; $("lgPw").focus();
+    $("lgErr1").textContent = t(msg || ""); $("lgPw").value = ""; $("lgPw").focus();
   }
   $("fPw").addEventListener("submit", function (e) {
     e.preventDefault();
@@ -77,7 +83,7 @@
       pre = j.pre; $("lgPw").value = "";
       $("fPw").classList.add("hidden"); $("fCode").classList.remove("hidden"); $("lgStep2").classList.add("on");
       $("lgCode").value = ""; $("lgErr2").textContent = ""; $("lgCode").focus();
-    }).catch(function (err) { $("lgErr1").textContent = err.message; }).finally(function () { btn.disabled = false; });
+    }).catch(function (err) { $("lgErr1").textContent = t(err.message); }).finally(function () { btn.disabled = false; });
   });
   $("fCode").addEventListener("submit", function (e) {
     e.preventDefault();
@@ -86,7 +92,7 @@
       pre = null; startApp();
     }).catch(function (err) {
       if (err.data && err.data.restart) return showLogin(err.message);
-      $("lgErr2").textContent = err.message; $("lgCode").select();
+      $("lgErr2").textContent = t(err.message); $("lgCode").select();
     }).finally(function () { btn.disabled = false; });
   });
   $("lgCode").addEventListener("input", function () {
@@ -541,16 +547,51 @@
       var I = frameI18N() || {};
       var langs = ["de"];
       Object.keys(I).concat(Object.keys(p.overrides)).forEach(function (l) { if (langs.indexOf(l) < 0) langs.push(l); });
-      wrap.append(h("p", { class: "hint", style: "margin:0 0 10px" }, "Többnyelvű szöveg (", h("code", { text: key }), "). Minden nyelvet itt tudsz átírni."));
-      langs.forEach(function (l) {
-        var cur = p.overrides[l] && p.overrides[l][key] != null ? p.overrides[l][key]
+      var valOf = function (l) {
+        return p.overrides[l] && p.overrides[l][key] != null ? p.overrides[l][key]
           : l === "de" ? ((I.de && I.de[key] != null) ? I.de[key] : el.innerHTML.trim())
           : (I[l] && I[l][key] != null ? I[l][key] : "");
-        var ta = h("textarea", { class: "inp", rows: Math.min(6, Math.max(2, Math.ceil(String(cur).length / 42))) });
-        ta.value = toEditable(cur);
-        ta.addEventListener("input", function () { setI18n(el, key, l, fromEditable(ta.value)); });
-        wrap.append(h("label", { class: "f" }, h("span", null, h("span", { class: "lang-tag", text: l.toUpperCase() }), l === "de" ? "Német (alap)" : ""), ta));
+      };
+      var others = langs.slice(1), tas = {};
+      S.unlocked = S.unlocked || {};
+      var locked = function (l) { return !S.unlocked[key + "|" + l]; };
+      var status = h("p", { class: "hint tr-status" });
+      var setStatus = function (st, msg) {
+        status.className = "hint tr-status " + st;
+        status.textContent = st === "busy" || st === "wait" ? t("Fordítás…") : st === "error" ? t("A fordítás nem sikerült: ") + msg
+          : others.some(locked) ? t("🔒 A többi nyelv automatikusan fordul a német szövegből.") : "";
+      };
+      var translate = E.autoTranslator(function (l, txt) {
+        if (!locked(l)) return;
+        setI18n(el, key, l, txt);
+        if (tas[l]) tas[l].value = toEditable(txt);
+      }, setStatus);
+      var rows = function (n) { return Math.min(6, Math.max(2, Math.ceil(String(n).length / 42))); };
+      wrap.append(h("p", { class: "hint", style: "margin:0 0 10px" }, "Többnyelvű szöveg (", h("code", { text: key }), ")."));
+      var deVal = valOf("de"), de = h("textarea", { class: "inp", rows: rows(deVal) });
+      de.value = toEditable(deVal);
+      de.addEventListener("input", function () { var v = fromEditable(de.value); setI18n(el, key, "de", v); translate(v, others.filter(locked)); });
+      wrap.append(h("label", { class: "f" }, h("span", null, h("span", { class: "lang-tag", text: "DE" }), "Német (alap)"), de));
+      if (others.length) wrap.append(status);
+      others.forEach(function (l) {
+        var cur = valOf(l), ta = h("textarea", { class: "inp", rows: rows(cur) });
+        ta.value = toEditable(cur); tas[l] = ta;
+        var btn = h("button", { class: "btn sm ghost", type: "button" });
+        var paint = function () {
+          var lk = locked(l);
+          ta.readOnly = lk; ta.classList.toggle("locked", lk);
+          btn.textContent = lk ? t("🔒 Feloldás") : t("Automatikus");
+        };
+        btn.onclick = function () {
+          var k = key + "|" + l;
+          if (S.unlocked[k]) { delete S.unlocked[k]; translate(fromEditable(de.value), [l], true); } else { S.unlocked[k] = true; ta.focus(); }
+          paint(); setStatus("idle");
+        };
+        ta.addEventListener("input", function () { if (!locked(l)) setI18n(el, key, l, fromEditable(ta.value)); });
+        paint();
+        wrap.append(h("div", { class: "f" }, h("div", { class: "tr-head" }, h("span", null, h("span", { class: "lang-tag", text: l.toUpperCase() })), btn), ta));
       });
+      setStatus("idle");
     } else if (isTexty(el)) {
       var hasTags = el.children.length > 0;
       var ta = h("textarea", { class: "inp", rows: 3 });
@@ -620,7 +661,7 @@
       changed(); renderInspector();
     }).catch(function (e) { toast(e.message, true); });
   }
-  var IMG_MSG = { type: "Csak JPG, PNG, WebP vagy GIF tölthető fel.", read: "A kép nem olvasható.", size: "A kép túl nagy (max. 3 MB)." };
+  var IMG_MSG = { type: t("Csak JPG, PNG, WebP vagy GIF tölthető fel."), read: t("A kép nem olvasható."), size: t("A kép túl nagy (max. 3 MB).") };
 
   // ------------------------------------------------------------ Einstellungen
   function validateSite(s) {
@@ -658,7 +699,7 @@
         s[key] = attrs && attrs.lower ? i.value.toLowerCase().trim() : i.value;
         changed(); var e2 = validateSite(s);
         i.classList.toggle("err", !!e2[key]);
-        var et = box.querySelector('[data-err="' + key + '"]'); if (et) et.textContent = e2[key] || "";
+        var et = box.querySelector('[data-err="' + key + '"]'); if (et) et.textContent = t(e2[key] || "");
         renderSide(); renderHead();
       });
       return i;
@@ -823,7 +864,7 @@
         ask(title, f.el, yes).then(function (y) {
           if (!y) return resolve(null);
           run().then(resolve).catch(function (e) {
-            f.err.textContent = e.message;
+            f.err.textContent = t(e.message);
             formDialog(title, f, yes, run).then(resolve);
           });
         });
@@ -889,8 +930,8 @@
     function color(key, label) {
       var i = h("input", { type: "color", value: s.brand[key] || "#888888", style: s.brand[key] ? "" : "opacity:.45" });
       var clr = h("button", { class: "btn sm ghost", type: "button", text: s.brand[key] ? "Automatikus" : "auto (a weboldalból)", disabled: !s.brand[key] });
-      i.addEventListener("input", function () { s.brand[key] = i.value; i.style.opacity = ""; clr.disabled = false; clr.textContent = "Automatikus"; changed(); });
-      clr.onclick = function () { delete s.brand[key]; i.style.opacity = ".45"; clr.disabled = true; clr.textContent = "auto (a weboldalból)"; changed(); };
+      i.addEventListener("input", function () { s.brand[key] = i.value; i.style.opacity = ""; clr.disabled = false; clr.textContent = t("Automatikus"); changed(); });
+      clr.onclick = function () { delete s.brand[key]; i.style.opacity = ".45"; clr.disabled = true; clr.textContent = t("auto (a weboldalból)"); changed(); };
       return h("label", { class: "f" }, h("span", null, label), h("span", { class: "row-l" }, i, clr));
     }
     var logo = h("input", { class: "inp", value: s.brand.logo || "", placeholder: "img/logo.png (üres = automatikus)" });
@@ -976,9 +1017,9 @@
     $("saveBar").classList.toggle("hidden", !dirty);
     if (!dirty) return;
     var n = describeChanges().length;
-    $("saveInfo").textContent = n + " nem közzétett változás";
+    $("saveInfo").textContent = n + t(" nem közzétett változás");
     $("btnPublish").disabled = !allValid();
-    $("btnPublish").title = allValid() ? "" : "Javítsd a hibás mezőket a Beállításokban";
+    $("btnPublish").title = allValid() ? "" : t("Javítsd a hibás mezőket a Beállításokban");
   }
 
   function configToSave() {
@@ -1006,7 +1047,7 @@
         pages.push(item);
       });
       var summary = ch.slice(0, 4).join("; ") + (ch.length > 4 ? " (+" + (ch.length - 4) + ")" : "");
-      $("btnPublish").disabled = true; $("btnPublish").textContent = "Mentés…";
+      $("btnPublish").disabled = true; $("btnPublish").textContent = t("Mentés…");
       api("save", { configSha: S.configSha, config: configToSave(), pages: pages, summary: summary }).then(function (j) {
         clearDraft();
         Object.keys(S.pages).forEach(function (id) {
@@ -1019,7 +1060,7 @@
         if (e.status === 409) {
           ask("Ütközés", e.message + " A piszkozatod el van mentve.", "Újratöltés").then(function (y2) { if (y2) location.reload(); });
         } else toast(e.message, true);
-      }).finally(function () { $("btnPublish").disabled = false; $("btnPublish").textContent = "Közzététel"; updateSaveBar(); });
+      }).finally(function () { $("btnPublish").disabled = false; $("btnPublish").textContent = t("Közzététel"); updateSaveBar(); });
     });
   };
 
@@ -1041,7 +1082,7 @@
     (function poll() {
       fetch("/data/sites.json?t=" + Date.now(), { cache: "no-store", credentials: "same-origin" }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }).then(function (j) {
         if (j && j.rev === rev) {
-          el.innerHTML = ""; el.append(h("span", { class: "pill ok", text: "Élesben ✓ " + new Date().toLocaleTimeString("hu-HU", { hour: "2-digit", minute: "2-digit" }) }));
+          el.innerHTML = ""; el.append(h("span", { class: "pill ok", text: "Élesben ✓ " + new Date().toLocaleTimeString(L.locale, { hour: "2-digit", minute: "2-digit" }) }));
           return;
         }
         if (Date.now() - t0 > 6 * 60 * 1000) { el.innerHTML = ""; el.append(h("span", { class: "pill warn", text: "A deploy még nem látszik – nézd meg a Vercelben" })); return; }
@@ -1061,5 +1102,9 @@
     if (S.config && anyDirty()) { saveDraft(); e.preventDefault(); e.returnValue = ""; }
   });
 
+  L.dom(document.body);
+  var topGrow = document.querySelector(".top .grow");
+  topGrow.after(L.switcher(function () { saveDraft(); }));
+  $("vLogin").querySelector(".card").prepend(L.switcher());
   boot();
 })();

@@ -235,3 +235,15 @@ dialog .row{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
 .cred{display:grid;grid-template-columns:auto 1fr;gap:8px 12px;align-items:center;padding:12px;border-radius:10px;background:var(--bg)}
 .cred span{font-size:12px;color:var(--ink-3);font-weight:700}
 .cred code{user-select:all;word-break:break-all}
+
+/* Sprachumschalter */
+.lang-seg button{min-width:36px}
+.card>.lang-seg{float:right;margin:-6px -6px 0 0}
+
+/* Übersetzungen */
+.tr-status{margin:-6px 0 12px}
+.tr-status.busy,.tr-status.wait{color:var(--accent)}
+.tr-status.error{color:var(--bad)}
+.tr-head{display:flex;align-items:center;justify-content:space-between;margin:0 0 4px}
+.inp.locked{opacity:.65;background:var(--bg);cursor:not-allowed}
+div.f{margin:0 0 14px}

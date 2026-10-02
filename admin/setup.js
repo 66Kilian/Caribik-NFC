@@ -2,6 +2,7 @@
   "use strict";
   var $ = function (id) { return document.getElementById(id); };
   var state = {};
+  var T = window.MKI18N ? window.MKI18N.t : function (x) { return x; };
 
   function b64(bytes) { var s = ""; new Uint8Array(bytes).forEach(function (b) { s += String.fromCharCode(b); }); return btoa(s); }
   function b64url(bytes) { return b64(bytes).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); }
@@ -33,8 +34,8 @@
 
   $("b1").onclick = async function () {
     var a = $("pw1").value, b = $("pw2").value;
-    if (a.length < 12) { $("e1").textContent = "Legalább 12 karakter kell."; return; }
-    if (a !== b) { $("e1").textContent = "A két jelszó nem egyezik."; return; }
+    if (a.length < 12) { $("e1").textContent = T("Legalább 12 karakter kell."); return; }
+    if (a !== b) { $("e1").textContent = T("A két jelszó nem egyezik."); return; }
     $("b1").disabled = true; $("e1").textContent = "";
     state.hash = await hashPw(a);
     $("pw1").value = $("pw2").value = "";
@@ -52,15 +53,15 @@
   $("b2").onclick = async function () {
     var code = $("code").value.replace(/\s/g, ""), step = Math.floor(Date.now() / 30000), ok = false;
     for (var d = -1; d <= 1; d++) if ((await totp(state.secret, step + d)) === code) ok = true;
-    if (!ok) { $("e2").textContent = "A kód nem egyezik. Ellenőrizd a telefon óráját, és próbáld újra."; return; }
+    if (!ok) { $("e2").textContent = T("A kód nem egyezik. Ellenőrizd a telefon óráját, és próbáld újra."); return; }
     var rows = [["ADMIN_PASSWORD_HASH", state.hash], ["ADMIN_TOTP_SECRET", state.secret], ["ADMIN_SESSION_SECRET", state.session]];
     $("env").innerHTML = "";
     rows.forEach(function (r) {
       var d = document.createElement("div"); d.className = "envrow";
       var b = document.createElement("b"); b.textContent = r[0];
       var c = document.createElement("code"); c.textContent = r[1];
-      var btn = document.createElement("button"); btn.className = "btn sm"; btn.textContent = "Másolás"; btn.style.justifySelf = "start";
-      btn.onclick = function () { navigator.clipboard.writeText(r[1]).then(function () { btn.textContent = "Másolva ✓"; }); };
+      var btn = document.createElement("button"); btn.className = "btn sm"; btn.textContent = T("Másolás"); btn.style.justifySelf = "start";
+      btn.onclick = function () { navigator.clipboard.writeText(r[1]).then(function () { btn.textContent = T("Másolva ✓"); }); };
       d.append(b, c, btn); $("env").appendChild(d);
     });
     $("s2").classList.add("hidden"); $("s3").classList.remove("hidden"); $("st3").classList.add("on");
