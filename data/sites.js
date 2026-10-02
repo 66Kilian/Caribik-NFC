@@ -1,7 +1,7 @@
 // Automatisch aus data/sites.json erzeugt (Admin) – nicht von Hand bearbeiten.
 export default {
-  "rev": "xtik2xzk",
-  "updatedAt": "2026-10-02T00:44:34.032Z",
+  "rev": "92ct5pdb",
+  "updatedAt": "2026-10-02T17:48:35.050Z",
   "groups": [
     "Hauptseite",
     "Kunden",
@@ -27,7 +27,7 @@ export default {
       "group": "Kunden",
       "folder": "Munkák/Caribik Sauna Club",
       "slug": "caribik",
-      "subdomain": "caribik",
+      "subdomain": "",
       "enabled": true,
       "aliases": [
         "caribiiik"
