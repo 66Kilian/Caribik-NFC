@@ -32,8 +32,8 @@ export function isSecure(req) {
   return !/^(localhost|127\.0\.0\.1)(:\d+)?$/.test(String(req.headers.host || ""));
 }
 
-export function setSessionCookie(req, res, value, maxAge) {
-  const parts = [`${COOKIE_NAME}=${encodeURIComponent(value)}`, "Path=/", "HttpOnly", "SameSite=Strict", `Max-Age=${maxAge}`];
+export function setSessionCookie(req, res, value, maxAge, name = COOKIE_NAME) {
+  const parts = [`${name}=${encodeURIComponent(value)}`, "Path=/", "HttpOnly", "SameSite=Strict", `Max-Age=${maxAge}`];
   if (isSecure(req)) parts.push("Secure");
   res.setHeader("Set-Cookie", parts.join("; "));
 }

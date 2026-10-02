@@ -72,6 +72,8 @@ export function validateConfig(next, prev, tree) {
       enabled: isMain ? true : Boolean(s.enabled),
       aliases,
       notes: String(s.notes || "").slice(0, 2000),
+      repo: cleanRepo(s.repo),
+      brand: cleanBrand(s.brand),
     });
   }
   if (!clean.some(s => s.folder === "")) throw "Die Startseite darf nicht entfernt werden";
@@ -80,6 +82,20 @@ export function validateConfig(next, prev, tree) {
 }
 
 export function validUpload(rel) { return IMG_RE.test(rel); }
+
+const REPO_RE = /^[\w.-]{1,39}\/[\w.-]{1,100}$/;
+function cleanRepo(r) {
+  r = String(r || "").trim().replace(/^https:\/\/github\.com\//, "").replace(/\.git$/, "").replace(/\/+$/, "");
+  return REPO_RE.test(r) ? r : "";
+}
+function cleanBrand(b) {
+  const out = {};
+  if (!b || typeof b !== "object") return out;
+  for (const k of ["accent", "accent2", "bg", "text"]) if (/^#[0-9a-f]{3,8}$/i.test(b[k] || "")) out[k] = b[k];
+  if (typeof b.logo === "string" && /^img\/[\w.-]{1,90}$/.test(b.logo)) out.logo = b.logo;
+  if (typeof b.wordmark === "string" && b.wordmark.trim()) out.wordmark = b.wordmark.trim().slice(0, 60);
+  return out;
+}
 
 // ------------------------------------------------ mk-i18n.js (Text-Overrides)
 const START = "/*MK-START*/", END = "/*MK-END*/";

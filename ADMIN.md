@@ -13,6 +13,25 @@ Az adminból kezelheted a munkáidat (`Munkák/` mappa) és a főoldalt:
   - Kép: csere feltöltéssel (automatikus kicsinyítéssel) és alt-szöveg.
 - **Verziók**: minden közzététel egy Git-commit, és bármelyik korábbi verzió visszaállítható.
 - **Piszkozat**: a közzé nem tett változások a böngészőben megmaradnak (újratöltés vagy lejárt munkamenet után is).
+- **Ügyfél-admin**: Beállítások → „+ Admin létrehozása” → meghívó link (7 napig érvényes, egyszer használható).
+  Az ügyfél a `meinekontaktkarte.com/<cím>/admin/` oldalon regisztrál (név, felhasználónév, jelszó), utána
+  bekapcsolhatja a kétlépcsős azonosítást (vagy később). Ugyanitt: jelszó-link, 2FA törlése, fiók törlése.
+- **Saját repó**: minden munkának lehet saját GitHub-repója (pl. `66Kilian/LoveKinoADMIN`). Minden mentés
+  (a tiéd és az ügyfélé is) oda is bekerül; a „Teljes szinkron most” gomb a teljes mappát átmásolja.
+- **Arculat**: az ügyfél-admin automatikusan a weboldal logóját, színeit és betűtípusát használja – felülírható.
+
+## Ügyfél-admin (`/<cím>/admin/`)
+
+- Német nyelvű, a weboldal saját logójával és színeivel.
+- Élő előnézet mobil és asztali nézetben; kattintás egy szövegre → szerkesztés (minden nyelven),
+  képre → csere, linkre → cím. A szekciók sorrendje (pl. a hero lejjebb/feljebb) és láthatósága állítható.
+- **„Änderungen speichern”** = azonnal egy commit a fő repóban (→ Vercel deploy, kb. 30–60 mp) és a saját repóban.
+  Az admin kijelzi, mikor „Live”.
+- Beállítások: 2FA be/ki, jelszócsere, **„Hängst du fest?” → WhatsApp: +36 20 627 0766**, kijelentkezés.
+- Az ügyfél csak a saját oldalát látja és mentheti. Szkriptet, `on…` eseményattribútumot, iframe-et és
+  `javascript:` linket nem tud beilleszteni (a szerver ellenőrzi), mert az oldala ugyanazon a domainen fut, mint az admin.
+- A fiókok a `data/accounts.enc.json` fájlban vannak, **AES-256-GCM-mel titkosítva** (a repó nyilvános!).
+  A fájl nem kerül ki a weboldalra, és a módosítása nem indít Vercel-buildet (`vercel.json` → `ignoreCommand`).
 
 ## Biztonság
 
@@ -28,7 +47,9 @@ Az adminból kezelheted a munkáidat (`Munkák/` mappa) és a főoldalt:
 | Napló | Minden változás egy commit a GitHubon (mikor, mi változott). |
 
 **Minden munkamenet kiléptetése** (pl. ha elveszett egy eszköz): Vercelben cseréld le az
-`ADMIN_SESSION_SECRET` értékét, majd indíts egy Redeploy-t.
+`ADMIN_SESSION_SECRET` értékét, majd indíts egy Redeploy-t. Ez az ügyfeleket is kilépteti.
+Ha az `MK_DATA_KEY` nincs beállítva, előtte állítsd be a **régi** `ADMIN_SESSION_SECRET` értékére, különben az
+ügyfélfiókok olvashatatlanná válnak.
 
 **Elveszett telefon (2FA):** futtasd le újra a `/admin/setup.html` oldalt, és cseréld le a Vercelben az
 `ADMIN_TOTP_SECRET` (és ha kell, az `ADMIN_PASSWORD_HASH`) értékét. Ha a titkos kulcsot a beállításkor
@@ -47,6 +68,8 @@ A setup oldal mindent a böngésződben generál, a szerverre semmit nem küld.
 ### 2. GitHub-token (a mentéshez)
 GitHub → Settings → Developer settings → **Fine-grained personal access tokens** → Generate new token
 - Repository access: **Only select repositories** → `meinekontaktkarte`
+- Az ügyfél-repókat is add hozzá: `LoveKinoADMIN`, `CaribikADMIN`, `MaximADMIN`, `Venus-PornrudiADMIN`
+  (meglévő tokennél: Edit → Repository access)
 - Permissions → Repository permissions → **Contents: Read and write**
 - Lejárat: pl. 1 év (írd be a naptáradba, mikor kell megújítani)
 
@@ -61,6 +84,7 @@ Vercel → projekt → **Settings → Environment Variables** (Environment: Prod
 | `GITHUB_TOKEN` | a GitHub-token |
 | `GITHUB_REPO` | `66Kilian/meinekontaktkarte` (alapértelmezett, elhagyható) |
 | `GITHUB_BRANCH` | az a branch, amiből az éles oldal települ (alapértelmezett: `main`) |
+| `MK_DATA_KEY` | véletlen kulcs az ügyfélfiókok titkosításához (min. 32 karakter, pl. `openssl rand -base64 48`). **Soha ne cseréld le** – különben az ügyfélfiókok elvesznek. Ha nincs megadva, az `ADMIN_SESSION_SECRET` szolgál kulcsként. |
 
 Utána: **Deployments → Redeploy**.
 

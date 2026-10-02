@@ -1,6 +1,7 @@
 // Speichert alle Änderungen als EIN Commit → Vercel deployt automatisch.
 import { send, guard, body } from "./_lib/http.js";
 import { getStorage, ConflictError } from "./_lib/storage.js";
+import { mirrorFiles } from "./_lib/mirror.js";
 import { CONFIG_PATH, configFiles, htmlPath, overridesPath, validateConfig, validUpload, renderOverrides, cleanOverrides } from "./_lib/sites.js";
 
 const MAX_HTML = 3 << 20;
@@ -46,7 +47,12 @@ export default async function handler(req, res) {
 
     const summary = String(b.summary || "Änderungen").replace(/\s+/g, " ").slice(0, 200);
     const r = await st.commit({ files, message: `admin: ${summary}`, expect });
-    send(res, 200, { ok: true, commit: r.commit, rev: config.rev });
+    const mirror = [];
+    for (const site of config.sites) {
+      const m = await mirrorFiles(site, files, `admin: ${summary}`);
+      if (m && m.ok === false) mirror.push(m.error);
+    }
+    send(res, 200, { ok: true, commit: r.commit, rev: config.rev, mirrorErrors: mirror });
   } catch (e) {
     if (e instanceof ConflictError) return send(res, 409, { error: "Inzwischen wurde etwas anderes gespeichert. Bitte neu laden – deine Änderungen bleiben als Entwurf erhalten." });
     send(res, 500, { error: String(e.message || e) });

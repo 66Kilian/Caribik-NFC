@@ -8,7 +8,7 @@
   var ROOT_DOMAIN = "meinekontaktkarte.com";
   var RESERVED = ["admin", "api", "data", "lib", "img", "scripts", "munkak", "munkák", "favicon.ico", "favicon.svg", "robots.txt", "sitemap.xml", "i18n.js", "index.html", "www", "mail", "static", "assets", "_vercel", "404"];
   var NAME_RE = /^[a-z0-9](?:[a-z0-9-]{0,38}[a-z0-9])?$/;
-  var INLINE = { B: 1, I: 1, EM: 1, STRONG: 1, BR: 1, SPAN: 1, SMALL: 1, A: 1, U: 1, SUP: 1, SUB: 1, MARK: 1, S: 1 };
+  var E = window.MKEdit; // gemeinsamer Editor-Kern (mk-edit.js)
   var DRAFT_KEY = "mk-admin-draft";
   var IDLE_MS = 30 * 60 * 1000;
 
@@ -19,23 +19,7 @@
   };
 
   // ------------------------------------------------------------ Hilfen
-  function h(tag, attrs) {
-    var el = document.createElement(tag);
-    if (attrs) for (var k in attrs) {
-      var v = attrs[k];
-      if (v == null || v === false) continue;
-      if (k === "text") el.textContent = v;
-      else if (k === "class") el.className = v;
-      else if (k.slice(0, 2) === "on") el.addEventListener(k.slice(2), v);
-      else el.setAttribute(k, v === true ? "" : v);
-    }
-    for (var i = 2; i < arguments.length; i++) {
-      var c = arguments[i];
-      if (c == null || c === false) continue;
-      if (Array.isArray(c)) c.forEach(function (x) { if (x) el.append(x); }); else el.append(c);
-    }
-    return el;
-  }
+  var h = E.h;
   function show(id) { ["vBoot", "vSetup", "vLogin", "vApp"].forEach(function (v) { $(v).classList.toggle("hidden", v !== id); }); }
   function toast(msg, bad) {
     var t = h("div", { class: "toast" + (bad ? " bad" : ""), text: msg, role: "status" });
@@ -45,9 +29,7 @@
   function encPath(p) { return p.split("/").map(encodeURIComponent).join("/"); }
   function clone(o) { return JSON.parse(JSON.stringify(o)); }
   function fmtDate(iso) { try { return new Date(iso).toLocaleString("hu-HU", { dateStyle: "medium", timeStyle: "short" }); } catch (e) { return iso; } }
-  // Im Editor „&“ statt „&amp;“ zeigen; beim Speichern wieder korrekt kodieren.
-  function toEditable(html) { return String(html).replace(/&nbsp;/g, "\u00a0").replace(/&amp;/g, "&"); }
-  function fromEditable(v) { return String(v).replace(/&(?![a-zA-Z][a-zA-Z0-9]{1,31};|#\d{1,7};|#x[0-9a-fA-F]{1,6};)/g, "&amp;").replace(/\u00a0/g, "&nbsp;"); }
+  var toEditable = E.toEditable, fromEditable = E.fromEditable;
   function slugify(s) {
     return String(s).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40) || "oldal";
   }
@@ -258,12 +240,7 @@
     var site = siteById(id);
     var q = site && baseSite(id) ? "id=" + encodeURIComponent(id) : "folder=" + encodeURIComponent(site.folder);
     api("source?" + q).then(function (j) {
-      var p = S.pages[id] = { id: id, htmlSha: j.htmlSha, overridesSha: j.overridesSha, uploads: [] };
-      p.doctype = (j.html.match(/^\s*<!doctype[^>]*>/i) || ["<!doctype html>"])[0].trim();
-      p.doc = new DOMParser().parseFromString(j.html, "text/html");
-      p.base = serialize(p);
-      p.overrides = j.overrides || {};
-      p.overridesBase = JSON.stringify(p.overrides);
+      var p = S.pages[id] = E.loadPage(id, j);
       var dp = S.draftPages && S.draftPages[id];
       if (dp) {
         p.doc = new DOMParser().parseFromString(dp.html, "text/html");
@@ -304,94 +281,28 @@
   }
 
   // ------------------------------------------------------------ HTML-Modell
-  function serialize(p) { return p.doctype + "\n" + p.doc.documentElement.outerHTML + "\n"; }
-  function pageDirty(p) { return !!p.doc && (serialize(p) !== p.base || JSON.stringify(p.overrides) !== p.overridesBase || p.uploads.length > 0); }
+  var serialize = E.serialize, pageDirty = E.pageDirty;
   function curPage() { return S.pages[S.cur]; }
 
-  var SKIP = { SCRIPT: 1, STYLE: 1, TEMPLATE: 1, NOSCRIPT: 1, LINK: 1, META: 1, svg: 1, SVG: 1 };
-  function blockList(doc) {
-    var out = [];
-    Array.prototype.forEach.call(doc.body.children, function (el) {
-      if (SKIP[el.tagName]) return;
-      if (el.tagName === "MAIN") {
-        Array.prototype.forEach.call(el.children, function (c) { if (!SKIP[c.tagName]) out.push({ el: c, movable: true }); });
-      } else out.push({ el: el, movable: false });
-    });
-    return out;
-  }
-  function blockName(el) {
-    var cl = el.classList, id = el.id;
-    if (el.tagName === "HEADER") return ["Navigáció / fejléc", "header"];
-    if (el.tagName === "FOOTER") return ["Lábléc", "footer"];
-    if (cl.contains("mobile-bar")) return ["Mobil alsó gombsor", ".mobile-bar"];
-    if (cl.contains("ld")) return ["Betöltő animáció", ".ld"];
-    if (cl.contains("progress")) return ["Görgetési csík", ".progress"];
-    if (cl.contains("lb") || el.getAttribute("role") === "dialog") return ["Képnagyító (lightbox)", "#" + (id || "lb")];
-    if (cl.contains("hero")) return ["Hero (nyitó rész)", ".hero"];
-    var t = el.querySelector("h1,h2,h3");
-    var txt = t ? t.textContent.replace(/\s+/g, " ").trim() : "";
-    if (txt.length > 48) txt = txt.slice(0, 46) + "…";
-    return [txt || (id ? "#" + id : el.tagName.toLowerCase()), id ? "#" + id : el.tagName.toLowerCase() + (el.className ? "." + String(el.className).split(" ")[0] : "")];
-  }
+  var blockList = E.blockList;
+  var BLOCK_LABELS = { header: "Navigáció / fejléc", footer: "Lábléc", mobileBar: "Mobil alsó gombsor", loader: "Betöltő animáció", progress: "Görgetési csík", lightbox: "Képnagyító (lightbox)", hero: "Hero (nyitó rész)" };
+  function blockName(el) { return E.blockName(el, BLOCK_LABELS); }
 
-  function updateMkStyle(doc) {
-    var ids = [];
-    Array.prototype.forEach.call(doc.querySelectorAll("[data-mk-off][id]"), function (el) { if (/^[\w-]+$/.test(el.id)) ids.push(el.id); });
-    var any = doc.querySelector("[data-mk-off]");
-    var css = any ? "[data-mk-off]{display:none!important}" + (ids.length ? ids.map(function (i) { return "header a[href=\"#" + i + "\"],footer a[href=\"#" + i + "\"],nav a[href=\"#" + i + "\"]"; }).join(",") + "{display:none!important}" : "") : "";
-    var st = doc.getElementById("mk-admin-style");
-    if (!css) { if (st) st.remove(); return ""; }
-    if (!st) { st = doc.createElement("style"); st.id = "mk-admin-style"; doc.head.appendChild(st); }
-    st.textContent = css;
-    return css;
-  }
+  var updateMkStyle = E.updateMkStyle;
 
   // ------------------------------------------------------------ Vorschau
   var frame = $("frame");
-  function overridesJs(o) {
-    return "(function(o){var I=window.I18N=window.I18N||{};for(var l in o){I[l]=Object.assign(I[l]||{},o[l]);}})(" + JSON.stringify(o).replace(/</g, "\\u003c") + ");";
-  }
-  function ensureOverridesTag(doc) {
-    if (doc.querySelector('script[src="mk-i18n.js"]')) return;
-    var i18n = Array.prototype.find.call(doc.querySelectorAll("script[src]"), function (s) { return /(^|\/)i18n\.js$/.test(s.getAttribute("src")); });
-    if (!i18n) return;
-    var s = doc.createElement("script");
-    s.setAttribute("src", "mk-i18n.js");
-    if (i18n.hasAttribute("defer")) s.setAttribute("defer", "");
-    i18n.after(s);
-    i18n.after(doc.createTextNode("\n"));
-  }
+  var ensureOverridesTag = E.ensureOverridesTag;
 
   function renderPreview(keepScroll) {
     var p = curPage(), site = siteById(S.cur);
     if (!p || !p.doc) return;
     var y = 0;
     try { if (keepScroll !== false) y = frame.contentWindow.scrollY || 0; } catch (e) {}
-    var c = p.doc.cloneNode(true);
-    var a = p.doc.getElementsByTagName("*"), b = c.getElementsByTagName("*");
-    p.idx = new Map(); p.els = [];
-    for (var i = 0; i < a.length; i++) { b[i].setAttribute("data-mk", i); p.idx.set(a[i], i); p.els[i] = a[i]; }
     var baseHref = site.folder ? "/" + encPath(site.folder) + "/" : "/";
-    var base = c.createElement("base");
-    base.setAttribute("href", baseHref);
-    c.head.insertBefore(base, c.head.firstChild);
-    var ov = c.querySelector('script[src="mk-i18n.js"]');
-    if (ov) ov.setAttribute("src", "data:text/javascript;charset=utf-8," + encodeURIComponent(overridesJs(p.overrides)));
-    // Relative Pfade direkt absolut machen (der Preload-Scanner ignoriert <base> in srcdoc)
-    var abs = function (u) { return /^([a-z][a-z0-9+.-]*:|\/|#|data:)/i.test(u) ? u : baseHref + u; };
-    Array.prototype.forEach.call(c.querySelectorAll("[src],link[href],[srcset],[imagesrcset]"), function (x) {
-      if (x.hasAttribute("src")) x.setAttribute("src", abs(x.getAttribute("src")));
-      if (x.tagName === "LINK") x.setAttribute("href", abs(x.getAttribute("href")));
-      ["srcset", "imagesrcset"].forEach(function (at) {
-        if (x.hasAttribute(at)) x.setAttribute(at, x.getAttribute(at).split(",").map(function (part) { var t = part.trim(); return t ? abs(t) : t; }).join(", "));
-      });
-    });
-    // Neue Bilder sind erst nach dem Deploy online – bis dahin aus dem Speicher zeigen.
-    var pend = S.pendingImgs[S.cur] || {};
-    p.uploads.forEach(function (u) { pend[u.path] = u.dataUrl; });
-    Array.prototype.forEach.call(c.querySelectorAll("img[src]"), function (img) { var u = pend[img.getAttribute("src").replace(baseHref, "")]; if (u) img.setAttribute("src", u); });
+    var html = E.previewHtml(p, baseHref, S.pendingImgs[S.cur]);
     frame.onload = function () { wireFrame(y); };
-    frame.srcdoc = "<!doctype html>\n" + c.documentElement.outerHTML;
+    frame.srcdoc = html;
     $("unpubFlag").classList.toggle("hidden", !pageDirty(p));
   }
 
@@ -430,21 +341,7 @@
     d.addEventListener("submit", function (e) { e.preventDefault(); }, true);
     markSel();
   }
-  // Liegt über einem Bild/Text eine Deko-Ebene, wird trotzdem das Bild bzw. der Text gewählt.
-  function pickTarget(d, e) {
-    var top = e.target.closest && e.target.closest("[data-mk]");
-    if (!top) return null;
-    var p = curPage(), topEl = p.els[Number(top.getAttribute("data-mk"))];
-    if (topEl && (topEl.tagName === "IMG" || topEl.tagName === "A" || topEl.getAttribute("data-i18n") || topEl.getAttribute("data-i18n-html") || isTexty(topEl))) return top;
-    var stack = d.elementsFromPoint(e.clientX, e.clientY);
-    for (var i = 0; i < stack.length; i++) {
-      var x = stack[i];
-      if (!x.hasAttribute || !x.hasAttribute("data-mk")) continue;
-      var src = p.els[Number(x.getAttribute("data-mk"))];
-      if (src && (src.tagName === "IMG" || isTexty(src))) return x;
-    }
-    return top;
-  }
+  function pickTarget(d, e) { return E.pickTarget(d, e, curPage()); }
   function markSel() {
     var d = fdoc(); if (!d) return;
     Array.prototype.forEach.call(d.querySelectorAll(".mk-sel"), function (x) { x.classList.remove("mk-sel"); });
@@ -499,18 +396,9 @@
     renderBlocks(); renderInspector();
   }
 
-  // Kommentar direkt vor einer Sektion (z. B. <!-- ===== FAQ ===== -->) gehört zu ihr.
-  function leadComment(el) {
-    var n = el.previousSibling;
-    while (n && n.nodeType === 3 && !n.nodeValue.trim()) n = n.previousSibling;
-    return n && n.nodeType === 8 ? n : null;
-  }
   function moveBlock(el, before) {
     if (before === el) return;
-    var parent = el.parentNode, com = leadComment(el), anchor = before ? (leadComment(before) || before) : null;
-    if (com) { parent.insertBefore(com, anchor); parent.insertBefore(el.ownerDocument.createTextNode("\n  "), anchor); }
-    parent.insertBefore(el, anchor);
-    parent.insertBefore(el.ownerDocument.createTextNode("\n\n  "), anchor);
+    E.moveNode(el, before);
     var l = live(el), lb = before ? live(before) : null;
     if (l && (lb || !before)) { l.parentNode.insertBefore(l, lb); changed(); }
     else changed({ preview: true });
@@ -569,11 +457,7 @@
   function clearDrop() { Array.prototype.forEach.call(document.querySelectorAll(".drop-before,.drop-after"), function (x) { x.classList.remove("drop-before", "drop-after"); }); }
 
   // ------------------------------------------------------------ Inspektor
-  function isTexty(el) {
-    if (/^(SCRIPT|STYLE|IMG|svg|SVG|INPUT|SELECT|TEXTAREA|IFRAME|VIDEO)$/.test(el.tagName)) return false;
-    if (!el.textContent.trim()) return false;
-    return Array.prototype.every.call(el.querySelectorAll("*"), function (c) { return INLINE[c.tagName]; });
-  }
+  var isTexty = E.isTexty;
   function frameI18N() { try { return frame.contentWindow.I18N || null; } catch (e) { return null; } }
   function frameLang() { var d = fdoc(); return d ? (d.documentElement.lang || "de").slice(0, 2) : "de"; }
 
@@ -669,8 +553,8 @@
 
   function replaceImage(el, file) {
     var p = curPage();
-    readImage(file).then(function (r) {
-      var name = "img/up-" + Date.now().toString(36) + "-" + slugify(file.name.replace(/\.[^.]+$/, "")).slice(0, 30) + "." + r.ext;
+    E.readImage(file, IMG_MSG).then(function (r) {
+      var name = E.uploadName(file, r.ext);
       p.uploads.push({ path: name, data: r.dataUrl.split(",")[1], dataUrl: r.dataUrl });
       el.setAttribute("src", name); el.removeAttribute("srcset"); el.removeAttribute("sizes");
       var l = live(el);
@@ -678,32 +562,7 @@
       changed(); renderInspector();
     }).catch(function (e) { toast(e.message, true); });
   }
-  function readImage(file) {
-    return new Promise(function (resolve, reject) {
-      if (!/^image\/(jpeg|png|webp|gif)$/.test(file.type)) return reject(new Error("Csak JPG, PNG, WebP vagy GIF tölthető fel."));
-      var fr = new FileReader();
-      fr.onerror = function () { reject(new Error("A fájl nem olvasható.")); };
-      fr.onload = function () {
-        var url = fr.result;
-        var img = new Image();
-        img.onload = function () {
-          var max = 2000, w = img.naturalWidth, hh = img.naturalHeight;
-          if (file.type === "image/gif" || (w <= max && hh <= max && file.size < 1.5e6)) {
-            if (file.size > 3e6) return reject(new Error("A kép túl nagy (max. 3 MB)."));
-            return resolve({ dataUrl: url, ext: { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "image/gif": "gif" }[file.type] });
-          }
-          var sc = Math.min(1, max / Math.max(w, hh)), cv = document.createElement("canvas");
-          cv.width = Math.round(w * sc); cv.height = Math.round(hh * sc);
-          cv.getContext("2d").drawImage(img, 0, 0, cv.width, cv.height);
-          var png = file.type === "image/png" && w * hh < 1.5e6;
-          resolve({ dataUrl: cv.toDataURL(png ? "image/png" : "image/jpeg", 0.85), ext: png ? "png" : "jpg" });
-        };
-        img.onerror = function () { reject(new Error("A kép nem olvasható.")); };
-        img.src = url;
-      };
-      fr.readAsDataURL(file);
-    });
-  }
+  var IMG_MSG = { type: "Csak JPG, PNG, WebP vagy GIF tölthető fel.", read: "A kép nem olvasható.", size: "A kép túl nagy (max. 3 MB)." };
 
   // ------------------------------------------------------------ Einstellungen
   function validateSite(s) {
@@ -778,6 +637,20 @@
         })));
       }
       box.append(h("p", { class: "hint", style: "margin-top:14px" }, "Mappa a repóban: ", h("code", { text: s.folder })));
+
+      // Saját GitHub-repó (tükör)
+      box.append(h("div", { class: "sec-title", text: "Saját GitHub-repó" }));
+      var ri = h("input", { class: "inp", value: s.repo || "", placeholder: "66Kilian/LoveKinoADMIN", spellcheck: "false", autocapitalize: "off" });
+      ri.addEventListener("input", function () { s.repo = ri.value.trim().replace(/^https:\/\/github\.com\//, "").replace(/\.git$/, ""); changed(); });
+      box.append(field("Repó (tulajdonos/név)", ri, "Minden mentés ide is bekerül (a weboldal mappájának tartalma). A GitHub-tokennek ehhez a repóhoz is kell írási jog."));
+      if (b && b.repo) box.append(h("button", { class: "btn sm", text: "Teljes szinkron most", onclick: function (e) {
+        var btn = e.target; btn.disabled = true;
+        api("clients", { action: "sync", site: s.id }).then(function () { toast("Szinkronizálva → " + b.repo + " ✓"); })
+          .catch(function (err) { toast(err.message, true); }).finally(function () { btn.disabled = false; });
+      } }));
+
+      renderClientAdmins(box, s, b);
+      renderBrand(box, s);
     }
 
     var notes = h("textarea", { class: "inp", rows: 4 }); notes.value = s.notes || "";
@@ -790,6 +663,77 @@
         delete S.pages[s.id]; changed(); openSite(S.config.sites[0].id);
       } }));
     }
+  }
+
+  // ------------------------------------------------------------ Kunden-Admins
+  function clientAdminUrl(s) { return "https://" + ROOT_DOMAIN + "/" + s.slug + "/admin/"; }
+
+  function renderClientAdmins(box, s, b) {
+    box.append(h("div", { class: "sec-title", text: "Ügyfél-admin" }));
+    if (!b) { box.append(h("p", { class: "hint", text: "Közzététel után hozhatsz létre ügyfél-admint." })); return; }
+    box.append(h("p", { class: "hint", style: "margin:-4px 0 10px" }, "Az ügyfél a saját, ",
+      h("a", { href: clientAdminUrl(b), target: "_blank", rel: "noopener", text: ROOT_DOMAIN + "/" + b.slug + "/admin/" }),
+      " oldalán szerkesztheti a weboldalát (szövegek, képek, sorrend). Mentéskor azonnal élesedik."));
+    var wrap = h("div", { class: "clients" }, h("div", { class: "spin" }));
+    box.append(wrap);
+    var draw = function (v) {
+      wrap.innerHTML = "";
+      var list = h("ul", { class: "hist" });
+      v.accounts.forEach(function (a) {
+        list.append(h("li", null,
+          h("span", { class: "t" }, h("b", { text: a.name }), h("small", { text: "@" + a.username + " · " + (a.totp ? "2FA bekapcsolva" : "2FA nincs") + " · " + fmtDate(a.createdAt) })),
+          h("span", { class: "acts-row" },
+            h("button", { class: "btn sm", text: "Jelszó-link", title: "Új jelszó beállítására szolgáló link", onclick: function () { act({ action: "reset", account: a.id }, "Jelszó-visszaállító link"); } }),
+            a.totp ? h("button", { class: "btn sm", text: "2FA törlése", onclick: function () {
+              ask("2FA törlése?", a.name + " legközelebb csak jelszóval lép be, és újra bekapcsolhatja a kétlépcsős azonosítást.", "Törlés", true).then(function (y) { if (y) act({ action: "reset2fa", account: a.id }); });
+            } }) : null,
+            h("button", { class: "btn sm danger", text: "Törlés", onclick: function () {
+              ask("Ügyfél-admin törlése?", a.name + " (@" + a.username + ") nem tud többé belépni.", "Törlés", true).then(function (y) { if (y) act({ action: "delete", account: a.id }); });
+            } }))));
+      });
+      v.invites.forEach(function (i) {
+        list.append(h("li", { class: "muted" },
+          h("span", { class: "t" }, h("b", { text: i.kind === "reset" ? "Jelszó-link (nem használt)" : "Meghívó (még nem regisztrált)" }), h("small", { text: "lejár: " + fmtDate(new Date(i.exp).toISOString()) })),
+          h("button", { class: "btn sm", text: "Visszavonás", onclick: function () { act({ action: "revoke", invite: i.id }); } })));
+      });
+      if (!v.accounts.length && !v.invites.length) list.append(h("li", { class: "muted", text: "Még nincs ügyfél-admin." }));
+      wrap.append(list, h("button", { class: "btn primary sm", style: "margin-top:10px", text: "+ Admin létrehozása (meghívó link)", onclick: function () { act({ action: "invite" }, "Meghívó link"); } }));
+    };
+    function act(data, linkTitle) {
+      data.site = s.id;
+      return api("clients", data).then(function (v) { draw(v); if (v.link) showLink(linkTitle, v.link, s); })
+        .catch(function (e) { toast(e.message, true); });
+    }
+    api("clients?site=" + encodeURIComponent(s.id)).then(draw).catch(function (e) { wrap.innerHTML = ""; wrap.append(h("p", { class: "err-text", text: e.message })); });
+  }
+
+  function showLink(title, link, s) {
+    var inp = h("input", { class: "inp", value: link, readonly: true });
+    var msg = "Hallo! Hier ist der Zugang zu deinem Website-Admin für " + s.name + ": " + link + " (Link gilt 7 Tage)";
+    ask(title, h("div", null,
+      h("p", { class: "muted", text: "Küldd el ezt a linket az ügyfélnek. 7 napig érvényes, egyszer használható." }), inp,
+      h("div", { class: "row", style: "justify-content:flex-start;margin-top:10px" },
+        h("button", { class: "btn sm", type: "button", text: "Másolás", onclick: function () { inp.select(); navigator.clipboard.writeText(link).then(function () { toast("Kimásolva ✓"); }); } }),
+        h("a", { class: "btn sm", href: "https://wa.me/?text=" + encodeURIComponent(msg), target: "_blank", rel: "noopener", text: "Küldés WhatsAppon" }))), null);
+  }
+
+  function renderBrand(box, s) {
+    box.append(h("div", { class: "sec-title", text: "Ügyfél-admin arculata" }));
+    box.append(h("p", { class: "hint", style: "margin:-4px 0 10px", text: "Az ügyfél-admin automatikusan a weboldal logóját és színeit használja. Itt felülírhatod." }));
+    s.brand = s.brand || {};
+    function color(key, label) {
+      var i = h("input", { type: "color", value: s.brand[key] || "#888888", style: s.brand[key] ? "" : "opacity:.45" });
+      var clr = h("button", { class: "btn sm ghost", type: "button", text: s.brand[key] ? "Automatikus" : "auto (a weboldalból)", disabled: !s.brand[key] });
+      i.addEventListener("input", function () { s.brand[key] = i.value; i.style.opacity = ""; clr.disabled = false; clr.textContent = "Automatikus"; changed(); });
+      clr.onclick = function () { delete s.brand[key]; i.style.opacity = ".45"; clr.disabled = true; clr.textContent = "auto (a weboldalból)"; changed(); };
+      return h("label", { class: "f" }, h("span", null, label), h("span", { class: "row", style: "justify-content:flex-start;gap:8px" }, i, clr));
+    }
+    var logo = h("input", { class: "inp", value: s.brand.logo || "", placeholder: "img/logo.png (üres = automatikus)" });
+    logo.addEventListener("input", function () { if (logo.value.trim()) s.brand.logo = logo.value.trim(); else delete s.brand.logo; changed(); });
+    var wm = h("input", { class: "inp", value: s.brand.wordmark || "", placeholder: "pl. LOVEKINO (ha nincs logó)" });
+    wm.addEventListener("input", function () { if (wm.value.trim()) s.brand.wordmark = wm.value.trim(); else delete s.brand.wordmark; changed(); });
+    box.append(h("div", { class: "brand-grid" }, color("accent", "Fő szín"), color("bg", "Háttér")),
+      field("Logó (kép a weboldal mappájában)", logo), field("Felirat logó helyett", wm));
   }
 
   // ------------------------------------------------------------ Verlauf
@@ -846,6 +790,8 @@
       if (b.group !== s.group) out.push(s.name + ": csoport → " + s.group);
       if (b.notes !== s.notes) out.push(s.name + ": jegyzet");
       if (JSON.stringify(b.aliases) !== JSON.stringify(s.aliases)) out.push(s.name + ": régi címek");
+      if ((b.repo || "") !== (s.repo || "")) out.push(s.name + ": GitHub-repó → " + (s.repo || "nincs"));
+      if (JSON.stringify(b.brand || {}) !== JSON.stringify(s.brand || {})) out.push(s.name + ": ügyfél-admin arculat");
     });
     base.sites.forEach(function (b) { if (!S.config.sites.some(function (s) { return s.id === b.id; })) out.push("Eltávolítva: " + b.name); });
     Object.keys(S.pages).forEach(function (id) {

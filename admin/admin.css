@@ -180,3 +180,8 @@ dialog .row{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
   .ed-head h2{flex-wrap:wrap}
   .prev-stage{padding:12px}
 }
+
+/* Ügyfél-admin kezelés */
+.acts-row{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.brand-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.brand-grid input[type=color]{width:44px;height:34px;padding:0;border:1px solid var(--line,#333);border-radius:8px;background:none;cursor:pointer}

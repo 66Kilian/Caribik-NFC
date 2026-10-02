@@ -22,6 +22,11 @@ function checkExpect(tree, expect) {
   }
 }
 
+/** Zugriff auf ein beliebiges Repo (z. B. das eigene Repo eines Kunden). */
+export function repoStorage(repo, branch = "main") {
+  return githubStorage({ token: process.env.GITHUB_TOKEN, repo, branch });
+}
+
 // ---------------------------------------------------------------- GitHub
 function githubStorage({ token, repo, branch }) {
   const base = `https://api.github.com/repos/${repo}`;
@@ -58,8 +63,16 @@ function githubStorage({ token, repo, branch }) {
     m.treeSha = c.tree.sha;
     return m;
   }
+  // Ein frisch angelegtes, leeres Repo kennt die Git-API noch nicht → erste Datei über /contents.
+  async function init(file) {
+    await gh(`/contents/${enc(file.path)}`, { method: "PUT", body: JSON.stringify({ message: "Erste Version", content: file.content.toString("base64"), branch }) });
+  }
   return {
     kind: "github",
+    init,
+    async isEmpty() {
+      try { await head(); return false; } catch (e) { if (e.status === 404 || e.status === 409) return true; throw e; }
+    },
     async snapshot() { const h = await head(); return { head: h, tree: await treeAt(h) }; },
     async readBlob(sha) { return gh(`/git/blobs/${sha}`, { raw: true }); },
     async readAt(path, ref) {

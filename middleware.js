@@ -3,7 +3,7 @@
 // mitgebündelt; jede Änderung im Admin ist ein Commit → neuer Deploy.
 import sitesConfig from "./data/sites.js";
 import { decide, OFFLINE_HTML, ROOT_DOMAIN_DEFAULT } from "./lib/route.js";
-import { isAdminRequest } from "./lib/session.js";
+import { isAdminRequest, clientSiteFromCookie } from "./lib/session.js";
 
 export const config = {
   matcher: "/:path*",
@@ -21,13 +21,16 @@ export default async function middleware(request) {
   try {
     const url = new URL(request.url);
     let isAdmin = false;
+    let clientSite = null;
     try { isAdmin = await isAdminRequest(request.headers.get("cookie"), envVar("ADMIN_SESSION_SECRET")); } catch {}
+    try { if (!isAdmin) clientSite = await clientSiteFromCookie(request.headers.get("cookie"), envVar("ADMIN_SESSION_SECRET")); } catch {}
     const d = decide({
       pathname: url.pathname,
       search: url.search,
       host: request.headers.get("host") || url.host,
       config: sitesConfig,
       isAdmin,
+      clientSite,
       rootDomain: envVar("ROOT_DOMAIN") || ROOT_DOMAIN_DEFAULT,
     });
 

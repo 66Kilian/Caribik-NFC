@@ -17,7 +17,9 @@ export default {
       "subdomain": "",
       "enabled": true,
       "aliases": [],
-      "notes": "Startseite – immer online."
+      "notes": "Startseite – immer online.",
+      "repo": "",
+      "brand": {}
     },
     {
       "id": "caribik",
@@ -30,7 +32,9 @@ export default {
       "aliases": [
         "caribiiik"
       ],
-      "notes": ""
+      "notes": "",
+      "repo": "66Kilian/CaribikADMIN",
+      "brand": {}
     },
     {
       "id": "venus",
@@ -41,7 +45,11 @@ export default {
       "subdomain": "",
       "enabled": true,
       "aliases": [],
-      "notes": ""
+      "notes": "",
+      "repo": "66Kilian/Venus-PornrudiADMIN",
+      "brand": {
+        "wordmark": "erotik-homepage .com"
+      }
     },
     {
       "id": "maxim",
@@ -52,7 +60,9 @@ export default {
       "subdomain": "",
       "enabled": true,
       "aliases": [],
-      "notes": "Tartalom nyilvános forrásokból (Wikipedia, Yelp, TripAdvisor, 6Austria, Maxim Gentlemen Group, Grokipedia, Trustpilot). Ellenőrizni: telefon (+43 699 17172031), escort-árak (1 óra 250 €, 4 óra 750 € taxival), szoba-árak = auf Anfrage. Képek + Damen-profilok = helyőrzők, a megrendelőtől kérni."
+      "notes": "Tartalom nyilvános forrásokból (Wikipedia, Yelp, TripAdvisor, 6Austria, Maxim Gentlemen Group, Grokipedia, Trustpilot). Ellenőrizni: telefon (+43 699 17172031), escort-árak (1 óra 250 €, 4 óra 750 € taxival), szoba-árak = auf Anfrage. Képek + Damen-profilok = helyőrzők, a megrendelőtől kérni.",
+      "repo": "66Kilian/MaximADMIN",
+      "brand": {}
     },
     {
       "id": "lovekino",
@@ -63,7 +73,11 @@ export default {
       "subdomain": "",
       "enabled": true,
       "aliases": [],
-      "notes": "Tartalom nyilvános forrásokból (herold.at, stadtbekannt.at, Yelp, cylex, gomassage.at, szene1.at). Ellenőrizni: telefon (+43 1 8171648), nyitvatartás (H–Szo 12–22, V 16–21), árak a hivatalos árlista szerint (2024. 11. 1-től: férfi 20 €, pár 15 €, hölgy 10 €, Kuschelzimmer 20 €/60 perc; italárak hiányoznak), szerdai esemény ára nem ismert. Hero = valódi fotó (Kinobar). A többi fotó még helyőrző."
+      "notes": "Tartalom és fotók a hivatalos oldalról (lovekino.at + fórum, 2026-10-02). Nyitvatartás: H 12–15, K szünnap, Sze 12–22, Cs–V 17–24. Témaestek és árak a fórum szerint. Ellenőrizni az ügyféllel: szerdai Greedy Midweek időpontja (12–22 vagy 17–20).",
+      "repo": "66Kilian/LoveKinoADMIN",
+      "brand": {
+        "logo": "img/logo.png"
+      }
     }
   ]
 };

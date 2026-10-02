@@ -1,6 +1,7 @@
 // Stellt eine frühere Version wieder her (als neuer Commit – nichts geht verloren).
 import { send, guard, body } from "./_lib/http.js";
 import { getStorage } from "./_lib/storage.js";
+import { mirrorFiles } from "./_lib/mirror.js";
 import { CONFIG_PATH, configFiles, htmlPath, overridesPath, validateConfig } from "./_lib/sites.js";
 
 export default async function handler(req, res) {
@@ -29,7 +30,9 @@ export default async function handler(req, res) {
       const cfg = { ...current, rev: Math.random().toString(36).slice(2, 10), updatedAt: new Date().toISOString() };
       files.push(...configFiles(cfg));
     }
-    const r = await st.commit({ files, message: `admin: Version ${sha.slice(0, 7)} wiederhergestellt${id ? ` (${id})` : " (Einstellungen)"}` });
+    const msg = `admin: Version ${sha.slice(0, 7)} wiederhergestellt${id ? ` (${id})` : " (Einstellungen)"}`;
+    const r = await st.commit({ files, message: msg });
+    if (id) await mirrorFiles(current.sites.find(s => s.id === id), files, msg);
     send(res, 200, { ok: true, commit: r.commit });
   } catch (e) {
     send(res, 500, { error: String(e.message || e) });

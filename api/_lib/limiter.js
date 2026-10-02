@@ -24,12 +24,12 @@ export function fail(ip) {
 
 export function success(ip) { fails.delete(ip); }
 
-/** Ein TOTP-Code darf nur einmal verwendet werden. */
-export function consumeStep(step) {
-  const now = Date.now();
+/** Ein TOTP-Code darf nur einmal verwendet werden (je Konto). */
+export function consumeStep(step, scope = "owner") {
+  const now = Date.now(), key = scope + ":" + step;
   for (const [k, exp] of usedCodes) if (exp < now) usedCodes.delete(k);
-  if (usedCodes.has(step)) return false;
-  usedCodes.set(step, now + 3 * 60 * 1000);
+  if (usedCodes.has(key)) return false;
+  usedCodes.set(key, now + 3 * 60 * 1000);
   return true;
 }
 

@@ -6,7 +6,7 @@ import { readFile, stat } from "node:fs/promises";
 import { join, extname, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { decide, OFFLINE_HTML } from "../lib/route.js";
-import { isAdminRequest } from "../lib/session.js";
+import { isAdminRequest, clientSiteFromCookie } from "../lib/session.js";
 
 const HERE = resolve(fileURLToPath(import.meta.url), "../..");
 process.env.MK_LOCAL_REPO ||= HERE;
@@ -50,7 +50,8 @@ http.createServer(async (req, res) => {
     const url = new URL(req.url, `http://${req.headers.host}`);
     const config = JSON.parse(await readFile(join(ROOT, "data/sites.json"), "utf8"));
     const isAdmin = await isAdminRequest(req.headers.cookie, process.env.ADMIN_SESSION_SECRET);
-    const d = decide({ pathname: url.pathname, search: url.search, host: req.headers.host, config, isAdmin, rootDomain: process.env.ROOT_DOMAIN || "meinekontaktkarte.test" });
+    const clientSite = isAdmin ? null : await clientSiteFromCookie(req.headers.cookie, process.env.ADMIN_SESSION_SECRET);
+    const d = decide({ pathname: url.pathname, search: url.search, host: req.headers.host, config, isAdmin, clientSite, rootDomain: process.env.ROOT_DOMAIN || "meinekontaktkarte.test" });
     if (d.type === "redirect") { res.writeHead(308, { Location: d.path }).end(); return; }
     if (d.type === "notfound") { res.writeHead(404, { "Content-Type": "text/html; charset=utf-8" }).end(OFFLINE_HTML); return; }
     if (d.type === "rewrite") return serveStatic(d.path, res);

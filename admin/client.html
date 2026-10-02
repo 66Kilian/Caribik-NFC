@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#0e0e12" id="metaTheme">
+<title>Website-Admin</title>
+<link rel="icon" href="/favicon.svg" id="favicon">
+<link rel="stylesheet" href="/admin/client.css">
+</head>
+<body>
+
+<!-- ============ Laden ============ -->
+<div id="vBoot" class="auth"><div class="spin lg"></div></div>
+
+<!-- ============ Fehler (Seite unbekannt) ============ -->
+<div id="vMissing" class="auth hidden">
+  <div class="card"><h1>Seite nicht gefunden</h1><p class="sub">Bitte prüfe die Adresse.</p></div>
+</div>
+
+<!-- ============ Anmelden / Registrieren ============ -->
+<div id="vAuth" class="auth hidden">
+  <div class="card">
+    <div class="logo-box" id="authLogo"></div>
+
+    <form id="fLogin" class="hidden" autocomplete="on">
+      <h1>Anmelden</h1>
+      <p class="sub" id="loginSub">Melde dich an, um deine Website zu bearbeiten.</p>
+      <label class="f"><span>Benutzername</span><input class="inp" id="lgUser" autocomplete="username" autocapitalize="off" spellcheck="false" required></label>
+      <label class="f"><span>Passwort</span><input class="inp" id="lgPw" type="password" autocomplete="current-password" required></label>
+      <p class="err-text" id="lgErr"></p>
+      <button class="btn primary block">Anmelden</button>
+      <p class="foot-note">Passwort vergessen? <a href="#" class="help-link">Schreib uns auf WhatsApp</a></p>
+    </form>
+
+    <form id="fCode" class="hidden">
+      <h1>Bestätigungscode</h1>
+      <p class="sub">Gib den 6-stelligen Code aus deiner Authenticator-App ein.</p>
+      <label class="f"><span>Code</span><input class="inp code-inp" id="lgCode" inputmode="numeric" pattern="[0-9 ]*" maxlength="7" autocomplete="one-time-code" required></label>
+      <p class="err-text" id="codeErr"></p>
+      <button class="btn primary block">Bestätigen</button>
+      <button type="button" class="btn ghost block" id="codeBack">Zurück</button>
+    </form>
+
+    <form id="fRegister" class="hidden" autocomplete="on">
+      <h1 id="regTitle">Willkommen!</h1>
+      <p class="sub" id="regSub">Lege jetzt deinen persönlichen Zugang an. Damit kannst du deine Website jederzeit selbst bearbeiten.</p>
+      <div id="regNew">
+        <label class="f"><span>Dein Name</span><input class="inp" id="rgName" autocomplete="name" maxlength="80"></label>
+        <label class="f"><span>Benutzername</span><input class="inp" id="rgUser" autocomplete="username" autocapitalize="off" spellcheck="false" maxlength="60"><span class="hint">Damit meldest du dich später an, z. B. dein Vorname oder deine E-Mail.</span></label>
+      </div>
+      <label class="f"><span>Passwort</span><input class="inp" id="rgPw" type="password" autocomplete="new-password" minlength="10"><span class="hint">Mindestens 10 Zeichen.</span></label>
+      <label class="f"><span>Passwort wiederholen</span><input class="inp" id="rgPw2" type="password" autocomplete="new-password"></label>
+      <p class="err-text" id="rgErr"></p>
+      <button class="btn primary block" id="rgBtn">Zugang anlegen</button>
+    </form>
+
+    <div id="sOffer" class="hidden">
+      <h1>Extra-Schutz einschalten?</h1>
+      <p class="sub">Mit der Zwei-Faktor-Anmeldung brauchst du zusätzlich einen Code von deinem Handy. So kommt niemand an deine Website, auch wenn er dein Passwort kennt.</p>
+      <button class="btn primary block" id="offerNow">Jetzt einrichten (2 Minuten)</button>
+      <button class="btn ghost block" id="offerLater">Später</button>
+      <p class="foot-note">Du kannst das jederzeit in den Einstellungen nachholen.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 2FA einrichten (Dialog) ============ -->
+<dialog id="dTotp" class="sheet">
+  <h2>Zwei-Faktor-Anmeldung einrichten</h2>
+  <ol class="steps-list">
+    <li>Installiere eine Authenticator-App, z. B. <b>Google Authenticator</b> oder <b>Microsoft Authenticator</b>.</li>
+    <li>Scanne in der App diesen QR-Code:</li>
+  </ol>
+  <div class="qr" id="qr"></div>
+  <p class="hint center">Oder gib den Schlüssel von Hand ein: <code id="totpSecret"></code></p>
+  <label class="f"><span>3. Code aus der App eingeben</span><input class="inp code-inp" id="totpCode" inputmode="numeric" maxlength="7" autocomplete="one-time-code"></label>
+  <p class="err-text" id="totpErr"></p>
+  <div class="row"><button class="btn ghost" id="totpCancel" type="button">Abbrechen</button><button class="btn primary" id="totpOk" type="button">Aktivieren</button></div>
+</dialog>
+
+<!-- ============ Editor ============ -->
+<div id="vApp" class="app hidden">
+  <header class="bar">
+    <div class="bar-brand" id="barLogo"></div>
+    <div class="seg" id="devSeg" role="group" aria-label="Vorschau">
+      <button data-dev="mobile" class="on" aria-label="Handy-Ansicht" title="Handy"><svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/></svg></button>
+      <button data-dev="desktop" aria-label="Computer-Ansicht" title="Computer"><svg viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="12.5" rx="1.5"/><path d="M8 20h8M12 16.5V20"/></svg></button>
+    </div>
+    <div class="grow"></div>
+    <span class="deploy" id="deploy"></span>
+    <a class="btn ghost hide-sm" id="viewLink" target="_blank" rel="noopener">Website ansehen ↗</a>
+    <button class="btn ghost icon" id="btnMenu" aria-label="Einstellungen" title="Einstellungen"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.5-1 1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H9a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V9a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></svg></button>
+  </header>
+
+  <div class="main">
+    <aside class="panel" id="panel">
+      <div class="panel-grip" id="panelGrip" aria-hidden="true"></div>
+      <div id="insp"></div>
+      <div id="sections">
+        <div class="panel-head">
+          <h2>Abschnitte</h2>
+          <p class="hint">Tippe in der Vorschau auf einen Text, ein Bild oder einen Link, um ihn zu ändern. Hier änderst du die Reihenfolge oder blendest Abschnitte aus.</p>
+        </div>
+        <ul class="blocks" id="blocks"></ul>
+      </div>
+    </aside>
+
+    <section class="stage" id="stage">
+      <div class="frame-wrap mobile" id="frameWrap"><iframe id="frame" title="Vorschau deiner Website"></iframe></div>
+    </section>
+  </div>
+
+  <div class="savebar" id="saveBar">
+    <button class="btn ghost" id="btnSections">Abschnitte</button>
+    <span class="save-info" id="saveInfo">Alles gespeichert</span>
+    <button class="btn ghost hide-sm" id="btnDiscard" disabled>Verwerfen</button>
+    <button class="btn primary" id="btnSave" disabled><span class="lg">Änderungen speichern</span><span class="sm">Speichern</span></button>
+  </div>
+</div>
+
+<!-- ============ Einstellungen ============ -->
+<dialog id="dMenu" class="drawer">
+  <div class="drawer-head"><h2>Einstellungen</h2><button class="btn ghost icon" id="menuClose" aria-label="Schließen">✕</button></div>
+  <div class="drawer-body">
+    <section class="set">
+      <h3>Konto</h3>
+      <p id="accInfo" class="muted"></p>
+    </section>
+    <section class="set">
+      <h3>Zwei-Faktor-Anmeldung</h3>
+      <p class="muted" id="totpState"></p>
+      <button class="btn" id="totpToggle"></button>
+    </section>
+    <section class="set">
+      <h3>Passwort ändern</h3>
+      <form id="fPw">
+        <label class="f"><span>Aktuelles Passwort</span><input class="inp" id="pwOld" type="password" autocomplete="current-password" required></label>
+        <label class="f"><span>Neues Passwort</span><input class="inp" id="pwNew" type="password" autocomplete="new-password" minlength="10" required></label>
+        <p class="err-text" id="pwErr"></p>
+        <button class="btn">Passwort ändern</button>
+      </form>
+    </section>
+    <section class="set help">
+      <h3>Hängst du fest?</h3>
+      <p class="muted">Brauchst du Hilfe mit deiner Website? Schreib uns einfach auf WhatsApp, wir helfen dir gern.</p>
+      <a class="btn wa block help-link" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z"/><path d="M9 8.5c.2-.5.6-.5.9-.5h.5c.2 0 .4 0 .5.4l.7 1.6c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5.6 1 1.4 1.8 2.4 2.4.2.1.4.1.5 0l.6-.7c.2-.2.4-.2.6-.1l1.6.7c.3.1.4.3.4.5v.5c0 .3 0 .7-.5.9-.6.3-1.6.5-3-.1a9 9 0 0 1-4.5-4.5c-.6-1.4-.4-2.4-.1-3z"/></svg>Hilfe per WhatsApp</a>
+    </section>
+    <section class="set">
+      <button class="btn block" id="btnLogout">Abmelden</button>
+    </section>
+  </div>
+</dialog>
+
+<dialog id="dlg" class="sheet small">
+  <h2 id="dlgTitle"></h2>
+  <div id="dlgBody"></div>
+  <div class="row"><button class="btn ghost" id="dlgNo">Abbrechen</button><button class="btn primary" id="dlgYes">OK</button></div>
+</dialog>
+
+<script src="/admin/vendor/qrcode.js"></script>
+<script src="/admin/mk-edit.js"></script>
+<script src="/admin/client.js"></script>
+</body>
+</html>
