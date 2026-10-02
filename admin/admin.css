@@ -248,3 +248,10 @@ dialog .row{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
 .inp.locked{opacity:.65;background:var(--bg);cursor:not-allowed}
 div.f{margin:0 0 14px}
 .tr-status.soon{color:var(--warn)}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;margin:0 0 12px;border-radius:10px;background:var(--bg)}
+.insp .crumb .kind{font-size:13px;margin-right:6px}
+
+/* Formatiertes Textfeld (kein HTML-Code sichtbar) */
+.inp.rich{min-height:64px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere;cursor:text}
+.inp.rich span,.inp.rich b,.inp.rich strong{color:var(--accent);font-weight:700}
+.inp.rich[contenteditable=false]{cursor:not-allowed}

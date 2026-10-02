@@ -218,6 +218,14 @@
     "Ez a felhasználónév már foglalt ennél az oldalnál.": "Dieser Benutzername ist bei dieser Seite schon vergeben.",
     "A jelszó legalább 10 karakter legyen.": "Das Passwort muss mindestens 10 Zeichen haben.",
 
+    "Ügyfél-admin bekapcsolva": "Kunden-Admin eingeschaltet",
+    "Ügyfél-admin kikapcsolva": "Kunden-Admin ausgeschaltet",
+    "ügyfél-admin bekapcsolva": "Kunden-Admin eingeschaltet",
+    "ügyfél-admin kikapcsolva": "Kunden-Admin ausgeschaltet",
+    "Az ügyfél be tud lépni a saját adminjába.": "Der Kunde kann sich in seinen Admin einloggen.",
+    "A …/admin/ cím nem létezik (404), amíg be nem kapcsolod.": "Die Adresse …/admin/ existiert nicht (404), bis du ihn einschaltest.",
+    "Közzététel után lép életbe.": "Wird mit dem Veröffentlichen wirksam.",
+
     // Versionen
     "Közzététel után itt jelennek meg a verziók.": "Nach dem Veröffentlichen erscheinen hier die Versionen.",
     "Ennek az oldalnak a tartalma": "Inhalt dieser Seite",
@@ -275,6 +283,11 @@
     "🔒 A többi nyelv automatikusan fordul a német szövegből.": "🔒 Die anderen Sprachen werden automatisch aus dem Deutschen übersetzt.",
     "🔒 Feloldás": "🔒 Entsperren",
     "Többnyelvű szöveg (": "Mehrsprachiger Text (",
+    "Többnyelvű szöveg": "Mehrsprachiger Text",
+    "Szakasz": "Abschnitt",
+    "Kép": "Bild",
+    "Link / gomb": "Link / Button",
+    "Terület": "Bereich",
     "A fordítás nem sikerült: ": "Übersetzung fehlgeschlagen: ",
 
     // Setup-Seite

@@ -350,7 +350,7 @@
   function curPage() { return S.pages[S.cur]; }
 
   var blockList = E.blockList;
-  var BLOCK_LABELS = { header: "Navigáció / fejléc", footer: "Lábléc", mobileBar: "Mobil alsó gombsor", loader: "Betöltő animáció", progress: "Görgetési csík", lightbox: "Képnagyító (lightbox)", hero: "Hero (nyitó rész)" };
+  var BLOCK_LABELS = { header: "Navigáció / fejléc", footer: "Lábléc", mobileBar: "Mobil alsó gombsor", loader: "Betöltő animáció", progress: "Görgetési csík", lightbox: "Képnagyító (lightbox)", hero: "Hero (nyitó rész)", section: "Szakasz" };
   function blockName(el) { return E.blockName(el, BLOCK_LABELS); }
 
   var updateMkStyle = E.updateMkStyle;
@@ -481,7 +481,7 @@
       var nm = blockName(b.el), off = b.el.hasAttribute("data-mk-off");
       var li = h("li", { class: "blk" + (off ? " off" : ""), draggable: b.movable ? "true" : null },
         h("span", { class: "grip" + (b.movable ? "" : " fixed"), title: b.movable ? "Húzd a sorrendhez" : "Fix helyen" }, b.movable ? "⋮⋮" : "•"),
-        h("span", { class: "blk-name", onclick: function () { select(b.el); scrollToLive(b.el); } }, h("b", { text: nm[0] }), h("small", { text: nm[1] })),
+        h("span", { class: "blk-name", onclick: function () { select(b.el); scrollToLive(b.el); } }, h("b", { text: nm[0] })),
         h("span", { class: "acts" },
           b.movable ? h("button", { class: "btn icon sm ghost", title: "Feljebb", "aria-label": "Feljebb", onclick: function () { var i = movables.indexOf(b.el); if (i > 0) moveBlock(b.el, movables[i - 1]); } }, "↑") : null,
           b.movable ? h("button", { class: "btn icon sm ghost", title: "Lejjebb", "aria-label": "Lejjebb", onclick: function () { var i = movables.indexOf(b.el); if (i < movables.length - 1) moveBlock(b.el, nextAfter(movables[i + 1])); } }, "↓") : null,
@@ -513,7 +513,7 @@
       he.append(h("div", { class: "sec-title", text: "Elrejtett elemek" }));
       he.append(h("ul", { class: "blocks" }, hid.map(function (x) {
         var t = x.textContent.replace(/\s+/g, " ").trim().slice(0, 50) || (x.tagName === "IMG" ? "Kép: " + (x.getAttribute("alt") || x.getAttribute("src")) : x.tagName.toLowerCase());
-        return h("li", { class: "blk off" }, h("span", { class: "blk-name", onclick: function () { select(x); } }, h("b", { text: t }), h("small", { text: x.tagName.toLowerCase() })),
+        return h("li", { class: "blk off" }, h("span", { class: "blk-name", onclick: function () { select(x); } }, h("b", { text: t })),
           h("button", { class: "btn sm", onclick: function () { toggleOff(x); }, text: "Megjelenítés" }));
       })));
     }
@@ -532,11 +532,12 @@
     var box = $("insp"); box.innerHTML = "";
     var el = S.sel, p = curPage();
     if (!el || !p || !p.doc.contains(el)) { S.sel = null; return; }
-    var desc = el.tagName.toLowerCase() + (el.id ? "#" + el.id : "") + (el.classList.length ? "." + Array.prototype.slice.call(el.classList, 0, 2).join(".") : "");
+    var keyed = el.getAttribute("data-i18n") || el.getAttribute("data-i18n-html");
+    var desc = el.tagName === "IMG" ? "Kép" : el.tagName === "A" ? "Link / gomb" : (keyed || isTexty(el)) ? "Szöveg" : "Terület";
     var parent = el.parentElement && !/^(BODY|HTML)$/.test(el.parentElement.tagName) ? el.parentElement : null;
     var off = el.hasAttribute("data-mk-off");
     var wrap = h("div", { class: "insp" },
-      h("div", { class: "crumb" }, h("code", { text: desc }),
+      h("div", { class: "crumb" }, h("b", { class: "kind", text: desc }),
         parent ? h("button", { class: "btn sm ghost", onclick: function () { select(parent); }, text: "↖ Szülő elem" }) : null,
         h("button", { class: "btn sm ghost", onclick: function () { scrollToLive(el); }, text: "Mutasd" }),
         h("button", { class: "btn sm ghost", onclick: function () { toggleOff(el); }, text: off ? "Megjelenítés" : "Elrejtés" }),
@@ -567,18 +568,18 @@
       var translate = E.autoTranslator(function (l, txt) {
         if (!locked(l)) return;
         setI18n(el, key, l, txt);
-        if (tas[l]) tas[l].value = toEditable(txt);
+        if (tas[l]) tas[l].value = txt;
       }, setStatus);
       var rows = function (n) { return Math.min(6, Math.max(2, Math.ceil(String(n).length / 42))); };
-      wrap.append(h("p", { class: "hint", style: "margin:0 0 10px" }, "Többnyelvű szöveg (", h("code", { text: key }), ")."));
-      var deVal = valOf("de"), de = h("textarea", { class: "inp", rows: rows(deVal) });
-      de.value = toEditable(deVal);
-      de.addEventListener("input", function () { var v = fromEditable(de.value); setI18n(el, key, "de", v); if (auto) translate(v, others.filter(locked)); });
+      wrap.append(h("p", { class: "hint", style: "margin:0 0 10px", text: "Többnyelvű szöveg" }));
+      var deVal = valOf("de"), de = E.richField();
+      de.value = deVal;
+      de.addEventListener("input", function () { var v = de.value; setI18n(el, key, "de", v); if (auto) translate(v, others.filter(locked)); });
       wrap.append(h("label", { class: "f" }, h("span", null, h("span", { class: "lang-tag", text: "DE" }), "Német (alap)"), de));
       if (others.length) wrap.append(status);
       others.forEach(function (l) {
-        var cur = valOf(l), ta = h("textarea", { class: "inp", rows: rows(cur) });
-        ta.value = toEditable(cur); tas[l] = ta;
+        var cur = valOf(l), ta = E.richField();
+        ta.value = cur; tas[l] = ta;
         var btn = h("button", { class: "btn sm ghost" + (auto ? "" : " hidden"), type: "button" });
         var paint = function () {
           var lk = locked(l);
@@ -587,26 +588,26 @@
         };
         btn.onclick = function () {
           var k = key + "|" + l;
-          if (S.unlocked[k]) { delete S.unlocked[k]; translate(fromEditable(de.value), [l], true); } else { S.unlocked[k] = true; ta.focus(); }
+          if (S.unlocked[k]) { delete S.unlocked[k]; translate(de.value, [l], true); } else { S.unlocked[k] = true; ta.focus(); }
           paint(); setStatus("idle");
         };
-        ta.addEventListener("input", function () { if (!locked(l)) setI18n(el, key, l, fromEditable(ta.value)); });
+        ta.addEventListener("input", function () { if (!locked(l)) setI18n(el, key, l, ta.value); });
         paint();
         wrap.append(h("div", { class: "f" }, h("div", { class: "tr-head" }, h("span", null, h("span", { class: "lang-tag", text: l.toUpperCase() })), btn), ta));
       });
       setStatus("idle");
     } else if (isTexty(el)) {
       var hasTags = el.children.length > 0;
-      var ta = h("textarea", { class: "inp", rows: 3 });
-      ta.value = hasTags ? toEditable(el.innerHTML.trim()) : el.textContent.trim();
+      var ta = hasTags ? E.richField() : h("textarea", { class: "inp", rows: 3 });
+      ta.value = hasTags ? el.innerHTML.trim() : el.textContent.trim();
       ta.addEventListener("input", function () {
-        var v = hasTags ? fromEditable(ta.value) : ta.value;
+        var v = ta.value;
         if (hasTags) el.innerHTML = v; else el.textContent = v;
         var l = live(el);
         if (l) { if (hasTags) l.innerHTML = v; else l.textContent = v; }
         changed();
       });
-      wrap.append(field("Szöveg" + (hasTags ? " (HTML: <b>, <br> stb. megengedett)" : ""), ta));
+      wrap.append(field("Szöveg", ta));
     } else if (el.tagName !== "IMG" && el.tagName !== "A") {
       wrap.append(h("p", { class: "hint", style: "margin:0" }, "Ez egy tároló elem. Kattints az előnézetben egy konkrét szövegre, képre vagy linkre a szerkesztéshez."));
     }
@@ -802,6 +803,17 @@
   function renderClientAdmins(s, b) {
     var c = card("Ügyfél-adminok", "Az ügyfél a saját, márkázott adminjában szerkesztheti az oldalát. Mentéskor azonnal élesedik.");
     if (!b) { c.body.append(h("p", { class: "hint", text: "Közzététel után hozhatsz létre ügyfél-admint." })); return c; }
+    // Schalter: ohne Freischaltung gibt es /<slug>/admin/ nicht (404)
+    var ca = h("input", { type: "checkbox" }); ca.checked = !!s.clientAdmin;
+    var caT = h("b"), caH = h("div", { class: "hint" });
+    var paintCa = function () {
+      caT.textContent = t(s.clientAdmin ? "Ügyfél-admin bekapcsolva" : "Ügyfél-admin kikapcsolva");
+      caH.textContent = t(s.clientAdmin ? "Az ügyfél be tud lépni a saját adminjába." : "A …/admin/ cím nem létezik (404), amíg be nem kapcsolod.")
+        + (!!s.clientAdmin !== !!b.clientAdmin ? " " + t("Közzététel után lép életbe.") : "");
+    };
+    ca.addEventListener("change", function () { s.clientAdmin = ca.checked; paintCa(); changed(); });
+    paintCa();
+    c.body.append(h("div", { class: "toggle-row" }, h("div", null, caT, caH), h("label", { class: "switch" }, ca, h("span", { class: "tr" }))));
     var url = clientAdminUrl(b);
     c.body.append(h("div", { class: "url-row" },
       h("a", { href: url, target: "_blank", rel: "noopener", text: url.replace("https://", "") + " ↗" }),
@@ -1001,6 +1013,7 @@
       if (b.notes !== s.notes) out.push(s.name + ": jegyzet");
       if (JSON.stringify(b.aliases) !== JSON.stringify(s.aliases)) out.push(s.name + ": régi címek");
       if ((b.repo || "") !== (s.repo || "")) out.push(s.name + ": GitHub-repó → " + (s.repo || "nincs"));
+      if (!!b.clientAdmin !== !!s.clientAdmin) out.push(s.name + ": " + (s.clientAdmin ? "ügyfél-admin bekapcsolva" : "ügyfél-admin kikapcsolva"));
       if (JSON.stringify(b.brand || {}) !== JSON.stringify(s.brand || {})) out.push(s.name + ": ügyfél-admin arculat");
     });
     base.sites.forEach(function (b) { if (!S.config.sites.some(function (s) { return s.id === b.id; })) out.push("Eltávolítva: " + b.name); });

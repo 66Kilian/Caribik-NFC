@@ -4,7 +4,8 @@ import { decide } from "../lib/route.js";
 
 const config = { sites: [
   { id: "main", folder: "", slug: "", enabled: true },
-  { id: "caribik", folder: "Munkák/Caribik Sauna Club", slug: "caribik", subdomain: "sauna", enabled: true, aliases: ["cbk"] },
+  { id: "caribik", folder: "Munkák/Caribik Sauna Club", slug: "caribik", subdomain: "sauna", enabled: true, aliases: ["cbk"], clientAdmin: true },
+  { id: "maxim", folder: "Munkák/Maxim Wien", slug: "maxim", subdomain: "maxim", enabled: true, aliases: [] },
   { id: "venus", folder: "Munkák/Venus Nfc", slug: "venus", subdomain: "", enabled: false, aliases: [] },
 ] };
 const d = (pathname, o = {}) => decide({ pathname, config, host: "meinekontaktkarte.com", ...o });
@@ -32,7 +33,10 @@ assert.deepEqual(d("/", { host: "nope.meinekontaktkarte.com" }), { type: "notfou
 assert.deepEqual(d("/admin/", { host: "sauna.meinekontaktkarte.com" }), { type: "redirect", path: "https://meinekontaktkarte.com/caribik/admin/" });
 assert.deepEqual(d("/caribik/admin/"), { type: "rewrite", path: "/admin/client.html" });
 assert.deepEqual(d("/caribik/admin"), { type: "redirect", path: "/caribik/admin/" });
-assert.deepEqual(d("/venus/admin/"), { type: "rewrite", path: "/admin/client.html" });
+assert.deepEqual(d("/venus/admin/"), { type: "notfound" });
+assert.deepEqual(d("/maxim/admin/"), { type: "notfound" });
+assert.deepEqual(d("/maxim/admin"), { type: "notfound" });
+assert.deepEqual(d("/admin/", { host: "maxim.meinekontaktkarte.com" }), { type: "notfound" });
 assert.deepEqual(d("/venus/", { clientSite: "venus" }), { type: "rewrite", path: "/Munk%C3%A1k/Venus%20Nfc/index.html" });
 assert.deepEqual(d("/venus/", { clientSite: "caribik" }), { type: "notfound" });
 assert.deepEqual(d("/", { host: "www.meinekontaktkarte.com" }), { type: "next" });

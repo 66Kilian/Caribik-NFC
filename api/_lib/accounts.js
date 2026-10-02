@@ -69,7 +69,7 @@ export async function clientSession(req, ctx) {
   const acc = ctx.data.accounts.find(a => a.id === d.a && a.site === d.s);
   if (!acc || acc.ver !== d.v) return null;
   const site = ctx.config.sites.find(s => s.id === acc.site);
-  if (!site) return null;
+  if (!site || !site.clientAdmin) return null; // Kunden-Admin abgeschaltet → kein Zugang
   return { ...ctx, acc, site };
 }
 

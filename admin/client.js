@@ -8,11 +8,11 @@
   var SLUG = (location.pathname.match(/^\/([^/]+)\/admin(\/|$)/) || [])[1] || "";
   var DRAFT_KEY = "mk-client-draft-" + SLUG;
   var IDLE_MS = 30 * 60 * 1000;
-  var LABELS = { header: "Kopfzeile & Menü", footer: "Fußzeile", mobileBar: "Untere Buttonleiste (Handy)", loader: "Lade-Animation", progress: "Fortschrittsbalken", lightbox: "Bildvergrößerung", hero: "Startbereich (ganz oben)" };
+  var LABELS = { header: "Kopfzeile & Menü", footer: "Fußzeile", mobileBar: "Untere Buttonleiste (Handy)", loader: "Lade-Animation", progress: "Fortschrittsbalken", lightbox: "Bildvergrößerung", hero: "Startbereich (ganz oben)", section: "Abschnitt" };
   var IMG_MSG = { type: "Bitte ein JPG-, PNG-, WebP- oder GIF-Bild wählen.", read: "Das Bild kann nicht gelesen werden.", size: "Das Bild ist zu groß (max. 3 MB)." };
   var LANG_NAMES = { de: "Deutsch", en: "Englisch", hu: "Ungarisch", sk: "Slowakisch", cs: "Tschechisch", pl: "Polnisch", it: "Italienisch", fr: "Französisch", es: "Spanisch", ro: "Rumänisch", hr: "Kroatisch" };
 
-  var S = { info: null, page: null, base: "/", sel: null, device: "mobile", pending: {}, invite: null, unlocked: {} };
+  var S = { info: null, page: null, base: "/", sel: null, device: "mobile", pending: {}, invite: null, unlocked: {}, ptab: "sections" };
 
   // ------------------------------------------------------------ Hilfen
   function show(id) { ["vBoot", "vMissing", "vAuth", "vApp"].forEach(function (v) { $(v).classList.toggle("hidden", v !== id); }); }
@@ -215,7 +215,7 @@
   function loadSource() {
     return api("source").then(function (j) {
       S.base = j.base; S.page = E.loadPage(SLUG, j); S.sel = null;
-      renderBlocks(); renderInspector(); renderPreview(); updateSaveBar();
+      renderBlocks(); renderInspector(); renderPreview(); updateSaveBar(); setPanelTab(S.ptab);
     });
   }
 
@@ -263,7 +263,8 @@
   function wireFrame(y) {
     var d = fdoc(); if (!d) return;
     var st = d.createElement("style");
-    st.textContent = ".mk-hover{outline:2px dashed " + S.info.brand.accent + "!important;outline-offset:2px!important;cursor:pointer!important}.mk-sel{outline:3px solid " + S.info.brand.accent + "!important;outline-offset:2px!important}";
+    st.textContent = ".mk-hover{outline:2px dashed " + S.info.brand.accent + "!important;outline-offset:2px!important;cursor:pointer!important}.mk-sel{outline:3px solid " + S.info.brand.accent + "!important;outline-offset:2px!important}" +
+      "img.mk-show{opacity:1!important;visibility:visible!important;z-index:50!important;transform:none!important;filter:none!important}";
     d.head.appendChild(st);
     if (y) setTimeout(function () { try { frame.contentWindow.scrollTo(0, y); } catch (e) {} }, 60);
     d.addEventListener("mouseover", function (e) {
@@ -285,8 +286,8 @@
   }
   function markSel() {
     var d = fdoc(); if (!d) return;
-    Array.prototype.forEach.call(d.querySelectorAll(".mk-sel"), function (x) { x.classList.remove("mk-sel"); });
-    if (S.sel) { var l = live(S.sel); if (l) l.classList.add("mk-sel"); }
+    Array.prototype.forEach.call(d.querySelectorAll(".mk-sel,.mk-show"), function (x) { x.classList.remove("mk-sel", "mk-show"); });
+    if (S.sel) { var l = live(S.sel); if (l) { l.classList.add("mk-sel"); if (l.tagName === "IMG") l.classList.add("mk-show"); } }
   }
   function select(el) {
     S.sel = el; renderInspector(); markSel(); openPanel(true);
@@ -311,6 +312,84 @@
     $("frameWrap").className = "frame-wrap " + S.device;
     fitFrame();
   });
+
+  // ------------------------------------------------------------ Panel: Abschnitte | Bilder | Design
+  function setPanelTab(t) {
+    S.ptab = t;
+    Array.prototype.forEach.call($("ptabs").children, function (b) { b.classList.toggle("on", b.dataset.p === t); b.setAttribute("aria-selected", b.dataset.p === t ? "true" : "false"); });
+    $("pSections").classList.toggle("hidden", t !== "sections");
+    $("pImages").classList.toggle("hidden", t !== "images");
+    $("pDesign").classList.toggle("hidden", t !== "design");
+    if (t === "images") renderImages();
+    if (t === "design") renderThemes();
+  }
+  $("ptabs").addEventListener("click", function (e) { var b = e.target.closest("button"); if (b) setPanelTab(b.dataset.p); });
+
+  function sectionOf(el) {
+    var blocks = E.blockList(S.page.doc);
+    for (var n = el; n; n = n.parentElement) for (var i = 0; i < blocks.length; i++) if (blocks[i].el === n) return n;
+    return null;
+  }
+  function imgSrc(el) {
+    var l = live(el);
+    if (l && (l.currentSrc || l.src)) return l.currentSrc || l.src;
+    var src = el.getAttribute("src") || "";
+    return S.pending[src] || (/^(data:|https?:|\/)/.test(src) ? src : S.base + src);
+  }
+  function renderImages() {
+    var box = $("imgList"); box.innerHTML = "";
+    var p = S.page; if (!p) return;
+    var groups = [], bySec = new Map();
+    Array.prototype.forEach.call(p.doc.querySelectorAll("img"), function (img) {
+      if (img.closest(".ld")) return; // Lade-Animation
+      var sec = sectionOf(img), k = sec || "other";
+      if (!bySec.has(k)) { bySec.set(k, []); groups.push(k); }
+      bySec.get(k).push(img);
+    });
+    if (!groups.length) { box.append(h("p", { class: "hint", text: "Auf dieser Seite gibt es keine Bilder." })); return; }
+    var uploaded = {}; p.uploads.forEach(function (u) { uploaded[u.path] = 1; });
+    groups.forEach(function (k) {
+      var title = k === "other" ? "Weitere Bilder" : E.blockName(k, LABELS)[0];
+      box.append(h("section", { class: "img-grp" }, h("h3", { text: title }),
+        h("div", { class: "img-items" }, bySec.get(k).map(function (img) {
+          return h("button", { class: "img-item" + (S.sel === img ? " on" : ""), type: "button", title: "Zeigen & ersetzen", onclick: function () { showImage(img); } },
+            h("img", { src: imgSrc(img), alt: "", loading: "lazy" }),
+            uploaded[img.getAttribute("src")] ? h("span", { class: "new", text: "Neu" }) : null,
+            h("span", { class: "cap", text: img.getAttribute("alt") || "Bild" }));
+        }))));
+    });
+  }
+  // ------------------------------------------------------------ Design (Farben)
+  function currentTheme() { return S.page.doc.documentElement.getAttribute("data-mk-theme") || "standard"; }
+  function setTheme(id) {
+    var doc = S.page.doc, t = (S.info.themes || []).filter(function (x) { return x.id === id; })[0];
+    var old = doc.getElementById("mk-theme"); if (old) old.remove();
+    doc.documentElement.removeAttribute("data-mk-theme");
+    if (t && t.css) {
+      doc.documentElement.setAttribute("data-mk-theme", id);
+      var st = doc.createElement("style"); st.id = "mk-theme"; st.textContent = t.css;
+      doc.head.appendChild(st);
+    }
+    renderPreview(); renderThemes(); changed();
+  }
+  function renderThemes() {
+    var box = $("themeList"); box.innerHTML = "";
+    if (!S.page) return;
+    var cur = currentTheme();
+    (S.info.themes || []).forEach(function (t) {
+      var sw = t.swatch ? t.swatch.map(function (c) { return h("i", { style: "background:" + c }); }) : [h("i", { class: "orig", text: "Original" })];
+      box.append(h("button", { class: "theme" + (t.id === cur ? " on" : ""), type: "button", "aria-pressed": t.id === cur ? "true" : "false", onclick: function () { if (t.id !== cur) setTheme(t.id); } },
+        h("span", { class: "sw" + (t.light ? " light" : "") }, sw),
+        h("span", { class: "tt" }, h("b", { text: t.name }), h("small", { text: t.desc })),
+        t.id === cur ? h("span", { class: "chk", text: "✓" }) : null));
+    });
+  }
+
+  function showImage(img) {
+    select(img);
+    var l = live(img);
+    if (l) l.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+  }
 
   // ------------------------------------------------------------ Bearbeiten-Blatt (Handy)
   function openPanel(open) { $("panel").classList.toggle("open", open); }
@@ -432,13 +511,13 @@
       var translate = E.autoTranslator(function (l, txt) {
         if (!locked(l)) return;
         setI18n(el, key, l, txt);
-        if (tas[l]) tas[l].value = E.toEditable(txt);
+        if (tas[l]) tas[l].value = txt;
       }, setStatus);
       var rows = function (n) { return Math.min(7, Math.max(2, Math.ceil(String(n).length / 38))); };
-      var deVal = valOf("de"), de = h("textarea", { class: "inp", rows: rows(deVal) });
-      de.value = E.toEditable(deVal);
+      var deVal = valOf("de"), de = E.richField();
+      de.value = deVal;
       de.addEventListener("input", function () {
-        var v = E.fromEditable(de.value);
+        var v = de.value;
         setI18n(el, key, "de", v);
         if (auto) translate(v, others.filter(locked));
       });
@@ -447,8 +526,8 @@
         wrap.append(status);
         var box2 = h("div", { class: "tr-list" });
         others.forEach(function (l) {
-          var cur = valOf(l), ta = h("textarea", { class: "inp", rows: rows(cur) });
-          ta.value = E.toEditable(cur); tas[l] = ta;
+          var cur = valOf(l), ta = E.richField();
+          ta.value = cur; tas[l] = ta;
           var btn = h("button", { class: "btn sm ghost" + (auto ? "" : " hidden"), type: "button" });
           var paint = function () {
             var lk = locked(l);
@@ -458,11 +537,11 @@
           };
           btn.onclick = function () {
             var k = key + "|" + l;
-            if (S.unlocked[k]) { delete S.unlocked[k]; translate(E.fromEditable(de.value), [l], true); }
+            if (S.unlocked[k]) { delete S.unlocked[k]; translate(de.value, [l], true); }
             else { S.unlocked[k] = true; ta.focus(); }
             paint(); setStatus("idle");
           };
-          ta.addEventListener("input", function () { if (!locked(l)) setI18n(el, key, l, E.fromEditable(ta.value)); });
+          ta.addEventListener("input", function () { if (!locked(l)) setI18n(el, key, l, ta.value); });
           paint();
           box2.append(h("div", { class: "tr-row" },
             h("div", { class: "tr-head" }, h("span", null, h("span", { class: "lang-tag", text: l.toUpperCase() }), LANG_NAMES[l] || l), btn), ta));
@@ -472,10 +551,10 @@
       }
     } else if (E.isTexty(el)) {
       var hasTags = el.children.length > 0;
-      var ta = h("textarea", { class: "inp", rows: 3 });
-      ta.value = hasTags ? E.toEditable(el.innerHTML.trim()) : el.textContent.trim();
+      var ta = hasTags ? E.richField() : h("textarea", { class: "inp", rows: 3 });
+      ta.value = hasTags ? el.innerHTML.trim() : el.textContent.trim();
       ta.addEventListener("input", function () {
-        var v = hasTags ? E.fromEditable(ta.value) : ta.value, l = live(el);
+        var v = ta.value, l = live(el);
         if (hasTags) { el.innerHTML = v; if (l) l.innerHTML = v; } else { el.textContent = v; if (l) l.textContent = v; }
         changed();
       });
@@ -520,7 +599,7 @@
       el.setAttribute("src", name); el.removeAttribute("srcset"); el.removeAttribute("sizes");
       var l = live(el);
       if (l) { l.removeAttribute("srcset"); l.removeAttribute("sizes"); l.setAttribute("src", r.dataUrl); }
-      changed(); renderInspector();
+      changed(); renderInspector(); if (S.ptab === "images") renderImages();
     }).catch(function (e) { toast(e.message, true); });
   }
 
@@ -536,6 +615,8 @@
     if (E.serialize(p) !== p.base) bits.push("Inhalt/Abschnitte");
     if (JSON.stringify(p.overrides) !== p.overridesBase) bits.push("Texte");
     if (p.uploads.length) bits.push(p.uploads.length + (p.uploads.length > 1 ? " neue Bilder" : " neues Bild"));
+    var baseTheme = (p.base.match(/<html\b[^>]*\sdata-mk-theme="([a-z]+)"/) || [])[1] || "standard";
+    if (baseTheme !== currentTheme()) bits.push("Design: " + currentTheme());
     return bits.join(", ");
   }
   $("btnSave").onclick = function () {

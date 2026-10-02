@@ -100,11 +100,23 @@
       <div class="panel-grip" id="panelGrip" aria-hidden="true"></div>
       <div id="insp"></div>
       <div id="sections">
-        <div class="panel-head">
-          <h2>Abschnitte</h2>
-          <p class="hint">Tippe in der Vorschau auf einen Text, ein Bild oder einen Link, um ihn zu ändern. Hier änderst du die Reihenfolge oder blendest Abschnitte aus.</p>
+        <div class="ptabs" id="ptabs" role="tablist">
+          <button role="tab" data-p="sections" class="on">Abschnitte</button>
+          <button role="tab" data-p="images">Bilder</button>
+          <button role="tab" data-p="design">Design</button>
         </div>
-        <ul class="blocks" id="blocks"></ul>
+        <div id="pSections">
+          <p class="hint panel-hint">Tippe in der Vorschau auf einen Text, ein Bild oder einen Link, um ihn zu ändern. Hier änderst du die Reihenfolge oder blendest Abschnitte aus.</p>
+          <ul class="blocks" id="blocks"></ul>
+        </div>
+        <div id="pImages" class="hidden">
+          <p class="hint panel-hint">Alle Bilder deiner Website. Tippe auf ein Bild – die Vorschau springt dorthin und du kannst es ersetzen.</p>
+          <div id="imgList"></div>
+        </div>
+        <div id="pDesign" class="hidden">
+          <p class="hint panel-hint">Wähle ein Farbdesign für deine Website. Die Vorschau zeigt es sofort – live geht es erst mit „Speichern“.</p>
+          <div id="themeList" class="themes"></div>
+        </div>
       </div>
     </aside>
 
@@ -114,7 +126,7 @@
   </div>
 
   <div class="savebar" id="saveBar">
-    <button class="btn ghost" id="btnSections">Abschnitte</button>
+    <button class="btn ghost" id="btnSections">Inhalte</button>
     <span class="save-info" id="saveInfo">Alles gespeichert</span>
     <button class="btn ghost hide-sm" id="btnDiscard" disabled>Verwerfen</button>
     <button class="btn primary" id="btnSave" disabled><span class="lg">Änderungen speichern</span><span class="sm">Speichern</span></button>

@@ -6,6 +6,7 @@ const SCRIPT_RE = /<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi;
 const HANDLER_RE = /\s(on[a-z]+)\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi;
 const DANGER_TAG_RE = /<(iframe|object|embed|base|frame|frameset|applet)\b/gi;
 const META_REFRESH_RE = /<meta\b[^>]*http-equiv/gi;
+const STYLE_RE = /<style\b/gi;
 const JS_URL_RE = /(?:href|src|action|formaction|xlink:href)\s*=\s*["']?\s*(?:javascript|vbscript|data:text\/html)/gi;
 const OVERRIDES_SCRIPT = /^\s*src\s*=\s*["']?mk-i18n\.js["']?(\s+defer(=["']{2})?)?\s*$/i;
 
@@ -31,14 +32,23 @@ function handlers(html) {
 }
 const count = (re, s) => (s.match(re) || []).length;
 
+// Das Admin-eigene Style zum Ausblenden ([data-mk-off]) ist erlaubt, solange es nur Selektoren enthält.
+const MK_STYLE_RE = /<style id="mk-admin-style">([^<]*)<\/style>/g;
+function withoutAdminStyle(html) {
+  return html.replace(MK_STYLE_RE, (m, css) => (/^[\w\s\[\]="#:,!{}.\-]*$/.test(css) && !/url\(|@import|expression\(/i.test(css) ? "" : m));
+}
+
 /** Liefert einen Fehlertext, wenn das neue HTML mehr ausführbaren Code enthält als das alte. */
 export function checkClientHtml(oldHtml, newHtml) {
+  oldHtml = withoutAdminStyle(oldHtml); newHtml = withoutAdminStyle(newHtml);
   const added = extra(scripts(oldHtml), scripts(newHtml)).filter(s => !OVERRIDES_SCRIPT.test(s.split("|")[0]) || s.split("|")[1]);
   if (added.length) return "Skripte dürfen im Kunden-Admin nicht verändert werden.";
   if (extra(handlers(oldHtml), handlers(newHtml)).length) return "Ereignis-Attribute (on…) sind nicht erlaubt.";
   if (count(DANGER_TAG_RE, newHtml) > count(DANGER_TAG_RE, oldHtml)) return "Eingebettete Fremdinhalte (iframe/object/embed) sind nicht erlaubt.";
   if (count(META_REFRESH_RE, newHtml) > count(META_REFRESH_RE, oldHtml)) return "Diese Änderung ist nicht erlaubt.";
   if (count(JS_URL_RE, newHtml) > count(JS_URL_RE, oldHtml)) return "javascript:-Links sind nicht erlaubt.";
+  if (count(STYLE_RE, newHtml) > count(STYLE_RE, oldHtml)) return "Eigene Stylesheets sind nicht erlaubt.";
+  if (count(/<link\b/gi, newHtml) > count(/<link\b/gi, oldHtml)) return "Diese Änderung ist nicht erlaubt.";
   return null;
 }
 

@@ -10,6 +10,7 @@ import { htmlPath, overridesPath, parseOverrides, renderOverrides, cleanOverride
 import { checkClientHtml, checkOverrides } from "./_lib/sanitize.js";
 import { mirrorFiles } from "./_lib/mirror.js";
 import { brandFor } from "./_lib/brand.js";
+import { publicThemes, themeOf, applyTheme } from "../lib/themes.js";
 import { ConflictError } from "./_lib/storage.js";
 
 const SECRET = () => process.env.ADMIN_SESSION_SECRET || "";
@@ -24,7 +25,7 @@ async function startSession(req, res, acc) {
 
 function siteBySlug(config, slug) {
   slug = String(slug || "").toLowerCase();
-  return config.sites.find(s => s.folder && s.slug === slug) || null;
+  return config.sites.find(s => s.folder && s.slug === slug && s.clientAdmin) || null;
 }
 
 async function siteHtml(ctx, site) {
@@ -51,6 +52,7 @@ const actions = {
       brand: brandFor(site, await siteHtml(ctx, site)),
       help: HELP_WHATSAPP,
       translate: Boolean(process.env.DEEPL_API_KEY),
+      themes: publicThemes(),
       loggedIn: Boolean(mine),
       account: mine ? publicAccount(mine.acc) : null,
     });
@@ -64,6 +66,7 @@ const actions = {
     if (!inv) return send(res, 404, { error: "Dieser Einladungslink ist ungültig oder abgelaufen. Bitte fordere einen neuen an." });
     const acc = inv.account ? ctx.data.accounts.find(a => a.id === inv.account) : null;
     const site = ctx.config.sites.find(s => s.id === inv.site);
+    if (!site || !site.clientAdmin) return send(res, 404, { error: "Der Admin-Zugang für diese Website ist noch nicht freigeschaltet." });
     send(res, 200, { kind: inv.kind, site: site ? site.slug : null, name: acc ? acc.name : (inv.name || ""), username: acc ? acc.username : "" });
   },
 
@@ -78,9 +81,10 @@ const actions = {
     await slow();
     let acc;
     try {
-      acc = await update((data) => {
+      acc = await update((data, config) => {
         const inv = data.invites.find(i => i.hash === sha256(b.token) && i.exp > Date.now());
         if (!inv) throw new UserError("Dieser Einladungslink ist ungültig oder abgelaufen.");
+        if (!config.sites.some(x => x.id === inv.site && x.clientAdmin)) throw new UserError("Der Admin-Zugang für diese Website ist noch nicht freigeschaltet.");
         let a;
         if (inv.kind === "reset") {
           a = data.accounts.find(x => x.id === inv.account);
@@ -207,7 +211,9 @@ const actions = {
     if (typeof b.html === "string") {
       if (b.html.length > MAX_HTML || !/<html[\s>]/i.test(b.html)) return send(res, 400, { error: "Seite ungültig" });
       const oldHtml = (await st.readBlob(tree.get(hp))).toString("utf8");
-      const bad = checkClientHtml(oldHtml, b.html);
+      // Farbdesign immer aus der eigenen Liste setzen – nie fremdes CSS übernehmen
+      b.html = applyTheme(b.html, themeOf(b.html));
+      const bad = checkClientHtml(applyTheme(oldHtml, "standard"), applyTheme(b.html, "standard"));
       if (bad) return send(res, 400, { error: bad });
       expect[hp] = b.htmlSha || null;
       files.push({ path: hp, content: Buffer.from(stampRev(b.html, rev), "utf8") });

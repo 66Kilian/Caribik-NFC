@@ -72,6 +72,7 @@ export function validateConfig(next, prev, tree) {
       enabled: isMain ? true : Boolean(s.enabled),
       aliases,
       notes: String(s.notes || "").slice(0, 2000),
+      clientAdmin: isMain ? false : Boolean(s.clientAdmin),
       repo: cleanRepo(s.repo),
       brand: cleanBrand(s.brand),
     });

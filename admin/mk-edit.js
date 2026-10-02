@@ -69,7 +69,8 @@
     var t = el.querySelector("h1,h2,h3");
     var txt = t ? t.textContent.replace(/\s+/g, " ").trim() : "";
     if (txt.length > 48) txt = txt.slice(0, 46) + "…";
-    return [txt || (id ? "#" + id : el.tagName.toLowerCase()), id ? "#" + id : el.tagName.toLowerCase() + (el.className ? "." + String(el.className).split(" ")[0] : "")];
+    if (!txt) { var img = el.querySelector("img[alt]"); txt = img ? img.getAttribute("alt") : ""; }
+    return [txt || L.section || "Abschnitt", id ? "#" + id : el.tagName.toLowerCase() + (el.className ? "." + String(el.className).split(" ")[0] : "")];
   }
 
   /** Ausgeblendete Elemente (data-mk-off) per CSS verstecken, inkl. Menülinks dorthin. */
@@ -135,20 +136,34 @@
     return Array.prototype.every.call(el.querySelectorAll("*"), function (c) { return INLINE[c.tagName]; });
   }
 
-  // Liegt über einem Bild/Text eine Deko-Ebene, wird trotzdem das Bild bzw. der Text gewählt.
+  /** Ist das Element im Vorschau-Fenster wirklich zu sehen? (Überblendungen, Karussells …) */
+  function shown(x) {
+    var w = x.ownerDocument.defaultView, op = 1;
+    for (var n = x; n && n.nodeType === 1; n = n.parentElement) {
+      var cs = w.getComputedStyle(n);
+      if (cs.display === "none" || cs.visibility === "hidden") return false;
+      op *= parseFloat(cs.opacity);
+      if (op < 0.08) return false;
+    }
+    return true;
+  }
+
+  // Liegt über einem Bild/Text eine Deko-Ebene oder ein unsichtbares Bild (Überblendung),
+  // wird das sichtbare Bild bzw. der sichtbare Text darunter gewählt.
   function pickTarget(d, e, p) {
     var top = e.target.closest && e.target.closest("[data-mk]");
     if (!top) return null;
+    var useful = function (el) { return el && (el.tagName === "IMG" || el.tagName === "A" || el.getAttribute("data-i18n") || el.getAttribute("data-i18n-html") || isTexty(el)); };
     var topEl = p.els[Number(top.getAttribute("data-mk"))];
-    if (topEl && (topEl.tagName === "IMG" || topEl.tagName === "A" || topEl.getAttribute("data-i18n") || topEl.getAttribute("data-i18n-html") || isTexty(topEl))) return top;
+    if (useful(topEl) && shown(top)) return top;
     var stack = d.elementsFromPoint(e.clientX, e.clientY);
     for (var i = 0; i < stack.length; i++) {
       var x = stack[i];
-      if (!x.hasAttribute || !x.hasAttribute("data-mk")) continue;
+      if (!x.hasAttribute || !x.hasAttribute("data-mk") || !shown(x)) continue;
       var src = p.els[Number(x.getAttribute("data-mk"))];
       if (src && (src.tagName === "IMG" || isTexty(src))) return x;
     }
-    return top;
+    return shown(top) ? top : null;
   }
 
   // Kommentar direkt vor einer Sektion (z. B. <!-- ===== FAQ ===== -->) gehört zu ihr.
@@ -222,7 +237,52 @@
     };
   }
 
+  /**
+   * Formatiertes Textfeld ohne sichtbaren Code: „Nightclub <span>Maxim.</span>“ erscheint
+   * als Text mit hervorgehobenem Wort. Verhält sich wie ein <textarea> (value, readOnly, input-Event).
+   */
+  var RICH_OK = { B: 1, STRONG: 1, I: 1, EM: 1, U: 1, S: 1, SMALL: 1, SPAN: 1, BR: 1, MARK: 1, SUP: 1, SUB: 1, A: 1 };
+  function cleanInline(html) {
+    var d = new DOMParser().parseFromString("<body>" + html + "</body>", "text/html").body;
+    (function walk(n) {
+      Array.prototype.slice.call(n.childNodes).forEach(function (c) {
+        if (c.nodeType === 8) { c.remove(); return; }
+        if (c.nodeType !== 1) return;
+        if (!RICH_OK[c.tagName]) { walk(c); c.replaceWith.apply(c, Array.prototype.slice.call(c.childNodes)); return; }
+        Array.prototype.slice.call(c.attributes).forEach(function (a) { if (!/^(class|href|target|rel|data-[\w-]+)$/.test(a.name) || /^\s*javascript:/i.test(a.value)) c.removeAttribute(a.name); });
+        walk(c);
+      });
+    })(d);
+    return d.innerHTML;
+  }
+  function richField(cls) {
+    var el = document.createElement("div");
+    el.className = "inp rich" + (cls ? " " + cls : "");
+    el.contentEditable = "true";
+    el.setAttribute("role", "textbox");
+    el.setAttribute("aria-multiline", "true");
+    Object.defineProperty(el, "value", {
+      get: function () { return el.innerHTML.replace(/<br>$/, "").replace(/\u00a0/g, "&nbsp;"); },
+      set: function (v) { el.innerHTML = cleanInline(String(v == null ? "" : v)); }
+    });
+    Object.defineProperty(el, "readOnly", {
+      get: function () { return el.contentEditable !== "true"; },
+      set: function (v) { el.contentEditable = v ? "false" : "true"; el.setAttribute("aria-readonly", v ? "true" : "false"); }
+    });
+    // Einfügen nur als reiner Text; Enter = Zeilenumbruch
+    el.addEventListener("paste", function (e) {
+      e.preventDefault();
+      var t = (e.clipboardData || window.clipboardData).getData("text/plain");
+      document.execCommand("insertText", false, t);
+    });
+    el.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") { e.preventDefault(); document.execCommand("insertLineBreak"); }
+    });
+    return el;
+  }
+
   window.MKEdit = {
+    richField: richField,
     autoTranslator: autoTranslator,
     h: h, encPath: encPath, toEditable: toEditable, fromEditable: fromEditable, slugify: slugify,
     loadPage: loadPage, serialize: serialize, pageDirty: pageDirty, blockList: blockList, blockName: blockName,
