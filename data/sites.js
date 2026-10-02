@@ -63,7 +63,7 @@ export default {
       "subdomain": "",
       "enabled": false,
       "aliases": [],
-      "notes": "Tartalom nyilvános forrásokból (herold.at, stadtbekannt.at, Yelp, cylex, gomassage.at, szene1.at). Ellenőrizni: telefon (+43 1 8171648), nyitvatartás (H–Szo 12–22, V 16–21), árak (napijegy 10 €, nők/párok ingyen, loverooms 10 €-tól/60 perc, szerdai esemény 39 €-tól). Hero = generált demókép, többi fotó = helyőrző."
+      "notes": "Tartalom nyilvános forrásokból (herold.at, stadtbekannt.at, Yelp, cylex, gomassage.at, szene1.at). Ellenőrizni: telefon (+43 1 8171648), nyitvatartás (H–Szo 12–22, V 16–21), árak a hivatalos árlista szerint (2024. 11. 1-től: férfi 20 €, pár 15 €, hölgy 10 €, Kuschelzimmer 20 €/60 perc; italárak hiányoznak), szerdai esemény ára nem ismert. Hero = generált demókép, többi fotó = helyőrző."
     }
   ]
 };

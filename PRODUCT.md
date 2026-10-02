@@ -21,7 +21,7 @@ A card you touch opens a page that feels like the venue itself, not a template: 
 - Live opening status in Vienna time.
 
 ## Capabilities and Constraints
-- Lovekino facts (public sources, to be confirmed by client): Michael-Bernhard-Gasse 13, 1120 Wien; +43 1 817 16 48; Mo–Sa 12–22, So/Feiertag 16–21; Tagesticket 10 € (valid until closing), women and couples free; two cinema halls, bar; Loverooms (Solokabine, Paarkabine mit Gloryhole, Kuschelraum) from 10 €/60 min; Wednesday event 19:00 from 39 €; forum at lovekino.at/forum; 18+ only.
+- Lovekino facts (public sources, to be confirmed by client): Michael-Bernhard-Gasse 13, 1120 Wien; +43 1 817 16 48; Mo–Sa 12–22, So/Feiertag 16–21; entry prices from the official price list valid since 1.11.2024: Tageseintritt Herren 20 €, Paare 15 €, Damen 10 €, Kuschelzimmer 20 €/60 min (drink prices pending); two cinema halls, bar; Loverooms (Solokabine, Paarkabine mit Gloryhole, Kuschelraum); Wednesday event 19:00 (price unknown); forum at lovekino.at/forum; 18+ only.
 - No age gate (owner decision for these sites).
 
 ## Brand Commitments
