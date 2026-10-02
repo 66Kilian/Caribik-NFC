@@ -1,7 +1,7 @@
 // Automatisch aus data/sites.json erzeugt (Admin) – nicht von Hand bearbeiten.
 export default {
-  "rev": "acgt4pum",
-  "updatedAt": "2026-10-02T18:09:18.094Z",
+  "rev": "71otpr9a",
+  "updatedAt": "2026-10-02T18:29:50.080Z",
   "groups": [
     "Hauptseite",
     "Kunden",
@@ -65,7 +65,7 @@ export default {
       "enabled": true,
       "aliases": [],
       "notes": "Tartalom nyilvános forrásokból (Wikipedia, Yelp, TripAdvisor, 6Austria, Maxim Gentlemen Group, Grokipedia, Trustpilot). Ellenőrizni: telefon (+43 699 17172031), escort-árak (1 óra 250 €, 4 óra 750 € taxival), szoba-árak = auf Anfrage. Képek + Damen-profilok = helyőrzők, a megrendelőtől kérni.",
-      "clientAdmin": false,
+      "clientAdmin": true,
       "repo": "66Kilian/MaximADMIN",
       "brand": {}
     },
