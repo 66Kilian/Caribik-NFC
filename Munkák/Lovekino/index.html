@@ -14,15 +14,10 @@
   .ld{position:fixed;inset:0;z-index:9999;overflow:hidden;background:var(--t-shade,#0d0d1a);transition:opacity .55s ease,visibility .55s}
   html.ld-idle .ld,html.ld-out .ld{opacity:0;visibility:hidden;pointer-events:none}
   .ld-glow{position:absolute;inset:-20%;background:radial-gradient(closest-side at 50% 55%,var(--t-g1,#e6004f) 0%,var(--t-g2,#b0003f) 18%,var(--t-g3,#4d0a33) 40%,var(--t-g4,#16152c) 66%,var(--t-shade,#0d0d1a) 100%);opacity:0;transform:scale(.7)}
-  .ld-cam{position:absolute;inset:0;perspective:700px;perspective-origin:50% 50%;overflow:hidden}
-  .ld-world{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d}
-  .ld-arch{position:absolute;left:0;top:0;border:3px solid var(--c);border-radius:28px 28px 6px 6px;
-    box-shadow:0 0 18px var(--c),0 0 46px var(--c),inset 0 0 18px var(--c);opacity:.9}
-  .ld-floor{position:absolute;left:-1400px;top:0;width:2800px;height:4200px;transform-origin:50% 0;
-    background:repeating-linear-gradient(90deg,color-mix(in srgb,var(--t-accent2,rgb(255,107,139)) 18%,transparent) 0 2px,transparent 2px 140px),repeating-linear-gradient(0deg,color-mix(in srgb,var(--t-accent2,rgb(255,107,139)) 14%,transparent) 0 2px,transparent 2px 140px);
-    -webkit-mask-image:linear-gradient(0deg,transparent,#000 30%,#000 70%,transparent);mask-image:linear-gradient(0deg,transparent,#000 30%,#000 70%,transparent)}
-  .ld-spark{position:absolute;left:0;top:0;width:5px;height:5px;border-radius:50%;background:#fff;box-shadow:0 0 10px 3px color-mix(in srgb,var(--t-accent2,rgb(255,150,175)) 90%,transparent);opacity:0}
-  .ld-logo{position:absolute;left:-330px;top:-150px;width:660px;height:300px;transform:translateZ(-2200px);display:flex;flex-direction:column;align-items:center;justify-content:center;
+  .ld-cam{position:absolute;inset:0;overflow:hidden}
+  .ld-cv{position:absolute;inset:0;width:100%;height:100%}
+  .ld-world{position:absolute;left:50%;top:50%;width:0;height:0}
+  .ld-logo{position:absolute;left:-330px;top:-150px;width:660px;height:300px;transform:scale(.24);display:flex;flex-direction:column;align-items:center;justify-content:center;
     font-family:"Arial Black",Impact,system-ui,sans-serif;color:#fff;text-align:center}
   .ld-heart{width:64px;height:64px;fill:#fff;filter:drop-shadow(0 0 14px var(--t-accent2,#ffb3c3));margin-bottom:10px}
   .ld-pill{display:inline-block;padding:4px 22px;border-radius:999px;background:#fff;color:var(--t-accent,#c4123f);font-size:28px;font-weight:900;letter-spacing:.06em;margin-bottom:6px}
@@ -34,24 +29,14 @@
   .ld-bar{width:min(220px,60vw);height:2px;background:rgba(255,255,255,.12);overflow:hidden}
   .ld-bar span{display:block;height:100%;width:0;background:var(--t-accent2,#ff6b8b)}
   html.ld-intro .ld-glow{animation:ldGlow 1s cubic-bezier(.3,.6,.2,1) forwards}
-  html.ld-intro .ld-world{animation:ldFly 1.1s cubic-bezier(.55,.05,.35,1) forwards}
   html.ld-intro .ld-logo{animation:ldFocus 1.1s cubic-bezier(.55,.05,.35,1) forwards}
-  html.ld-intro .ld-spark{animation:ldTw 1.1s ease-in-out forwards;animation-delay:var(--dl0,0s)}
   @keyframes ldGlow{to{opacity:1;transform:scale(1)}}
-  @keyframes ldFly{from{transform:translateZ(0) rotateZ(-3deg)}to{transform:translateZ(1700px) rotateZ(0)}}
   @keyframes ldFocus{0%{filter:blur(12px);opacity:0}40%{opacity:1}100%{filter:blur(0);opacity:1}}
-  @keyframes ldTw{0%,100%{opacity:0}50%{opacity:1}}
   html.ld-long .ld-glow{opacity:1;transform:scale(1);animation:ldBreath 3.4s ease-in-out infinite}
-  html.ld-long .ld-world{animation:ldDrift 7s ease-in-out infinite alternate-reverse}
-  html.ld-long .ld-arch{animation:ldPulse 2.6s ease-in-out infinite;animation-delay:var(--pd,0s)}
-  html.ld-long .ld-spark{animation:ldRise var(--d,6s) linear infinite;animation-delay:var(--dl,0s)}
   html.ld-long .ld-info{opacity:1;transform:none}
   html.ld-long .ld-bar span{animation:ldProg 14s cubic-bezier(.1,.7,.2,1) forwards}
   html.ld-long.ld-out .ld-bar span{animation:none;width:100%;transition:width .25s}
   @keyframes ldBreath{0%,100%{opacity:.85}50%{opacity:1}}
-  @keyframes ldDrift{from{transform:translateZ(1400px) rotateY(-5deg)}to{transform:translateZ(1700px) rotateY(4deg)}}
-  @keyframes ldPulse{0%,100%{opacity:.55}50%{opacity:1}}
-  @keyframes ldRise{0%{transform:translate3d(var(--x),55vh,var(--z));opacity:0}15%{opacity:1}85%{opacity:.9}100%{transform:translate3d(calc(var(--x) + 30px),-55vh,var(--z));opacity:0}}
   @keyframes ldProg{0%{width:4%}100%{width:92%}}
   @media (prefers-reduced-motion:reduce){.ld *{animation-duration:.01ms!important;animation-iteration-count:1!important}}
 </style>
@@ -374,35 +359,123 @@
   <div class="ld-info"><div class="ld-fact" id="ldFact"></div><div class="ld-bar"><span></span></div></div>
 </div>
 <script>
+/* Loader-Szene auf einem Canvas statt echter 3D-Ebenen: dieselbe Kamerafahrt durch die LED-Bögen,
+   aber nur ein paar MB Grafikspeicher – große 3D-Ebenen ließen iOS-Safari abstürzen. */
 (function(){
-  var w = document.getElementById("ldWorld"); if(!w) return;
-  var vw = Math.max(320, innerWidth), vh = Math.max(480, innerHeight), frag = document.createDocumentFragment();
-  var cols = ["#e6004f","#ff6b8b","#ff2d6f","#c4123f","#ff8fa6"];
+  var w = document.getElementById("ldWorld"), d = document.documentElement; if(!w) return;
+  var cam = w.parentNode, lg = w.querySelector(".ld-logo"), cv = document.createElement("canvas"), c = cv.getContext && cv.getContext("2d");
+  if(!c) return;
+  cv.className = "ld-cv"; cam.insertBefore(cv, w);
+  var P = 700, reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var cols = ["#e6004f","#ff6b8b","#ff2d6f","#c4123f","#ff8fa6"], grid = "rgb(255,107,139)", sparkGlow = "rgb(255,150,175)";
   /* Gewähltes Farbdesign färbt auch die Lichtbögen */
-  var tcs = getComputedStyle(document.documentElement), ta = tcs.getPropertyValue("--t-accent").trim();
-  if(ta) cols = [ta, tcs.getPropertyValue("--t-accent2").trim(), tcs.getPropertyValue("--t-gold").trim(), ta, tcs.getPropertyValue("--t-gold2").trim()];
-  var AW = Math.max(vw * 1.5, 620), AH = Math.max(vh * 1.25, 760);
-  for(var i = 0; i < 12; i++){
-    var z = -1300 - i * 260; /* nie näher als 300px an die Kamera (perspective 700, Flug bis +1700) – sonst stürzt iOS-Safari ab */
-    var a = document.createElement("div"); a.className = "ld-arch";
-    a.style.width = AW.toFixed(0) + "px"; a.style.height = AH.toFixed(0) + "px";
-    a.style.transform = "translate3d(" + (-AW/2).toFixed(0) + "px," + (-AH*0.56).toFixed(0) + "px," + z + "px)";
-    a.style.setProperty("--c", cols[i % cols.length]); a.style.setProperty("--pd", (-i * .23) + "s");
-    frag.appendChild(a);
+  var tcs = getComputedStyle(d), ta = tcs.getPropertyValue("--t-accent").trim();
+  if(ta){ cols = [ta, tcs.getPropertyValue("--t-accent2").trim(), tcs.getPropertyValue("--t-gold").trim(), ta, tcs.getPropertyValue("--t-gold2").trim()]; grid = sparkGlow = tcs.getPropertyValue("--t-accent2").trim() || grid; }
+  var vw, vh, AW, AH, dpr;
+  function size(){
+    vw = Math.max(320, innerWidth); vh = Math.max(480, innerHeight);
+    AW = Math.max(vw * 1.5, 620); AH = Math.max(vh * 1.25, 760);
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    cv.width = Math.round(innerWidth * dpr); cv.height = Math.round(innerHeight * dpr);
   }
-  var lg = w.querySelector(".ld-logo"); if(lg) lg.style.transform = "translateZ(-2200px) scale(" + Math.min(1, vw / 760).toFixed(3) + ")";
-  var f = document.createElement("div"); f.className = "ld-floor";
-  f.style.transform = "translate3d(0," + (AH * 0.44).toFixed(0) + "px,-1100px) rotateX(-90deg)"; /* Boden zeigt von der Kamera weg */
-  frag.appendChild(f);
+  size(); addEventListener("resize", size);
+  var arches = [], sparks = [];
+  for(var i = 0; i < 12; i++) arches.push({ z: -1300 - i * 260, c: cols[i % cols.length], pd: i * .23 });
   for(var k = 0; k < 26; k++){
-    var sp = document.createElement("i"); sp.className = "ld-spark";
-    var x = ((k * 61) % 100) - 50, y = ((k * 37) % 80) - 40, zz = -1300 - (k * 113) % 1400;
-    sp.style.transform = "translate3d(" + (x * vw / 60).toFixed(0) + "px," + (y * vh / 60).toFixed(0) + "px," + zz + "px)";
-    sp.style.setProperty("--x", x + "vw"); sp.style.setProperty("--z", zz + "px");
-    sp.style.setProperty("--d", (5 + (k % 5)) + "s"); sp.style.setProperty("--dl", (-(k * .6)) + "s"); sp.style.setProperty("--dl0", ((k % 6) * .12) + "s");
-    frag.appendChild(sp);
+    var x = ((k * 61) % 100) - 50, y = ((k * 37) % 80) - 40;
+    sparks.push({ x: x, y: y, z: -1300 - (k * 113) % 1400, d: 5 + (k % 5), dl: k * .6, dl0: (k % 6) * .12 });
   }
-  w.insertBefore(frag, w.firstChild);
+  function bez(x1, y1, x2, y2){ /* CSS cubic-bezier */
+    return function(t){
+      var lo = 0, hi = 1, m, xm;
+      for(var n = 0; n < 24; n++){ m = (lo + hi) / 2; xm = 3*x1*m*(1-m)*(1-m) + 3*x2*m*m*(1-m) + m*m*m; if(xm < t) lo = m; else hi = m; }
+      m = (lo + hi) / 2; return 3*y1*m*(1-m)*(1-m) + 3*y2*m*m*(1-m) + m*m*m;
+    };
+  }
+  var eFly = bez(.55,.05,.35,1), eIO = bez(.42,0,.58,1), eTw = eIO;
+  var t0 = performance.now(), tLong = 0, Z, RY, RZ, CY = 0, SY = 0;
+  /* Weltpunkt → Bildschirm (Ursprung = Mitte); null wenn hinter der Kamera */
+  function pr(x, y, z){
+    var xx = x * CY + z * SY, zz = -x * SY + z * CY + Z;
+    if(zz > P - 60) return null;
+    var s = P / (P - zz); return [xx * s, y * s, s];
+  }
+  function arch(a, op){
+    var p = pr(0, -AH * .06, a.z); if(!p) return;
+    var s = p[2], ww = AW * s, hh = AH * s, x0 = p[0] - ww / 2, y0 = p[1] - hh / 2, r1 = Math.min(28 * s, ww / 2), r2 = 6 * s;
+    c.beginPath();
+    c.moveTo(x0 + r1, y0); c.lineTo(x0 + ww - r1, y0); c.quadraticCurveTo(x0 + ww, y0, x0 + ww, y0 + r1);
+    c.lineTo(x0 + ww, y0 + hh - r2); c.quadraticCurveTo(x0 + ww, y0 + hh, x0 + ww - r2, y0 + hh);
+    c.lineTo(x0 + r2, y0 + hh); c.quadraticCurveTo(x0, y0 + hh, x0, y0 + hh - r2);
+    c.lineTo(x0, y0 + r1); c.quadraticCurveTo(x0, y0, x0 + r1, y0); c.closePath();
+    c.strokeStyle = a.c;
+    var g = [[46, .05], [26, .09], [14, .16], [7, .3], [3, 1]];
+    for(var j = 0; j < g.length; j++){ c.globalAlpha = op * g[j][1]; c.lineWidth = g[j][0] * s; c.stroke(); }
+  }
+  function floor(){
+    var y = AH * .44, z1 = -1100, z2 = -5300, X = 1400, n, zA, zB, a, b, f;
+    function fade(z){ f = (z1 - z) / (z1 - z2); return f < .3 ? f / .3 : f > .7 ? (1 - f) / .3 : 1; }
+    c.strokeStyle = grid;
+    for(var x = -X; x <= X; x += 140){
+      for(n = 0; n < 10; n++){
+        zA = z1 + (z2 - z1) * n / 10; zB = z1 + (z2 - z1) * (n + 1) / 10;
+        a = pr(x, y, zA); b = pr(x, y, zB); if(!a || !b) continue;
+        c.globalAlpha = .18 * fade((zA + zB) / 2); c.lineWidth = Math.max(.5, 2 * a[2]);
+        c.beginPath(); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); c.stroke();
+      }
+    }
+    for(var z = z1; z >= z2; z -= 140){
+      a = pr(-X, y, z); b = pr(X, y, z); if(!a || !b) continue;
+      c.globalAlpha = .14 * fade(z); c.lineWidth = Math.max(.5, 2 * a[2]);
+      c.beginPath(); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); c.stroke();
+    }
+  }
+  function spark(x, y, z, op){
+    var p = pr(x, y, z); if(!p || op <= 0) return;
+    var s = p[2];
+    c.fillStyle = sparkGlow;
+    c.globalAlpha = op * .12; c.beginPath(); c.arc(p[0], p[1], 8 * s, 0, 6.2832); c.fill();
+    c.globalAlpha = op * .25; c.beginPath(); c.arc(p[0], p[1], 5 * s, 0, 6.2832); c.fill();
+    c.globalAlpha = op; c.fillStyle = "#fff"; c.beginPath(); c.arc(p[0], p[1], 2.5 * s, 0, 6.2832); c.fill();
+  }
+  function frame(now){
+    if(d.classList.contains("ld-gone")) return;
+    var intro = d.classList.contains("ld-intro"), long = d.classList.contains("ld-long");
+    if(!intro && !long){ requestAnimationFrame(frame); return; }
+    if(long && !tLong) tLong = now;
+    var ti = reduce ? 1 : Math.min(1, (now - t0) / 1100), tl = (now - tLong) / 1000, q, j;
+    if(long && !reduce){ /* ldDrift 7s ease-in-out infinite alternate-reverse */
+      q = (tl / 7) % 2; q = q < 1 ? 1 - q : q - 1; q = eIO(q);
+      Z = 1400 + 300 * q; RY = -2 + 3.5 * q; RZ = 0;
+    } else { q = eFly(ti); Z = 1700 * q; RY = 0; RZ = -3 * (1 - q); }
+    CY = Math.cos(RY * Math.PI / 180); SY = Math.sin(RY * Math.PI / 180);
+    c.setTransform(1, 0, 0, 1, 0, 0); c.clearRect(0, 0, cv.width, cv.height);
+    c.setTransform(dpr, 0, 0, dpr, innerWidth * dpr / 2, innerHeight * dpr / 2);
+    c.rotate(RZ * Math.PI / 180);
+    c.globalCompositeOperation = "lighter";
+    floor();
+    for(j = arches.length - 1; j >= 0; j--){
+      var op = .9;
+      if(long && !reduce){ q = ((tl + arches[j].pd) / 2.6) % 1; op = .55 + .45 * eIO(q < .5 ? q * 2 : 2 - q * 2); }
+      arch(arches[j], op);
+    }
+    for(j = 0; j < sparks.length; j++){
+      var sp = sparks[j];
+      if(long){ /* ldRise */
+        q = reduce ? .5 : ((tl + sp.dl) / sp.d) % 1;
+        var o = q < .15 ? q / .15 : q < .85 ? 1 - .1 * (q - .15) / .7 : .9 * (1 - q) / .15;
+        spark(sp.x * vw / 100 + 30 * q, vh * (.55 - 1.1 * q), sp.z, o);
+      } else { /* ldTw */
+        q = reduce ? 1 : Math.max(0, Math.min(1, ((now - t0) / 1000 - sp.dl0) / 1.1));
+        spark(sp.x * vw / 60, sp.y * vh / 60, sp.z, eTw(q < .5 ? q * 2 : 2 - q * 2));
+      }
+    }
+    c.globalCompositeOperation = "source-over"; c.globalAlpha = 1;
+    var lp = lg && pr(0, 0, -2200);
+    if(lp) lg.style.transform = "translateX(" + lp[0].toFixed(1) + "px) rotate(" + RZ.toFixed(2) + "deg) scale(" + (lp[2] * Math.min(1, vw / 760)).toFixed(4) + ")";
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
 })();
 </script>
 <header class="top">
