@@ -50,6 +50,7 @@ const actions = {
       site: { id: site.id, name: site.name, slug: site.slug },
       brand: brandFor(site, await siteHtml(ctx, site)),
       help: HELP_WHATSAPP,
+      translate: Boolean(process.env.DEEPL_API_KEY),
       loggedIn: Boolean(mine),
       account: mine ? publicAccount(mine.acc) : null,
     });

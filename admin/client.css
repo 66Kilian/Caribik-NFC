@@ -179,3 +179,4 @@ details.more summary{cursor:pointer;padding:10px 0;font-weight:700;font-size:13p
 .tr-list{display:grid;gap:12px;padding:4px 0 12px}
 .tr-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 6px;font-weight:700;font-size:13px;color:var(--dim)}
 .inp.locked{opacity:.7;background:var(--surface-2);cursor:not-allowed}
+.tr-status.soon{color:var(--warn)}

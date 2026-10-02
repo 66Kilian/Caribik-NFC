@@ -6,6 +6,7 @@ export default async function handler(req, res) {
   send(res, 200, {
     configured: isConfigured(),
     loggedIn,
+    translate: Boolean(process.env.DEEPL_API_KEY),
     storage: process.env.MK_LOCAL_REPO ? "local" : (process.env.GITHUB_TOKEN ? "github" : "missing"),
   });
 }

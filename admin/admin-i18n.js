@@ -271,6 +271,7 @@
     "Feloldás": "Entsperren",
     "Zárolás": "Sperren",
     "Fordítás…": "Übersetzt…",
+    "A többi nyelvet egyelőre kézzel kell beírni – az automatikus fordítás hamarosan érkezik.": "Bitte die anderen Sprachen vorerst manuell eintragen – die automatische Übersetzung kommt bald.",
     "🔒 A többi nyelv automatikusan fordul a német szövegből.": "🔒 Die anderen Sprachen werden automatisch aus dem Deutschen übersetzt.",
     "🔒 Feloldás": "🔒 Entsperren",
     "Többnyelvű szöveg (": "Mehrsprachiger Text (",

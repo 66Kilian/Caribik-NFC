@@ -420,11 +420,13 @@
           : (I[l] && I[l][key] != null ? I[l][key] : "");
       };
       var others = langs.slice(1), tas = {};
-      var locked = function (l) { return !S.unlocked[key + "|" + l]; };
+      var auto = !!S.info.translate; // ohne DeepL-Schlüssel: alle Sprachen frei bearbeitbar
+      var locked = function (l) { return auto && !S.unlocked[key + "|" + l]; };
       var status = h("p", { class: "tr-status" });
       var setStatus = function (st, msg) {
-        status.className = "tr-status " + st;
-        status.textContent = st === "busy" || st === "wait" ? "Übersetzt…" : st === "error" ? "Übersetzung fehlgeschlagen: " + msg
+        status.className = "tr-status " + (auto ? st : "soon");
+        status.textContent = !auto ? "Bitte trag die anderen Sprachen vorerst selbst ein – die automatische Übersetzung kommt bald."
+          : st === "busy" || st === "wait" ? "Übersetzt…" : st === "error" ? "Übersetzung fehlgeschlagen: " + msg
           : others.some(locked) ? "🔒 Andere Sprachen werden automatisch aus dem Deutschen übersetzt." : "";
       };
       var translate = E.autoTranslator(function (l, txt) {
@@ -438,7 +440,7 @@
       de.addEventListener("input", function () {
         var v = E.fromEditable(de.value);
         setI18n(el, key, "de", v);
-        translate(v, others.filter(locked));
+        if (auto) translate(v, others.filter(locked));
       });
       wrap.append(h("label", { class: "f" }, h("span", null, h("span", { class: "lang-tag", text: "DE" }), "Deutsch"), de));
       if (others.length) {
@@ -447,7 +449,7 @@
         others.forEach(function (l) {
           var cur = valOf(l), ta = h("textarea", { class: "inp", rows: rows(cur) });
           ta.value = E.toEditable(cur); tas[l] = ta;
-          var btn = h("button", { class: "btn sm ghost", type: "button" });
+          var btn = h("button", { class: "btn sm ghost" + (auto ? "" : " hidden"), type: "button" });
           var paint = function () {
             var lk = locked(l);
             ta.readOnly = lk; ta.classList.toggle("locked", lk);
@@ -465,7 +467,7 @@
           box2.append(h("div", { class: "tr-row" },
             h("div", { class: "tr-head" }, h("span", null, h("span", { class: "lang-tag", text: l.toUpperCase() }), LANG_NAMES[l] || l), btn), ta));
         });
-        wrap.append(h("details", { class: "more" }, h("summary", { text: "Übersetzungen (" + others.map(function (l) { return l.toUpperCase(); }).join(", ") + ")" }), box2));
+        wrap.append(h("details", { class: "more", open: !auto }, h("summary", { text: "Übersetzungen (" + others.map(function (l) { return l.toUpperCase(); }).join(", ") + ")" }), box2));
         setStatus("idle");
       }
     } else if (E.isTexty(el)) {

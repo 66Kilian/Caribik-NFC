@@ -247,3 +247,4 @@ dialog .row{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
 .tr-head{display:flex;align-items:center;justify-content:space-between;margin:0 0 4px}
 .inp.locked{opacity:.65;background:var(--bg);cursor:not-allowed}
 div.f{margin:0 0 14px}
+.tr-status.soon{color:var(--warn)}

@@ -117,6 +117,7 @@
   // ------------------------------------------------------------ Start
   function boot() {
     api("auth/status").then(function (s) {
+      S.translate = !!s.translate;
       if (!s.configured) return show("vSetup");
       if (!s.loggedIn) return showLogin();
       startApp();
@@ -554,11 +555,13 @@
       };
       var others = langs.slice(1), tas = {};
       S.unlocked = S.unlocked || {};
-      var locked = function (l) { return !S.unlocked[key + "|" + l]; };
+      var auto = !!S.translate; // ohne DeepL-Schlüssel: alle Sprachen frei bearbeitbar
+      var locked = function (l) { return auto && !S.unlocked[key + "|" + l]; };
       var status = h("p", { class: "hint tr-status" });
       var setStatus = function (st, msg) {
-        status.className = "hint tr-status " + st;
-        status.textContent = st === "busy" || st === "wait" ? t("Fordítás…") : st === "error" ? t("A fordítás nem sikerült: ") + msg
+        status.className = "hint tr-status " + (auto ? st : "soon");
+        status.textContent = !auto ? t("A többi nyelvet egyelőre kézzel kell beírni – az automatikus fordítás hamarosan érkezik.")
+          : st === "busy" || st === "wait" ? t("Fordítás…") : st === "error" ? t("A fordítás nem sikerült: ") + msg
           : others.some(locked) ? t("🔒 A többi nyelv automatikusan fordul a német szövegből.") : "";
       };
       var translate = E.autoTranslator(function (l, txt) {
@@ -570,13 +573,13 @@
       wrap.append(h("p", { class: "hint", style: "margin:0 0 10px" }, "Többnyelvű szöveg (", h("code", { text: key }), ")."));
       var deVal = valOf("de"), de = h("textarea", { class: "inp", rows: rows(deVal) });
       de.value = toEditable(deVal);
-      de.addEventListener("input", function () { var v = fromEditable(de.value); setI18n(el, key, "de", v); translate(v, others.filter(locked)); });
+      de.addEventListener("input", function () { var v = fromEditable(de.value); setI18n(el, key, "de", v); if (auto) translate(v, others.filter(locked)); });
       wrap.append(h("label", { class: "f" }, h("span", null, h("span", { class: "lang-tag", text: "DE" }), "Német (alap)"), de));
       if (others.length) wrap.append(status);
       others.forEach(function (l) {
         var cur = valOf(l), ta = h("textarea", { class: "inp", rows: rows(cur) });
         ta.value = toEditable(cur); tas[l] = ta;
-        var btn = h("button", { class: "btn sm ghost", type: "button" });
+        var btn = h("button", { class: "btn sm ghost" + (auto ? "" : " hidden"), type: "button" });
         var paint = function () {
           var lk = locked(l);
           ta.readOnly = lk; ta.classList.toggle("locked", lk);
