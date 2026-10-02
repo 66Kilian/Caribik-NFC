@@ -1,8 +1,8 @@
 // Schritt 2: 6-stelliger Code aus der Authenticator-App → Sitzung.
-import { send, env, guard, body, clientIp, setSessionCookie } from "../_lib/http.js";
-import { verifyTotp } from "../_lib/crypto.js";
-import { lockedFor, fail, success, consumeStep, slow } from "../_lib/limiter.js";
-import { signToken, verifyToken, SESSION_TTL } from "../../lib/session.js";
+import { send, env, guard, body, clientIp, setSessionCookie } from "../http.js";
+import { verifyTotp } from "../crypto.js";
+import { lockedFor, fail, success, consumeStep, slow } from "../limiter.js";
+import { signToken, verifyToken, SESSION_TTL } from "../../../lib/session.js";
 
 export default async function handler(req, res) {
   if (!(await guard(req, res, { method: "POST", auth: false }))) return;

@@ -1,4 +1,4 @@
-import { send, guard, setSessionCookie } from "../_lib/http.js";
+import { send, guard, setSessionCookie } from "../http.js";
 
 export default async function handler(req, res) {
   if (!(await guard(req, res, { method: "POST", auth: false }))) return;

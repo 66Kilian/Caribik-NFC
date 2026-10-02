@@ -1,8 +1,8 @@
 // Schritt 1: Passwort. Liefert bei Erfolg ein 5-Minuten-Zwischentoken für die 2FA.
-import { send, env, guard, body, clientIp, isConfigured } from "../_lib/http.js";
-import { verifyPassword } from "../_lib/crypto.js";
-import { lockedFor, fail, slow } from "../_lib/limiter.js";
-import { signToken, PRE_TTL } from "../../lib/session.js";
+import { send, env, guard, body, clientIp, isConfigured } from "../http.js";
+import { verifyPassword } from "../crypto.js";
+import { lockedFor, fail, slow } from "../limiter.js";
+import { signToken, PRE_TTL } from "../../../lib/session.js";
 
 export default async function handler(req, res) {
   if (!(await guard(req, res, { method: "POST", auth: false }))) return;

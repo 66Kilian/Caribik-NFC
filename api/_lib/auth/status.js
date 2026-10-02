@@ -1,5 +1,5 @@
-import { send, env, isConfigured } from "../_lib/http.js";
-import { isAdminRequest } from "../../lib/session.js";
+import { send, env, isConfigured } from "../http.js";
+import { isAdminRequest } from "../../../lib/session.js";
 
 export default async function handler(req, res) {
   const loggedIn = await isAdminRequest(req.headers.cookie, env().sessionSecret);

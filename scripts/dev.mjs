@@ -34,14 +34,19 @@ async function serveStatic(pathname, res) {
 async function runApi(url, req, res) {
   const name = url.pathname.replace(/^\/api\//, "").replace(/\/$/, "");
   if (!/^[a-z/]+$/.test(name) || name.includes("_lib")) { res.writeHead(404).end(); return; }
-  let mod;
+  let mod, params = {};
   try { mod = await import(pathToFileURL(join(HERE, "api", name + ".js")).href); }
-  catch { res.writeHead(404).end(); return; }
+  catch {
+    // wie Vercel: api/auth/[action].js fängt /api/auth/<irgendwas>
+    const i = name.lastIndexOf("/");
+    try { mod = await import(pathToFileURL(join(HERE, "api", name.slice(0, i), "[action].js")).href); params.action = name.slice(i + 1); }
+    catch { res.writeHead(404).end(); return; }
+  }
   const chunks = [];
   for await (const c of req) chunks.push(c);
   const raw = Buffer.concat(chunks).toString("utf8");
   req.body = raw && /json/.test(req.headers["content-type"] || "") ? JSON.parse(raw) : raw;
-  req.query = Object.fromEntries(url.searchParams);
+  req.query = { ...Object.fromEntries(url.searchParams), ...params };
   await mod.default(req, res);
 }
 
