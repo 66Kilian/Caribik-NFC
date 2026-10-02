@@ -21,7 +21,7 @@ A card you touch opens a page that feels like the venue itself, not a template: 
 - Live opening status in Vienna time.
 
 ## Capabilities and Constraints
-- Lovekino facts (public sources, to be confirmed by client): Michael-Bernhard-Gasse 13, 1120 Wien; +43 1 817 16 48; Mo–Sa 12–22, So/Feiertag 16–21; entry prices from the official price list valid since 1.11.2024: Tageseintritt Herren 20 €, Paare 15 €, Damen 10 €, Kuschelzimmer 20 €/60 min (drink prices pending); two cinema halls, bar; Loverooms (Solokabine, Paarkabine mit Gloryhole, Kuschelraum); Wednesday event 19:00 (price unknown); forum at lovekino.at/forum; 18+ only.
+- Lovekino facts (official site lovekino.at / forum pages, checked 2026-10-02): Michael-Bernhard-Gasse 13, 1120 Wien; +43 1 817 16 48; office@lovekino.at; since 1979. Hours: Mo 12–15, Tue closed (Ruhetag), Wed 12–22, Thu–Sun 17–24. Theme nights: Greedy Monday / Greedy Midweek (Konsumationspauschale Damen 29, Paare 39, Herren 79 €), Thu Donnerstags-Knaller (Damen 0, Paare 7,50, Herren 20 €), Fri–Sun Damen 10, Paare 15, Herren 20 €; JOYclub members pay less. Price list valid since 1.11.2024: Herren 20, Paare 15, Damen 10 (higher at special events), Kuschelzimmer 20 €/60 min, drinks list on the page. Two cinemas (A: daily programme, B: international productions), bar, darts, Pärchenkabine, Kuschelzimmer, 2 Gloryholes, Milking Table, Gynostuhl, Massageliege, GangBang-Table, shower; forum at lovekino.at/forum; 18+ only.
 - No age gate (owner decision for these sites).
 
 ## Brand Commitments
@@ -29,7 +29,7 @@ A card you touch opens a page that feels like the venue itself, not a template: 
 - Owner's taste: must not look AI-generated; must look great on phones.
 
 ## Evidence on Hand
-- Lovekino: no real photos yet. `img/hero.webp` is a real photo of the Kinobar; other images are labeled placeholders. Do not invent reviews, awards, founding year or prices beyond the facts above.
+- Lovekino: real photos from the official site (lovekino.at, "Unsere Location in Bildern") in `img/*.jpg`; the bedroom photo is cropped to remove an explicit TV screen. Do not invent reviews or awards.
 
 ## Product Principles
 1. Save-the-contact first, every screen.
