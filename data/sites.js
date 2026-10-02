@@ -1,7 +1,7 @@
 // Automatisch aus data/sites.json erzeugt (Admin) – nicht von Hand bearbeiten.
 export default {
-  "rev": "vmo72pv2",
-  "updatedAt": "2026-10-02T00:35:46.247Z",
+  "rev": "xtik2xzk",
+  "updatedAt": "2026-10-02T00:44:34.032Z",
   "groups": [
     "Hauptseite",
     "Kunden",
