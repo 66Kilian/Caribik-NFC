@@ -1,7 +1,7 @@
 // Automatisch aus data/sites.json erzeugt (Admin) – nicht von Hand bearbeiten.
 export default {
-  "rev": "ouhiwofz",
-  "updatedAt": "2026-10-01T20:36:23.938Z",
+  "rev": "vmo72pv2",
+  "updatedAt": "2026-10-02T00:35:46.247Z",
   "groups": [
     "Hauptseite",
     "Kunden",
@@ -61,7 +61,7 @@ export default {
       "folder": "Munkák/Lovekino",
       "slug": "lovekino",
       "subdomain": "",
-      "enabled": false,
+      "enabled": true,
       "aliases": [],
       "notes": "Tartalom nyilvános forrásokból (herold.at, stadtbekannt.at, Yelp, cylex, gomassage.at, szene1.at). Ellenőrizni: telefon (+43 1 8171648), nyitvatartás (H–Szo 12–22, V 16–21), árak a hivatalos árlista szerint (2024. 11. 1-től: férfi 20 €, pár 15 €, hölgy 10 €, Kuschelzimmer 20 €/60 perc; italárak hiányoznak), szerdai esemény ára nem ismert. Hero = valódi fotó (Kinobar). A többi fotó még helyőrző."
     }
