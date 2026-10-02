@@ -29,7 +29,7 @@ A card you touch opens a page that feels like the venue itself, not a template: 
 - Owner's taste: must not look AI-generated; must look great on phones.
 
 ## Evidence on Hand
-- Lovekino: no real photos yet. `img/hero.jpg` is a generated demo cinema scene; other images are labeled placeholders. Do not invent reviews, awards, founding year or prices beyond the facts above.
+- Lovekino: no real photos yet. `img/hero.webp` is a real photo of the Kinobar; other images are labeled placeholders. Do not invent reviews, awards, founding year or prices beyond the facts above.
 
 ## Product Principles
 1. Save-the-contact first, every screen.

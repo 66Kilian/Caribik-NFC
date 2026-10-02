@@ -151,7 +151,7 @@
   /* Hero */
   .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;padding:120px 0 72px;overflow:hidden;background:#0a0507}
   .hero-photo{position:absolute;inset:0;overflow:hidden}
-  .hero-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 40%;transform:scale(1.04);animation:heroZoom 18s ease-out both}
+  .hero-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 50%;transform:scale(1.04);animation:heroZoom 18s ease-out both}
   @keyframes heroZoom{from{transform:scale(1.12)}to{transform:scale(1.04)}}
   .hero-photo::after{content:"";position:absolute;inset:0;background:
     linear-gradient(90deg,rgba(10,4,6,.88) 0%,rgba(10,4,6,.55) 32%,rgba(10,4,6,0) 58%),
@@ -176,7 +176,7 @@
   @media(max-width:759px){
     .hero{min-height:auto;display:block;padding:0 0 48px}
     .hero-photo{position:relative;height:62svh;min-height:380px}
-    .hero-photo img{object-position:50% 40%}
+    .hero-photo img{object-position:58% 50%}
     .hero-photo::after{background:linear-gradient(180deg,rgba(10,4,6,.6) 0%,rgba(10,4,6,0) 22%,rgba(10,4,6,0) 55%,var(--bg) 100%)}
     .hero-body{margin-top:-48px}
     .hero-cta .btn{flex:1 1 auto}
@@ -378,7 +378,7 @@
 
   <!-- ===== Hero ===== -->
   <section class="hero">
-    <div class="hero-photo"><img src="img/hero.jpg" alt="Lovekino Wien – Kinosaal" width="2400" height="1400" fetchpriority="high"></div>
+    <div class="hero-photo"><img src="img/hero.webp" alt="Lovekino Wien – Kinobar mit bunter Beleuchtung" width="1698" height="926" fetchpriority="high"></div>
     <div class="wrap"><div class="hero-body">
       <p class="hero-kicker" data-i18n="heroKicker">Wien-Meidling · Erotikkino</p>
       <h1 data-i18n-html="heroTitle">Erotikkino <span>Lovekino.</span></h1>
