@@ -58,7 +58,7 @@ I18N.hu = {
   vsTitle:"A papír a fiókban végzi. A kártyád a telefonban.",
   vsP:"Papír névjegykártya", vsN:"A te NFC-kártyád", vs1p:"begépelni – ha egyáltalán", vs1n:"egy érintés, kész", vs2p:"mindent újranyomtatni", vs2n:"a weboldalt módosítjuk – a kártya marad", vs3p:"név, szám, e-mail", vs3n:"nyitvatartás, útvonal, fotók, WhatsApp, Instagram …", vs4p:"egy", vs4n:"ahány nyelven az ügyfeleid beszélnek", vs5p:"egy a sok közül", vs5n:"amiről beszélnek",
   pkTitle:"Három réteg. Egy megjelenés.", pkLead:"Kártya, dizájn és weboldal egy kézből – és ez meg is látszik rajtuk.",
-  lyFoil:"Fólia a dizájnoddal", lyCard:"Fekete NFC-kártya", lyWeb:"A weboldalad",
+  lyFoil:"Nyomtatott egyedi dizájn", lyCard:"Fekete NFC-kártya", lyWeb:"A weboldalad",
   pk1t:"A kártya", pk1d:"Fekete, bankkártya méretű NFC-kártya, egyedileg fóliázva – a logóddal, a színeiddel, a stílusoddal.",
   pk2t:"A weboldalad", pk2d:"Nem egy sablonprofil, hanem egy oldal, amit a vállalkozásodra építünk. Telefonon tökéletes, gépen is.",
   f1:"Hívás", f2:"Útvonal", f3:"Nyitvatartás", f4:"Kontakt mentése", f5:"Galéria", f6:"több nyelv",
