@@ -1,7 +1,7 @@
 // Automatisch aus data/sites.json erzeugt (Admin) – nicht von Hand bearbeiten.
 export default {
-  "rev": "71otpr9a",
-  "updatedAt": "2026-10-02T18:29:50.080Z",
+  "rev": "5nrfkeg9",
+  "updatedAt": "2026-10-03T02:19:13.702Z",
   "groups": [
     "Hauptseite",
     "Kunden",
@@ -21,7 +21,8 @@ export default {
       "notes": "Startseite – immer online.",
       "clientAdmin": false,
       "repo": "",
-      "brand": {}
+      "brand": {},
+      "impressum": {}
     },
     {
       "id": "caribik",
@@ -37,7 +38,8 @@ export default {
       "notes": "",
       "clientAdmin": false,
       "repo": "66Kilian/CaribikADMIN",
-      "brand": {}
+      "brand": {},
+      "impressum": {}
     },
     {
       "id": "venus",
@@ -53,12 +55,13 @@ export default {
       "repo": "66Kilian/Venus-PornrudiADMIN",
       "brand": {
         "wordmark": "erotik-homepage .com"
-      }
+      },
+      "impressum": {}
     },
     {
       "id": "maxim",
       "name": "Maxim Wien",
-      "group": "Kunden",
+      "group": "Fertige Seiten",
       "folder": "Munkák/Maxim Wien",
       "slug": "maxim",
       "subdomain": "",
@@ -67,7 +70,8 @@ export default {
       "notes": "Tartalom nyilvános forrásokból (Wikipedia, Yelp, TripAdvisor, 6Austria, Maxim Gentlemen Group, Grokipedia, Trustpilot). Ellenőrizni: telefon (+43 699 17172031), escort-árak (1 óra 250 €, 4 óra 750 € taxival), szoba-árak = auf Anfrage. Képek + Damen-profilok = helyőrzők, a megrendelőtől kérni.",
       "clientAdmin": true,
       "repo": "66Kilian/MaximADMIN",
-      "brand": {}
+      "brand": {},
+      "impressum": {}
     },
     {
       "id": "lovekino",
@@ -83,7 +87,8 @@ export default {
       "repo": "66Kilian/LoveKinoADMIN",
       "brand": {
         "logo": "img/logo.png"
-      }
+      },
+      "impressum": {}
     }
   ]
 };
