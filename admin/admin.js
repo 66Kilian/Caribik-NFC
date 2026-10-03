@@ -6,8 +6,35 @@
 
   var $ = function (id) { return document.getElementById(id); };
   var ROOT_DOMAIN = "meinekontaktkarte.com";
-  var RESERVED = ["admin", "api", "data", "lib", "img", "scripts", "munkak", "munkák", "favicon.ico", "favicon.svg", "robots.txt", "sitemap.xml", "i18n.js", "index.html", "www", "mail", "static", "assets", "_vercel", "404"];
+  var RESERVED = ["admin", "api", "data", "lib", "img", "scripts", "munkak", "munkák", "favicon.ico", "favicon.svg", "robots.txt", "sitemap.xml", "i18n.js", "index.html", "www", "mail", "static", "assets", "_vercel", "404", "impressum"];
   var NAME_RE = /^[a-z0-9](?:[a-z0-9-]{0,38}[a-z0-9])?$/;
+  // Impressum – gleiche Felder wie lib/impressum.js
+  var IMP_FIELDS = [
+    ["name", "Név / cégnév", true, "pl. Andrea Kilian-Vörös vagy Maxim Betriebs GmbH"],
+    ["legal", "Cégforma", false, "pl. GmbH, e.U. (egyéni vállalkozónál üres)"],
+    ["street", "Utca, házszám", true, "pl. Johnstraße 83/1"],
+    ["zip", "Irányítószám", true, "pl. 1150"],
+    ["city", "Város", true, "pl. Wien"],
+    ["country", "Ország", false, "üresen: Österreich"],
+    ["email", "E-mail", true, "office@…"],
+    ["phone", "Telefon", false, "+43 …"],
+    ["uid", "UID-szám", false, "ATU12345678"],
+    ["gisa", "GISA-szám", false, "Iparengedély száma"],
+    ["fn", "Cégjegyzékszám (FN)", false, "pl. FN 123456a (csak bejegyzett cégnél)"],
+    ["court", "Cégbíróság", false, "pl. Handelsgericht Wien"],
+    ["purpose", "Vállalkozás tárgya", true, "pl. Betrieb eines Nachtclubs und Escort-Service (18+)"],
+    ["chamber", "Kamara", false, "pl. Wirtschaftskammer Wien"],
+    ["authority", "Felügyeleti hatóság", false, "pl. Magistratisches Bezirksamt des 15. Bezirks"],
+    ["media", "Médiatulajdonos (ha nem az üzemeltető)", false, "Üresen: az üzemeltető, „Adresse wie oben”"],
+    ["extra", "Egyéb", false, ""]
+  ];
+  function impMissing(o) {
+    o = o || {};
+    var miss = IMP_FIELDS.filter(function (f) { return f[2] && !String(o[f[0]] || "").trim(); }).map(function (f) { return f[0]; });
+    if (o.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(o.email) && miss.indexOf("email") < 0) miss.push("email");
+    return miss;
+  }
+  function impUrl(s) { return "https://" + ROOT_DOMAIN + "/" + (s.folder ? s.slug + "/" : "") + "impressum/"; }
   var E = window.MKEdit; // gemeinsamer Editor-Kern (mk-edit.js)
   var DRAFT_KEY = "mk-admin-draft";
   var IDLE_MS = 30 * 60 * 1000;
@@ -212,6 +239,7 @@
           h("span", { class: "dot " + (s.enabled ? "ok" : "off"), title: s.enabled ? "Online" : "Kikapcsolva" }),
           h("span", { class: "t" }, h("b", { text: s.name }), h("small", { text: s.folder ? "/" + s.slug + (s.subdomain ? " · " + s.subdomain + "." : "") : "Főoldal" })),
           n ? h("span", { class: "badge", title: n + " ügyfél-admin" }, svgUser(), String(n)) : null,
+          impMissing(s.impressum).length ? h("span", { class: "pill warn imp-flag", title: t("Hiányzik az impresszum") }, "§") : null,
           siteChanged(s) ? h("span", { class: "chg", title: "Nem közzétett változás" }) : null);
         it.addEventListener("dragstart", function (e) { S.dragSite = s.id; e.dataTransfer.effectAllowed = "move"; e.dataTransfer.setData("text/plain", s.id); });
         it.addEventListener("dragend", function () { S.dragSite = null; clearGrpDrop(); });
@@ -711,7 +739,14 @@
 
     // --- Állapot
     var en = h("input", { type: "checkbox" }); en.checked = !!s.enabled; en.disabled = isMain;
-    en.addEventListener("change", function () { s.enabled = en.checked; changed(); renderSettings(); });
+    en.addEventListener("change", function () {
+      if (en.checked && !(b && b.enabled) && impMissing(s.impressum).length) {
+        en.checked = false; toast(t("Előbb töltsd ki az impresszumot – enélkül az oldal nem kapcsolható be."), true);
+        var ic = box.querySelector(".imp-card"); if (ic) ic.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+      s.enabled = en.checked; changed(); renderSettings();
+    });
     box.append(h("section", { class: "scard status-card" + (s.enabled ? " on" : "") },
       h("div", null, h("b", { text: s.enabled ? "Az oldal online" : "Az oldal ki van kapcsolva" }),
         h("div", { class: "hint", text: isMain ? "A főoldal mindig online." : s.enabled ? "Bárki elérheti a címén." : "A látogatók egy „nem elérhető” oldalt látnak. Az NFC-kártya linkje nem változik." })),
@@ -728,6 +763,8 @@
     });
     basic.body.append(field("Csoport", sel, "Csoportot a bal oldali listában is válthatsz: húzd a munkát a csoport fölé."));
     box.append(basic);
+
+    box.append(renderImpressum(s, b));
 
     if (!isMain) {
       // --- Cím
@@ -937,6 +974,59 @@
       h("input", { class: "inp", value: link, readonly: true }),
       h("div", { class: "row-l", style: "margin-top:10px" }, copyBtn(link),
         h("a", { class: "btn sm", href: "https://wa.me/?text=" + encodeURIComponent(msg), target: "_blank", rel: "noopener", text: "Küldés WhatsAppon" }))), null);
+  }
+
+  // ------------------------------------------------------------ Impressum
+  function renderImpressum(s, b) {
+    s.impressum = s.impressum || {};
+    var o = s.impressum, miss = impMissing(o);
+    var c = card("Impresszum", "Ausztriában kötelező (ECG § 5, UGB § 14, GewO § 63, MedienG § 25). Ebből készül az oldal „Impressum” lapja, a lábléc linkje automatikusan odamutat.");
+    c.classList.add("imp-card");
+    var state = h("div", { class: "toggle-row imp-state" + (miss.length ? " bad" : " ok") });
+    function paintState() {
+      miss = impMissing(o); state.innerHTML = "";
+      state.className = "toggle-row imp-state" + (miss.length ? " bad" : " ok");
+      var open = b && !miss.length && b.impressum && JSON.stringify(b.impressum) === JSON.stringify(o);
+      state.append(h("div", null,
+        h("b", { text: miss.length ? "Hiányos – " + miss.length + " kötelező mező üres" : "Kész – minden kötelező adat megvan" }),
+        h("div", { class: "hint", text: miss.length ? (s.enabled ? "Az oldal online, de az impresszum hiányos. Töltsd ki minél előbb." : "Amíg hiányos, az oldal nem kapcsolható be.") : (b && b.impressum && JSON.stringify(b.impressum) === JSON.stringify(o) ? "Élesben: " + impUrl(b) : "Közzététel után lesz élesben.") })),
+        "");
+      if (open) state.append(h("a", { class: "btn sm ghost", href: impUrl(b), target: "_blank", rel: "noopener", text: "Megnyitás ↗" }));
+    }
+    paintState();
+    c.body.append(state);
+
+    // Übernehmen von einer anderen Seite (gleicher Betreiber)
+    var others = S.config.sites.filter(function (x) { return x.id !== s.id && x.impressum && !impMissing(x.impressum).length; });
+    if (others.length) {
+      var cp = h("select", { class: "inp" }, h("option", { value: "", text: "Adatok átvétele másik oldalról…" }),
+        others.map(function (x) { return h("option", { value: x.id, text: x.name + " – " + x.impressum.name }); }));
+      cp.addEventListener("change", function () {
+        var src = siteById(cp.value); if (!src) return;
+        s.impressum = JSON.parse(JSON.stringify(src.impressum)); changed(); renderSettings();
+        toast(t("Átvéve – ellenőrizd, hogy minden adat erre az oldalra is igaz."));
+      });
+      c.body.append(h("div", { class: "f" }, cp));
+    }
+
+    var grid = h("div", { class: "imp-grid" });
+    IMP_FIELDS.forEach(function (f) {
+      var key = f[0], multi = key === "extra" || key === "media";
+      var i = multi ? h("textarea", { class: "inp", rows: 3, placeholder: f[3] }) : h("input", { class: "inp", placeholder: f[3], autocomplete: "off", type: key === "email" ? "email" : "text" });
+      i.value = o[key] || "";
+      var bad = function () { return f[2] && miss.indexOf(key) >= 0; };
+      i.classList.toggle("err", bad());
+      i.addEventListener("input", function () {
+        if (i.value.trim()) o[key] = i.value; else delete o[key];
+        changed(); paintState(); i.classList.toggle("err", bad()); renderSide();
+      });
+      var lab = h("label", { class: "f" + (multi || key === "purpose" || key === "name" ? " wide" : "") },
+        h("span", null, t(f[1]) + (f[2] ? " *" : "")), i);
+      grid.append(lab);
+    });
+    c.body.append(grid,
+      h("p", { class: "hint", style: "margin:2px 0 0" }, "* kötelező. UID, GISA és cégjegyzékszám akkor kötelező, ha van ilyen. A pontos tartalomhoz kérdezd meg a könyvelőt vagy a WKO-t."));
+    return c;
   }
 
   function renderBrand(s) {

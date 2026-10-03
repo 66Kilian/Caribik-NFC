@@ -6,6 +6,7 @@ import { readFile, stat } from "node:fs/promises";
 import { join, extname, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { decide, OFFLINE_HTML } from "../lib/route.js";
+import { renderImpressum } from "../lib/impressum.js";
 import { isAdminRequest, clientSiteFromCookie } from "../lib/session.js";
 
 const HERE = resolve(fileURLToPath(import.meta.url), "../..");
@@ -58,6 +59,7 @@ http.createServer(async (req, res) => {
     const clientSite = isAdmin ? null : await clientSiteFromCookie(req.headers.cookie, process.env.ADMIN_SESSION_SECRET);
     const d = decide({ pathname: url.pathname, search: url.search, host: req.headers.host, config, isAdmin, clientSite, rootDomain: process.env.ROOT_DOMAIN || "meinekontaktkarte.test" });
     if (d.type === "redirect") { res.writeHead(308, { Location: d.path }).end(); return; }
+    if (d.type === "impressum") { res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" }).end(renderImpressum(config.sites.find(s => s.id === d.site))); return; }
     if (d.type === "notfound") { res.writeHead(404, { "Content-Type": "text/html; charset=utf-8" }).end(OFFLINE_HTML); return; }
     if (d.type === "rewrite") return serveStatic(d.path, res);
     if (url.pathname.startsWith("/api/")) return runApi(url, req, res);

@@ -131,3 +131,11 @@ npm test                                            # routing tesztek
 ```
 
 Az `MK_LOCAL_REPO` egy git-klón legyen: a helyi admin ott commitol a GitHub helyett.
+
+## Impressum
+
+Beállítások → **Impresszum**: üzemeltető, cím, e-mail, telefon, UID, GISA, cégjegyzék, vállalkozás tárgya, médiatulajdonos.
+- Ebből készül az oldal `…/<cím>/impressum/` lapja (a főoldalé: `/impressum/`); a láblécek „Impressum” linkje erre mutat.
+- Amíg a kötelező mezők (*) hiányoznak, a listában egy sárga **§** jelzi, és kikapcsolt oldal nem kapcsolható be.
+- „Adatok átvétele másik oldalról” – ha több oldalnak ugyanaz az üzemeltetője.
+- Adatvédelmi nyilatkozat (Datenschutz) jelenleg nincs.

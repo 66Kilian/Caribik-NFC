@@ -255,3 +255,12 @@ div.f{margin:0 0 14px}
 .inp.rich{min-height:64px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere;cursor:text}
 .inp.rich span,.inp.rich b,.inp.rich strong{color:var(--accent);font-weight:700}
 .inp.rich[contenteditable=false]{cursor:not-allowed}
+
+/* Impressum */
+.imp-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.imp-grid .f.wide{grid-column:1/-1}
+@media(max-width:560px){.imp-grid{grid-template-columns:1fr}}
+.imp-state.bad{background:var(--warn-soft)}
+.imp-state.bad b{color:var(--warn)}
+.imp-state.ok b{color:var(--ok)}
+.imp-flag{height:18px;padding:0 6px;font-size:11px}

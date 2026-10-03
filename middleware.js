@@ -4,6 +4,7 @@
 import sitesConfig from "./data/sites.js";
 import { decide, OFFLINE_HTML, ROOT_DOMAIN_DEFAULT } from "./lib/route.js";
 import { isAdminRequest, clientSiteFromCookie } from "./lib/session.js";
+import { renderImpressum } from "./lib/impressum.js";
 
 export const config = {
   matcher: "/:path*",
@@ -39,6 +40,12 @@ export default async function middleware(request) {
     }
     if (d.type === "redirect") {
       return new Response(null, { status: 308, headers: { Location: new URL(d.path, url).toString() } });
+    }
+    if (d.type === "impressum") {
+      const site = sitesConfig.sites.find(s => s.id === d.site);
+      return new Response(renderImpressum(site), {
+        headers: { "content-type": "text/html; charset=utf-8", "cache-control": "public, max-age=0, must-revalidate" },
+      });
     }
     if (d.type === "notfound") {
       return new Response(OFFLINE_HTML, {

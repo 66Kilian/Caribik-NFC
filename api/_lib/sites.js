@@ -1,4 +1,5 @@
 import { RESERVED_SLUGS } from "../../lib/route.js";
+import { cleanImpressum } from "../../lib/impressum.js";
 
 export const CONFIG_PATH = "data/sites.json";
 export const CONFIG_JS_PATH = "data/sites.js"; // wird von middleware.js importiert
@@ -75,6 +76,7 @@ export function validateConfig(next, prev, tree) {
       clientAdmin: isMain ? false : Boolean(s.clientAdmin),
       repo: cleanRepo(s.repo),
       brand: cleanBrand(s.brand),
+      impressum: cleanImpressum(s.impressum),
     });
   }
   if (!clean.some(s => s.folder === "")) throw "Die Startseite darf nicht entfernt werden";
