@@ -128,6 +128,7 @@
   });
   $("lgBack").onclick = function () { showLogin(); };
   $("btnLogout").onclick = function () { logout(); };
+  $("btnClients").onclick = function () { if (S.clientsView) closeClients(); else openClients(); };
   function logout(msg) {
     saveDraft();
     api("auth/logout", {}).catch(function () {}).then(function () { showLogin(msg); });
@@ -322,6 +323,7 @@
 
   // ------------------------------------------------------------ Seite öffnen
   function openSite(id, force) {
+    if (S.clientsView) closeClients();
     if (S.cur !== id) S.sel = null;
     S.cur = id;
     history.replaceState(null, "", "#site=" + id);
@@ -837,65 +839,44 @@
   function userFromName(n) { return n.trim() ? slugify(n).replace(/-/g, ".").slice(0, 30) : ""; }
   function initials(n) { return String(n).trim().split(/\s+/).slice(0, 2).map(function (x) { return x[0] || ""; }).join("").toUpperCase(); }
 
-  function renderClientAdmins(s, b) {
-    var c = card("Ügyfél-adminok", "Az ügyfél a saját, márkázott adminjában szerkesztheti az oldalát. Mentéskor azonnal élesedik.");
-    if (!b) { c.body.append(h("p", { class: "hint", text: "Közzététel után hozhatsz létre ügyfél-admint." })); return c; }
-    // Schalter: ohne Freischaltung gibt es /<slug>/admin/ nicht (404)
-    var ca = h("input", { type: "checkbox" }); ca.checked = !!s.clientAdmin;
-    var caT = h("b"), caH = h("div", { class: "hint" });
-    var paintCa = function () {
-      caT.textContent = t(s.clientAdmin ? "Ügyfél-admin bekapcsolva" : "Ügyfél-admin kikapcsolva");
-      caH.textContent = t(s.clientAdmin ? "Az ügyfél be tud lépni a saját adminjába." : "A …/admin/ cím nem létezik (404), amíg be nem kapcsolod.")
-        + (!!s.clientAdmin !== !!b.clientAdmin ? " " + t("Közzététel után lép életbe.") : "");
-    };
-    ca.addEventListener("change", function () { s.clientAdmin = ca.checked; paintCa(); changed(); });
-    paintCa();
-    c.body.append(h("div", { class: "toggle-row" }, h("div", null, caT, caH), h("label", { class: "switch" }, ca, h("span", { class: "tr" }))));
-    var url = clientAdminUrl(b);
-    c.body.append(h("div", { class: "url-row" },
-      h("a", { href: url, target: "_blank", rel: "noopener", text: url.replace("https://", "") + " ↗" }),
-      h("button", { class: "btn sm ghost", text: "Másolás", onclick: function () { navigator.clipboard.writeText(url).then(function () { toast("Kimásolva ✓"); }); } })));
-    var wrap = h("div", { class: "clients" }, h("div", { class: "spin" }));
-    c.body.append(wrap);
-
+  // Ein Satz Aktionen + Zeilen für die Kunden-Admins einer Seite (Einstellungen und Übersicht nutzen ihn).
+  function clientTools(s, onView) {
     function act(data) {
       data.site = s.id;
-      return api("clients", data).then(function (v) { draw(v); S.counts = S.counts || {}; S.counts[s.id] = v.accounts.length; renderSide(); return v; });
-    }
-    function draw(v) {
-      wrap.innerHTML = "";
-      var list = h("div", { class: "acc-list" });
-      v.accounts.forEach(function (a) {
-        list.append(h("div", { class: "acc" },
-          h("span", { class: "avatar", text: initials(a.name) }),
-          h("div", { class: "acc-t" }, h("b", { text: a.name }),
-            h("small", null, "@" + a.username + " · ", h("span", { class: a.totp ? "ok-t" : "muted", text: a.totp ? "2FA ✓" : "2FA nincs" }), " · " + fmtDate(a.createdAt))),
-          h("div", { class: "acc-acts" },
-            h("button", { class: "btn sm", text: "Szerkesztés", onclick: function () { editAccount(a); } }),
-            h("details", { class: "more-menu" }, h("summary", { class: "btn sm icon", "aria-label": "Továbbiak" }, "⋯"),
-              h("div", { class: "menu" },
-                h("button", { text: "Új jelszó beállítása", onclick: function () { setPassword(a); } }),
-                h("button", { text: "Jelszó-visszaállító link", onclick: function () { act({ action: "reset", account: a.id }).then(function (v2) { showLink("Jelszó-visszaállító link", v2.link, s, a.name); }).catch(errToast); } }),
-                a.totp ? h("button", { text: "2FA törlése", onclick: function () {
-                  ask("2FA törlése?", a.name + " legközelebb csak jelszóval lép be, és újra bekapcsolhatja.", "Törlés", true).then(function (y) { if (y) act({ action: "reset2fa", account: a.id }).catch(errToast); });
-                } }) : null,
-                h("button", { class: "danger", text: "Fiók törlése", onclick: function () {
-                  ask("Ügyfél-admin törlése?", a.name + " (@" + a.username + ") nem tud többé belépni.", "Törlés", true).then(function (y) { if (y) act({ action: "delete", account: a.id }).catch(errToast); });
-                } }))))));
-      });
-      v.invites.forEach(function (i) {
-        list.append(h("div", { class: "acc pending" },
-          h("span", { class: "avatar", text: "…" }),
-          h("div", { class: "acc-t" }, h("b", { text: (i.kind === "reset" ? "Jelszó-link" : "Meghívó") + (i.name ? ": " + i.name : "") }), h("small", { text: "még nem használt · lejár: " + fmtDate(new Date(i.exp).toISOString()) })),
-          h("div", { class: "acc-acts" }, h("button", { class: "btn sm", text: "Visszavonás", onclick: function () { act({ action: "revoke", invite: i.id }).catch(errToast); } }))));
-      });
-      if (!v.accounts.length && !v.invites.length) list.append(h("p", { class: "hint", style: "margin:0 0 4px", text: "Még nincs ügyfél-admin ennél az oldalnál." }));
-      wrap.append(list, h("div", { class: "row-l", style: "margin-top:12px" },
-        h("button", { class: "btn primary sm", text: "+ Admin létrehozása", onclick: createAccount }),
-        h("button", { class: "btn sm", text: "Meghívó link küldése", onclick: inviteAccount })));
+      return api("clients", data).then(function (v) { S.counts = S.counts || {}; S.counts[s.id] = v.accounts.length; renderSide(); onView(v); return v; });
     }
     function errToast(e) { toast(e.message, true); }
-
+    function row(a) {
+      var meta = h("small", null, "@" + a.username + " · ",
+        h("span", { class: a.totp ? "ok-t" : "muted", text: a.totp ? "2FA ✓" : "2FA nincs" }),
+        " · " + (a.lastLogin ? t("utoljára belépett: ") + fmtDate(a.lastLogin) : t("még nem lépett be")));
+      return h("div", { class: "acc" + (a.disabled ? " disabled" : "") },
+        h("span", { class: "avatar", text: initials(a.name) }),
+        h("div", { class: "acc-t" }, h("b", null, a.name, a.disabled ? h("span", { class: "pill off", style: "margin-left:6px", text: "Letiltva" }) : null), meta),
+        h("div", { class: "acc-acts" },
+          h("button", { class: "btn sm", text: "Új jelszó", onclick: function () { setPassword(a); } }),
+          h("details", { class: "more-menu" }, h("summary", { class: "btn sm icon", "aria-label": "Továbbiak" }, "⋯"),
+            h("div", { class: "menu" },
+              h("button", { text: "Szerkesztés (név, felhasználónév)", onclick: function () { editAccount(a); } }),
+              h("button", { text: "Jelszó-visszaállító link", onclick: function () { act({ action: "reset", account: a.id }).then(function (v2) { showLink("Jelszó-visszaállító link", v2.link, s, a.name); }).catch(errToast); } }),
+              a.totp ? h("button", { text: "2FA törlése", onclick: function () {
+                ask("2FA törlése?", a.name + " legközelebb csak jelszóval lép be, és újra bekapcsolhatja.", "Törlés", true).then(function (y) { if (y) act({ action: "reset2fa", account: a.id }).then(function () { toast("2FA törölve ✓"); }).catch(errToast); });
+              } }) : null,
+              a.disabled
+                ? h("button", { text: "Engedélyezés", onclick: function () { act({ action: "enable", account: a.id }).then(function () { toast(a.name + ": " + t("újra be tud lépni ✓")); }).catch(errToast); } })
+                : h("button", { text: "Letiltás (ideiglenesen)", onclick: function () {
+                  ask("Fiók letiltása?", a.name + " azonnal kilép, és amíg újra nem engedélyezed, nem tud belépni. A fiók és az adatai megmaradnak.", "Letiltás", true).then(function (y) { if (y) act({ action: "disable", account: a.id }).then(function () { toast("Letiltva ✓"); }).catch(errToast); });
+                } }),
+              h("button", { class: "danger", text: "Fiók törlése", onclick: function () {
+                ask("Ügyfél-admin törlése?", a.name + " (@" + a.username + ") nem tud többé belépni.", "Törlés", true).then(function (y) { if (y) act({ action: "delete", account: a.id }).catch(errToast); });
+              } })))));
+    }
+    function inviteRow(i) {
+      return h("div", { class: "acc pending" },
+        h("span", { class: "avatar", text: "…" }),
+        h("div", { class: "acc-t" }, h("b", { text: (i.kind === "reset" ? "Jelszó-link" : "Meghívó") + (i.name ? ": " + i.name : "") }), h("small", { text: "még nem használt · lejár: " + fmtDate(new Date(i.exp).toISOString()) })),
+        h("div", { class: "acc-acts" }, h("button", { class: "btn sm", text: "Visszavonás", onclick: function () { act({ action: "revoke", invite: i.id }).catch(errToast); } })));
+    }
     function accountForm(a, withPw) {
       var name = h("input", { class: "inp", value: a ? a.name : "", placeholder: "pl. Marcus Waikat", autocomplete: "off" });
       var user = h("input", { class: "inp", value: a ? a.username : "", placeholder: "pl. marcus", spellcheck: "false", autocapitalize: "off", autocomplete: "off" });
@@ -922,13 +903,13 @@
         });
       });
     }
-    function createAccount() {
+    function create() {
       var f = accountForm(null, true);
       formDialog("Ügyfél-admin létrehozása · " + s.name, f, "Létrehozás", function () {
         return act({ action: "create", name: f.name.value, username: f.user.value, password: f.pw.value });
       }).then(function (v) { if (v) showCredentials(s, f.name.value.trim(), f.user.value.trim().toLowerCase(), f.pw.value); });
     }
-    function inviteAccount() {
+    function invite() {
       var name = h("input", { class: "inp", placeholder: "pl. Marcus (opcionális)" });
       ask("Meghívó link · " + s.name, h("div", null, h("p", { class: "muted", text: "Az ügyfél a linken maga adja meg a felhasználónevét és jelszavát. 7 napig érvényes, egyszer használható." }),
         field("Név (előre kitöltve, opcionális)", name)), "Link létrehozása").then(function (y) {
@@ -947,6 +928,99 @@
       f.err = f.el.querySelector(".err-text");
       formDialog("Új jelszó", f, "Beállítás", function () { return act({ action: "setpw", account: a.id, password: pw.value }); })
         .then(function (v) { if (v) showCredentials(s, a.name, a.username, pw.value); });
+    }
+    return { act: act, row: row, inviteRow: inviteRow, create: create, invite: invite };
+  }
+
+  // ------------------------------------------------------------ Übersicht aller Kunden-Admins
+  function openClients() {
+    S.clientsView = true;
+    $("vClients").classList.remove("hidden");
+    $("btnClients").classList.add("on");
+    renderClients();
+  }
+  function closeClients() {
+    S.clientsView = false;
+    $("vClients").classList.add("hidden");
+    $("btnClients").classList.remove("on");
+  }
+  function renderClients() {
+    var box = $("vClients"); box.innerHTML = "";
+    var q = h("input", { class: "inp", type: "search", placeholder: "Keresés: név, felhasználónév, oldal…" });
+    var onlyOff = h("input", { type: "checkbox" });
+    var list = h("div", { class: "cv-list" }, h("div", { class: "spin" }));
+    box.append(h("div", { class: "cv-head" },
+      h("div", null, h("h2", { text: "Ügyfél-adminok" }), h("p", { class: "hint", text: "Minden oldal összes ügyfél-admin fiókja. Új jelszó, visszaállító link, 2FA törlése, letiltás és törlés – egy helyen." })),
+      h("button", { class: "btn sm", text: "Bezárás", onclick: closeClients })),
+      h("div", { class: "cv-tools" }, q, h("label", { class: "cv-chk" }, onlyOff, h("span", { text: "Csak letiltottak" }))),
+      list);
+    var data = null;
+    function paint() {
+      list.innerHTML = "";
+      var term = q.value.trim().toLowerCase(), total = 0;
+      data.sites.forEach(function (g) {
+        var s = siteById(g.site.id) || g.site;
+        var accs = g.accounts.filter(function (a) {
+          if (onlyOff.checked && !a.disabled) return false;
+          return !term || (a.name + " " + a.username + " " + g.site.name + " " + g.site.slug).toLowerCase().indexOf(term) >= 0;
+        });
+        var invs = term || onlyOff.checked ? [] : g.invites;
+        if ((term || onlyOff.checked) && !accs.length) return;
+        total += accs.length;
+        var tools = clientTools(s, function (v) { g.accounts = v.accounts; g.invites = v.invites; paint(); });
+        var sec = h("section", { class: "scard cv-site" },
+          h("header", null,
+            h("div", { class: "row-l" },
+              h("h4", { text: g.site.name }),
+              h("span", { class: "pill " + (g.site.clientAdmin ? "ok" : "off"), text: g.site.clientAdmin ? "Ügyfél-admin be" : "Ügyfél-admin ki" }),
+              h("span", { class: "grow", style: "flex:1" }),
+              h("button", { class: "btn sm ghost", text: "Oldal beállításai", onclick: function () { closeClients(); openSite(g.site.id); setTab("settings"); } }))),
+          h("div", { class: "scard-body" },
+            h("div", { class: "acc-list" }, accs.map(tools.row), invs.map(tools.inviteRow),
+              !accs.length && !invs.length ? h("p", { class: "hint", style: "margin:0", text: "Még nincs ügyfél-admin." }) : null),
+            !term && !onlyOff.checked ? h("div", { class: "row-l", style: "margin-top:10px" },
+              h("button", { class: "btn sm", text: "+ Admin létrehozása", onclick: tools.create }),
+              h("button", { class: "btn sm ghost", text: "Meghívó link", onclick: tools.invite })) : null));
+        list.append(sec);
+      });
+      if (!list.children.length) list.append(h("p", { class: "hint", text: term || onlyOff.checked ? "Nincs találat." : "Még nincs egy oldal sem." }));
+    }
+    q.addEventListener("input", function () { if (data) paint(); });
+    onlyOff.addEventListener("change", function () { if (data) paint(); });
+    api("clients?all=1").then(function (d) { data = d; paint(); q.focus(); }).catch(function (e) { list.innerHTML = ""; list.append(h("p", { class: "err-text", text: e.message })); });
+  }
+
+  function renderClientAdmins(s, b) {
+    var c = card("Ügyfél-adminok", "Az ügyfél a saját, márkázott adminjában szerkesztheti az oldalát. Mentéskor azonnal élesedik.");
+    if (!b) { c.body.append(h("p", { class: "hint", text: "Közzététel után hozhatsz létre ügyfél-admint." })); return c; }
+    // Schalter: ohne Freischaltung gibt es /<slug>/admin/ nicht (404)
+    var ca = h("input", { type: "checkbox" }); ca.checked = !!s.clientAdmin;
+    var caT = h("b"), caH = h("div", { class: "hint" });
+    var paintCa = function () {
+      caT.textContent = t(s.clientAdmin ? "Ügyfél-admin bekapcsolva" : "Ügyfél-admin kikapcsolva");
+      caH.textContent = t(s.clientAdmin ? "Az ügyfél be tud lépni a saját adminjába." : "A …/admin/ cím nem létezik (404), amíg be nem kapcsolod.")
+        + (!!s.clientAdmin !== !!b.clientAdmin ? " " + t("Közzététel után lép életbe.") : "");
+    };
+    ca.addEventListener("change", function () { s.clientAdmin = ca.checked; paintCa(); changed(); });
+    paintCa();
+    c.body.append(h("div", { class: "toggle-row" }, h("div", null, caT, caH), h("label", { class: "switch" }, ca, h("span", { class: "tr" }))));
+    var url = clientAdminUrl(b);
+    c.body.append(h("div", { class: "url-row" },
+      h("a", { href: url, target: "_blank", rel: "noopener", text: url.replace("https://", "") + " ↗" }),
+      h("button", { class: "btn sm ghost", text: "Másolás", onclick: function () { navigator.clipboard.writeText(url).then(function () { toast("Kimásolva ✓"); }); } })));
+    var wrap = h("div", { class: "clients" }, h("div", { class: "spin" }));
+    c.body.append(wrap);
+    var tools = clientTools(s, function (v) { draw(v); });
+    function draw(v) {
+      wrap.innerHTML = "";
+      var list = h("div", { class: "acc-list" });
+      v.accounts.forEach(function (a) { list.append(tools.row(a)); });
+      v.invites.forEach(function (i) { list.append(tools.inviteRow(i)); });
+      if (!v.accounts.length && !v.invites.length) list.append(h("p", { class: "hint", style: "margin:0 0 4px", text: "Még nincs ügyfél-admin ennél az oldalnál." }));
+      wrap.append(list, h("div", { class: "row-l", style: "margin-top:12px" },
+        h("button", { class: "btn primary sm", text: "+ Admin létrehozása", onclick: tools.create }),
+        h("button", { class: "btn sm", text: "Meghívó link küldése", onclick: tools.invite }),
+        h("button", { class: "btn sm ghost", text: "Összes ügyfél-admin", onclick: openClients })));
     }
     api("clients?site=" + encodeURIComponent(s.id)).then(draw).catch(function (e) { wrap.innerHTML = ""; wrap.append(h("p", { class: "err-text", text: e.message })); });
     return c;

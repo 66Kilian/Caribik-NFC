@@ -47,7 +47,7 @@ export async function update(fn, message) {
 
 /** Öffentliche Sicht auf ein Konto (ohne Hash/Secret). */
 export function publicAccount(a) {
-  return { id: a.id, site: a.site, name: a.name, username: a.username, totp: Boolean(a.totp), createdAt: a.createdAt };
+  return { id: a.id, site: a.site, name: a.name, username: a.username, totp: Boolean(a.totp), createdAt: a.createdAt, lastLogin: a.lastLogin || null, disabled: Boolean(a.disabled) };
 }
 
 export const USERNAME_RE = /^[a-z0-9][a-z0-9._@-]{2,59}$/;
@@ -67,10 +67,19 @@ export async function clientSession(req, ctx) {
   if (!d) return null;
   ctx = ctx || (await load());
   const acc = ctx.data.accounts.find(a => a.id === d.a && a.site === d.s);
-  if (!acc || acc.ver !== d.v) return null;
+  if (!acc || acc.ver !== d.v || acc.disabled) return null;
   const site = ctx.config.sites.find(s => s.id === acc.site);
   if (!site || !site.clientAdmin) return null; // Kunden-Admin abgeschaltet → kein Zugang
   return { ...ctx, acc, site };
 }
 
 export function login(acc, password) { return verifyPassword(String(password || ""), acc.pw); }
+
+export const DISABLED_MSG = "Dein Zugang ist derzeit gesperrt. Bitte melde dich bei uns.";
+
+/** Merkt sich den letzten Login (Fehler hier dürfen den Login nie verhindern). */
+export async function touchLogin(accId) {
+  try {
+    await update(data => { const a = data.accounts.find(x => x.id === accId); if (a) a.lastLogin = new Date().toISOString(); }, "Login");
+  } catch {}
+}

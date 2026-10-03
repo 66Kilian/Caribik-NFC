@@ -5,7 +5,7 @@ import { send, guard, body, clientIp, setSessionCookie } from "./_lib/http.js";
 import { verifyTotp, hashPassword, sha256, randomToken } from "./_lib/crypto.js";
 import { lockedFor, fail, success, consumeStep, slow } from "./_lib/limiter.js";
 import { signData, verifyData, CLIENT_COOKIE, SESSION_TTL, PRE_TTL } from "../lib/session.js";
-import { load, update, clientSession, publicAccount, checkPassword, normUser, USERNAME_RE, login } from "./_lib/accounts.js";
+import { load, update, clientSession, publicAccount, checkPassword, normUser, USERNAME_RE, login, DISABLED_MSG, touchLogin } from "./_lib/accounts.js";
 import { htmlPath, overridesPath, parseOverrides, renderOverrides, cleanOverrides, validUpload } from "./_lib/sites.js";
 import { checkClientHtml, checkOverrides } from "./_lib/sanitize.js";
 import { mirrorFiles } from "./_lib/mirror.js";
@@ -21,6 +21,7 @@ const MAX_UPLOAD = 3 << 20;
 async function startSession(req, res, acc) {
   const tok = await signData(SECRET(), "c", { s: acc.site, a: acc.id, v: acc.ver }, SESSION_TTL);
   setSessionCookie(req, res, tok, SESSION_TTL, CLIENT_COOKIE);
+  await touchLogin(acc.id);
 }
 
 function siteBySlug(config, slug) {
@@ -89,6 +90,7 @@ const actions = {
         if (inv.kind === "reset") {
           a = data.accounts.find(x => x.id === inv.account);
           if (!a) throw new UserError("Konto nicht gefunden.");
+          if (a.disabled) throw new UserError(DISABLED_MSG);
           a.pw = hashPassword(b.password);
           a.ver = (a.ver || 1) + 1;
         } else {
@@ -117,6 +119,7 @@ const actions = {
     await slow();
     const acc = site && ctx.data.accounts.find(a => a.site === site.id && a.username === normUser(b.username));
     if (!acc || !login(acc, b.password)) { fail(clientIp(req)); return send(res, 401, { error: "Benutzername oder Passwort falsch" }); }
+    if (acc.disabled) return send(res, 403, { error: DISABLED_MSG });
     if (acc.totp) return send(res, 200, { pre: await signData(SECRET(), "cp", { s: acc.site, a: acc.id, v: acc.ver }, PRE_TTL) });
     success(clientIp(req));
     await startSession(req, res, acc);
@@ -132,6 +135,7 @@ const actions = {
     const ctx = await load();
     const acc = ctx.data.accounts.find(a => a.id === d.a && a.site === d.s && a.ver === d.v);
     if (!acc || !acc.totp) return send(res, 401, { error: "Bitte erneut anmelden", restart: true });
+    if (acc.disabled) return send(res, 403, { error: DISABLED_MSG, restart: true });
     const step = verifyTotp(acc.totp, b.code);
     if (step === null || !consumeStep(step, acc.id)) { fail(clientIp(req)); return send(res, 401, { error: "Code ungültig oder schon verwendet" }); }
     success(clientIp(req));

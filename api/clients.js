@@ -26,6 +26,14 @@ export default async function handler(req, res) {
     if (isGet) {
       const { data, config } = await load();
       // Ohne ?site: Anzahl der Kunden-Admins je Seite (für die Seitenleiste)
+      // ?all=1: alle Kunden-Admins aller Seiten (Übersicht)
+      if (req.query.all) {
+        const sites = config.sites.filter(s => s.folder).map(s => ({
+          site: { id: s.id, name: s.name, slug: s.slug, enabled: s.enabled, clientAdmin: s.clientAdmin, group: s.group },
+          ...siteView(data, s.id),
+        }));
+        return send(res, 200, { sites });
+      }
       if (!req.query.site) {
         const counts = {};
         for (const a of data.accounts) counts[a.site] = (counts[a.site] || 0) + 1;
@@ -50,7 +58,7 @@ export default async function handler(req, res) {
     const bad = msg => Object.assign(new Error(msg), { status: 400 });
     const view = await update((data) => {
       const acc = b.account ? data.accounts.find(a => a.id === b.account && a.site === site.id) : null;
-      if ((b.account || ["update", "setpw", "delete", "reset2fa", "reset"].includes(b.action)) && !acc) throw Object.assign(new Error("Konto nicht gefunden"), { status: 404 });
+      if ((b.account || ["update", "setpw", "delete", "reset2fa", "reset", "disable", "enable"].includes(b.action)) && !acc) throw Object.assign(new Error("Konto nicht gefunden"), { status: 404 });
       const checkUser = (u, self) => {
         if (!USERNAME_RE.test(u)) throw bad("Felhasználónév: min. 3 karakter, kisbetű, szám, . _ - @");
         if (data.accounts.some(x => x.site === site.id && x.username === u && x !== self)) throw bad("Ez a felhasználónév már foglalt ennél az oldalnál.");
@@ -86,6 +94,10 @@ export default async function handler(req, res) {
       } else if (b.action === "delete") {
         data.accounts = data.accounts.filter(a => a !== acc);
         data.invites = data.invites.filter(i => i.account !== acc.id);
+      } else if (b.action === "disable") {
+        acc.disabled = true; acc.ver = (acc.ver || 1) + 1; // sofort abmelden
+      } else if (b.action === "enable") {
+        delete acc.disabled;
       } else if (b.action === "reset2fa") {
         acc.totp = null; acc.ver = (acc.ver || 1) + 1;
       } else throw Object.assign(new Error("Unbekannte Aktion"), { status: 400 });

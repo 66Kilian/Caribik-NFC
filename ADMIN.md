@@ -139,3 +139,13 @@ Beállítások → **Impresszum**: üzemeltető, cím, e-mail, telefon, UID, GIS
 - Amíg a kötelező mezők (*) hiányoznak, a listában egy sárga **§** jelzi, és kikapcsolt oldal nem kapcsolható be.
 - „Adatok átvétele másik oldalról” – ha több oldalnak ugyanaz az üzemeltetője.
 - Adatvédelmi nyilatkozat (Datenschutz) jelenleg nincs.
+
+## Ügyfél-adminok kezelése
+
+Fent a **„Ügyfél-adminok”** gomb: minden oldal összes fiókja egy helyen, kereséssel („Csak letiltottak” szűrővel).
+- **+ Admin létrehozása** (név, felhasználónév, jelszó → másolás / WhatsApp), vagy **meghívó link** (7 nap).
+- Fióknál: **Új jelszó** (minden eszközről kiléptet), **jelszó-visszaállító link**, **2FA törlése**,
+  **név/felhasználónév szerkesztése**, **letiltás** (azonnal kiléptet, a fiók megmarad) / **engedélyezés**, **törlés**.
+- Látszik, mikor lépett be utoljára.
+- Az ügyfél bejelentkező oldalán: „Passwort vergessen? → WhatsApp”.
+- A 15 perces zárolás (5 hibás próbálkozás) a Vercel-funkció memóriájában él, adminból nem oldható fel – magától lejár.
