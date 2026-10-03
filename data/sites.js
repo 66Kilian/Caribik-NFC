@@ -1,7 +1,7 @@
 // Automatisch aus data/sites.json erzeugt (Admin) – nicht von Hand bearbeiten.
 export default {
-  "rev": "5nrfkeg9",
-  "updatedAt": "2026-10-03T02:19:13.702Z",
+  "rev": "ffzt8q2t",
+  "updatedAt": "2026-10-03T13:51:21.140Z",
   "groups": [
     "Hauptseite",
     "Kunden",
@@ -51,7 +51,7 @@ export default {
       "enabled": true,
       "aliases": [],
       "notes": "",
-      "clientAdmin": false,
+      "clientAdmin": true,
       "repo": "66Kilian/Venus-PornrudiADMIN",
       "brand": {
         "wordmark": "erotik-homepage .com"
