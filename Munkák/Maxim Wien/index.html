@@ -4,13 +4,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Maxim Wien · Nightclub, Girls &amp; Escort gegenüber der Staatsoper</title>
 <meta name="description" content="Maxim Wien – Nightclub, Maxim Girls und Escort-Service ins Hotel, 24/7. Kärntner Straße 61, 1010 Wien, gegenüber der Staatsoper. Täglich 20–05 Uhr. Champagner, VIP-Zimmer, Maxim Legacy Bar. Ab 18.">
-<meta name="theme-color" content="#2a0911">
+<meta name="theme-color" content="#0c0b0d">
 <meta name="robots" content="index,follow">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%231c060b%22/%3E%3Cpath d=%22M14 50V22h8l10 14 10-14h8v28h-8V35l-10 13-10-13v15z%22 fill=%22%23c9a45c%22/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 fill=%22%230c0b0d%22/%3E%3Cpath d=%22M14 50V22h8l10 14 10-14h8v28h-8V35l-10 13-10-13v15z%22 fill=%22%23f7f3ee%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&amp;display=swap">
-<link rel="preload" as="image" href="img/club.webp" fetchpriority="high">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&amp;display=swap">
+<link rel="preload" as="image" href="img/escort.webp" fetchpriority="high">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"NightClub","name":"Maxim Wien","url":"https://maxim-wien.com/","telephone":"+4369917172031","email":"office@maxim-wien.com","image":"img/club.webp",
 "address":{"@type":"PostalAddress","streetAddress":"Kärntner Straße 61","postalCode":"1010","addressLocality":"Wien","addressCountry":"AT"},
@@ -20,262 +20,214 @@
 <style>
   :root{
     /* Namen wie in lib/themes.js – ein gewähltes Kunden-Design überschreibt sie */
-    --bg:#2a0911;--bg-2:#330c16;--card:#3c101b;--line:rgba(201,164,92,.24);
-    --text:#f6ece2;--text-dim:#d4bcb1;--red:#8e1528;--red-2:#c4405a;--gold:#c9a45c;--gold-2:#ecd49a;--shade:#0d0305;--on-accent:#1c0a06;
-    --fold-d:color-mix(in srgb,var(--red) 26%,var(--shade));
-    --fold-m:color-mix(in srgb,var(--red) 60%,var(--shade));
-    --fold-l:color-mix(in srgb,var(--red) 88%,#ffb59e);
-    --serif:"Jost","Futura","Century Gothic",system-ui,sans-serif;
-    --sans:"Jost","Futura","Century Gothic",system-ui,sans-serif;
-    --wrap:1180px;--ease:cubic-bezier(.16,1,.3,1);
+    --bg:#0c0b0d;--bg-2:#141216;--card:#1b181c;--line:rgba(247,243,238,.14);
+    --text:#f7f3ee;--text-dim:#b8b0a9;--red:#e9cf9a;--gold:#e9cf9a;--gold-2:#f4e4c1;--shade:#060507;--on-accent:#0c0b0d;
+    --font:"Jost","Futura","Century Gothic",system-ui,sans-serif;
+    --pad:20px;--wrap:1200px;--ease:cubic-bezier(.16,1,.3,1);
   }
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scrollbar-color:var(--gold) var(--shade);background:var(--bg)}
-  body{margin:0;background:var(--bg);color:var(--text);font:400 17px/1.65 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;background:var(--bg);scrollbar-color:var(--text-dim) var(--bg)}
+  body{margin:0;background:var(--bg);color:var(--text);font:400 17px/1.6 var(--font);-webkit-font-smoothing:antialiased;overflow-x:hidden}
   ::selection{background:var(--gold);color:var(--on-accent)}
   img{max-width:100%;display:block}
   a{color:inherit;text-underline-offset:.22em;text-decoration-thickness:1px}
-  :focus-visible{outline:2px solid var(--gold-2);outline-offset:3px;border-radius:4px}
-  h1,h2,h3{font-family:var(--serif);font-weight:300;line-height:1.04;letter-spacing:.005em;margin:0;text-wrap:balance}
-  h2{font-size:clamp(40px,7vw,76px);font-optical-sizing:auto}
-  h2 em,h1 em{font-style:normal;color:var(--gold-2)}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  h1,h2,h3{margin:0;font-family:var(--font);text-wrap:balance}
+  h2{font-size:clamp(44px,12vw,120px);font-weight:700;line-height:.9;letter-spacing:-.01em;text-transform:uppercase}
   p{margin:0}
-  .wrap{width:min(var(--wrap),100% - 40px);margin-inline:auto}
-  .lead{font-size:clamp(17px,1.5vw,19px);color:var(--text-dim);max-width:58ch}
-  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .wrap{width:min(var(--wrap),100% - var(--pad)*2);margin-inline:auto}
+  .lead{font-size:clamp(18px,2vw,21px);line-height:1.5;color:var(--text-dim);max-width:52ch}
 
-  /* Buttons: Messing */
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:2px;font:600 15px/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:1px solid var(--gold);transition:background .25s,color .25s,transform .15s,box-shadow .25s}
-  .btn:active{transform:translateY(1px)}
-  .btn svg{width:18px;height:18px;flex:none}
-  .btn-brass{background:var(--gold);color:var(--on-accent);border-color:color-mix(in srgb,var(--gold) 70%,#000);box-shadow:0 6px 14px -6px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.45)}
-  .btn-brass:hover{filter:brightness(1.06);box-shadow:0 8px 16px -6px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.5)}
-  .btn-line{color:var(--gold-2);background:color-mix(in srgb,var(--shade) 40%,transparent)}
-  .btn-line:hover{background:color-mix(in srgb,var(--gold) 14%,transparent)}
-  .text-link{color:var(--gold-2);font-weight:600;text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--gold) 55%,transparent)}
-  .text-link:hover{text-decoration-color:var(--gold-2)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 24px;font:600 15px/1 var(--font);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:1.5px solid var(--text);color:var(--text);background:transparent;transition:background .2s,color .2s,transform .15s}
+  .btn:active{transform:scale(.98)}
+  .btn svg{width:19px;height:19px;flex:none}
+  .btn-solid{background:var(--text);color:var(--bg)}
+  .btn-solid:hover{background:var(--gold-2);border-color:var(--gold-2)}
+  .btn-line:hover{background:color-mix(in srgb,var(--text) 12%,transparent)}
+  .link{color:var(--text);font-weight:500;text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--text) 40%,transparent)}
+  .link:hover{text-decoration-color:var(--text)}
 
-  /* Das Maxim-M mit Sternen (Logo als Maske, färbt sich mit) */
-  .mark{display:block;aspect-ratio:512/330;background:var(--gold);-webkit-mask:url(img/logo.png) top center/100% auto no-repeat;mask:url(img/logo.png) top center/100% auto no-repeat}
-  .mark.full{aspect-ratio:512/507}
-
-  /* ===== Samtvorhang ===== */
-  .curtain{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden}
-  .curtain::before,.curtain::after{content:"";position:absolute;top:-2%;bottom:-2%;width:50.5%;
-    background:
-      linear-gradient(180deg,rgba(0,0,0,.5),transparent 15%,transparent 66%,rgba(0,0,0,.62)),
-      url(img/samt.jpg) center/auto 100% repeat-x;
-    background-color:var(--red);background-blend-mode:normal,luminosity;
-    transition:transform 1.7s var(--ease);will-change:transform}
-  .curtain::before{left:0;transform-origin:0 50%;box-shadow:12px 0 30px rgba(0,0,0,.55)}
-  .curtain::after{right:0;transform-origin:100% 50%;box-shadow:-12px 0 30px rgba(0,0,0,.55)}
-  /* Ohne JS oder mit reduzierter Bewegung: Vorhang offen */
-  .curtain::before,.curtain::after{transform:scaleX(var(--gather,.1))}
-  html.js .curtain.shut::before,html.js .curtain.shut::after{transform:none}
-  @media(prefers-reduced-motion:reduce){.curtain::before,.curtain::after{transition:none}html.js .curtain.shut::before,html.js .curtain.shut::after{transform:scaleX(var(--gather,.1))}}
-
-  /* Alkoven: Bogenrahmen mit Messinglinie */
-  .alcove{position:relative;overflow:hidden;border-radius:999px 999px 3px 3px/46% 46% 3px 3px;background:var(--shade);isolation:isolate}
-  .alcove img{width:100%;height:100%;object-fit:cover}
-  .alcove::after{content:"";position:absolute;inset:7px;z-index:4;border:1px solid color-mix(in srgb,var(--gold) 70%,transparent);border-radius:inherit;pointer-events:none}
-  .alcove .curtain{--gather:.06}
-
-  /* Messingschild */
-  .plaque{display:flex;flex-direction:column;justify-content:center;gap:2px;min-height:62px;padding:10px 18px;border:1px solid color-mix(in srgb,var(--gold) 60%,transparent);border-radius:2px;background:color-mix(in srgb,var(--shade) 55%,transparent);text-decoration:none;color:var(--gold-2);transition:background .25s,transform .25s var(--ease);flex:none}
-  .plaque b{font:500 15px/1.1 var(--serif);letter-spacing:.14em;text-transform:uppercase}
-  .plaque span{font:600 11px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:color-mix(in srgb,var(--gold-2) 72%,var(--text-dim))}
-  .plaque:hover{background:color-mix(in srgb,var(--gold) 16%,var(--shade));transform:translateY(-2px)}
-  .plaque.lit{background:var(--gold);color:var(--on-accent);border-color:var(--gold)}
-  .plaque.lit span{color:color-mix(in srgb,var(--on-accent) 75%,transparent)}
-
+  .mark{display:block;aspect-ratio:512/330;background:currentColor;-webkit-mask:url(img/logo.png) top center/100% auto no-repeat;mask:url(img/logo.png) top center/100% auto no-repeat}
 
   /* ===== Header ===== */
-  header.top{position:fixed;inset:0 0 auto;z-index:50;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+  header.top{position:fixed;inset:0 0 auto;z-index:50;padding-top:env(safe-area-inset-top,0px);transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
   header.top.solid{background:var(--bg);border-color:var(--line)}
-  .top-inner{display:flex;align-items:center;gap:20px;height:66px}
-  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--gold-2)}
-  .brand .mark{width:40px}
-  .brand b{font:400 19px/1 var(--serif);letter-spacing:.34em}
-  .nav-links{display:none;gap:24px;margin-left:auto}
-  .nav-links a{text-decoration:none;font-weight:500;font-size:14px;letter-spacing:.04em;color:var(--text-dim);transition:color .2s}
-  .nav-links a:hover{color:var(--gold-2)}
-  .nav-right{margin-left:auto;display:flex;align-items:center;gap:12px}
-  .nav-phone{display:none;text-decoration:none;font-weight:600;font-size:14px;color:var(--gold-2);font-variant-numeric:tabular-nums}
-  @media(min-width:1040px){.nav-links{display:flex}.nav-right{margin-left:8px}.nav-phone{display:inline}}
+  .top-inner{display:flex;align-items:center;gap:20px;height:60px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
+  .brand .mark{width:36px}
+  .brand b{font:600 15px/1 var(--font);letter-spacing:.32em}
+  .nav-links{display:none;gap:26px;margin-left:auto}
+  .nav-links a{text-decoration:none;font:500 13px/1 var(--font);letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim)}
+  .nav-links a:hover{color:var(--text)}
+  .nav-right{margin-left:auto;display:flex;align-items:center;gap:14px}
+  .nav-phone{display:none;text-decoration:none;font-weight:600;font-size:15px;font-variant-numeric:tabular-nums}
+  @media(min-width:1040px){.nav-links{display:flex}.nav-right{margin-left:10px}.nav-phone{display:inline}}
   .langbox{position:relative}
-  #langBtn{display:flex;align-items:center;gap:6px;height:38px;padding:0 12px;border-radius:2px;border:1px solid var(--line);background:color-mix(in srgb,var(--shade) 55%,transparent);color:var(--text);font:600 13px var(--sans);cursor:pointer}
-  #langPanel{position:absolute;right:0;top:46px;min-width:190px;padding:6px;border-radius:4px;background:var(--card);border:1px solid var(--line);box-shadow:0 20px 40px -12px rgba(0,0,0,.7);display:none}
+  #langBtn{display:flex;align-items:center;gap:6px;height:36px;padding:0 10px;border:1px solid var(--line);background:color-mix(in srgb,var(--bg) 50%,transparent);color:var(--text);font:600 13px var(--font);cursor:pointer}
+  #langPanel{position:absolute;right:0;top:44px;min-width:180px;padding:6px;background:var(--card);border:1px solid var(--line);box-shadow:0 18px 36px -12px rgba(0,0,0,.8);display:none}
   #langPanel.open{display:block}
-  #langPanel button{display:flex;gap:10px;align-items:center;width:100%;padding:9px 10px;border:0;border-radius:3px;background:none;color:var(--text);font:inherit;font-size:15px;cursor:pointer;text-align:left}
-  #langPanel button:hover,#langPanel button[aria-current=true]{background:color-mix(in srgb,var(--gold) 14%,transparent)}
+  #langPanel button{display:flex;gap:10px;align-items:center;width:100%;padding:10px;border:0;background:none;color:var(--text);font:inherit;font-size:15px;cursor:pointer;text-align:left}
+  #langPanel button:hover,#langPanel button[aria-current=true]{background:color-mix(in srgb,var(--text) 10%,transparent)}
   #langPanel .code{margin-left:auto;color:var(--text-dim);font-size:12px}
 
-  /* ===== Hero: der Vorhang geht auf ===== */
-  .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:var(--shade);padding:110px 0 28px}
-  .hero-photo{position:absolute;inset:0;z-index:0}
-  .hero-photo img{width:100%;height:100%;object-fit:cover;object-position:58% 50%;transform:scale(1.08);transition:transform 2.6s var(--ease)}
-  .hero.open .hero-photo img{transform:scale(1)}
-  .hero-photo::after{content:"";position:absolute;inset:0;background:
-    radial-gradient(120% 80% at 70% 40%,transparent 0,color-mix(in srgb,var(--shade) 35%,transparent) 55%,color-mix(in srgb,var(--shade) 80%,transparent) 100%),
-    linear-gradient(180deg,color-mix(in srgb,var(--shade) 70%,transparent) 0,transparent 22%,transparent 40%,color-mix(in srgb,var(--bg) 92%,transparent) 78%,var(--bg) 100%)}
-  .hero .curtain{--gather:.075}
-  .valance{position:absolute;inset:0 0 auto;z-index:4;height:72px;background:
-    linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.15) 60%,rgba(0,0,0,.5)),url(img/samt.jpg) center 30%/auto 260px repeat-x;
-    background-color:var(--red);background-blend-mode:normal,luminosity;box-shadow:0 6px 18px rgba(0,0,0,.6)}
-  .valance::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:6px;background:repeating-linear-gradient(90deg,var(--gold) 0 2px,transparent 2px 6px);opacity:.85}
-  .hero-body{position:relative;z-index:5}
-  .hero .mark{width:clamp(70px,9vw,104px);margin-bottom:22px}
-  .hero h1{font-size:clamp(54px,10.5vw,136px);font-weight:300;line-height:.92;letter-spacing:.09em;text-transform:uppercase;color:var(--text);margin-right:-.09em}
-  .hero h1 em{display:block;font-size:.24em;font-weight:400;letter-spacing:.62em;margin-top:.7em}
-  .hero-sub{margin-top:22px;max-width:36ch;font-size:clamp(18px,1.8vw,22px);line-height:1.45;color:var(--text)}
-  .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
-  .status{display:inline-flex;align-items:center;gap:9px;margin-top:22px;font-size:14px;font-weight:500;color:var(--text-dim)}
+  /* ===== Hero: Vollbild-Fotos ===== */
+  .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:var(--shade);padding:90px 0 22px}
+  .slides{position:absolute;inset:0}
+  .slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity 1.6s ease,transform 7s linear}
+  .slides img.on{opacity:1;transform:scale(1)}
+  .slides img:nth-child(1){object-position:24% 30%}
+  .slides img:nth-child(2){object-position:60% 50%}
+  .slides img:nth-child(3){object-position:40% 50%}
+  .slides::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55) 0,rgba(0,0,0,0) 18%,rgba(0,0,0,0) 38%,rgba(6,5,7,.72) 62%,var(--bg) 100%)}
+  .hero-body{position:relative;z-index:2}
+  .hero h1{font-size:clamp(96px,27vw,300px);font-weight:700;line-height:.8;letter-spacing:-.025em;text-transform:uppercase;margin-left:-.04em}
+  .hero-sub{margin-top:16px;font-size:clamp(19px,2.2vw,24px);line-height:1.35;font-weight:500;max-width:30ch}
+  .hero-sub b{color:var(--gold);font-weight:600}
+  .status{display:inline-flex;align-items:center;gap:9px;margin-top:14px;font-size:15px;color:var(--text-dim)}
   .status i{width:8px;height:8px;border-radius:50%;background:color-mix(in srgb,var(--text) 45%,transparent)}
   .status.open{color:var(--text)}
-  .status.open i{background:#3ccf86;box-shadow:0 0 0 3px rgba(60,207,134,.22)}
-  .plaques{position:relative;z-index:5;display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:30px}
-  .plaques .plaque.lit{grid-column:1/-1}
-  @media(max-width:899px){.plaque{min-height:52px;padding:8px 12px}.plaque b{font-size:13px;letter-spacing:.1em}.hero .mark{width:64px;margin-bottom:14px}.hero-cta{margin-top:22px}.status{margin-top:16px}.hero-sub{margin-top:14px}}
-  .hero-body,.hero .plaques{opacity:0;transform:translateY(16px);transition:opacity 1s .5s,transform 1.2s .5s var(--ease)}
-  .hero.open .hero-body,.hero.open .plaques{opacity:1;transform:none}
-  html:not(.js) .hero-body,html:not(.js) .hero .plaques{opacity:1;transform:none}
-  @media(min-width:900px){
-    .hero{padding-bottom:40px}
-    .plaques{display:flex;margin-top:40px}
-    .plaques .plaque{flex:1}
+  .status.open i{background:#3fd38a}
+  .hero-cta{display:grid;grid-template-columns:1.45fr 1fr;gap:10px;margin-top:20px}
+  @media(max-width:420px){.hero-cta .btn{padding:0 10px;font-size:14px;letter-spacing:.04em;white-space:nowrap}.hero-cta .btn svg{display:none}}
+  .quick{position:relative;z-index:2;display:flex;gap:22px;margin-top:22px;padding:16px 28px 0 0;border-top:1px solid var(--line);overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 82%,transparent);mask-image:linear-gradient(90deg,#000 82%,transparent)}
+  @media(min-width:1040px){.quick{display:none}}
+  .quick::-webkit-scrollbar{display:none}
+  .quick a{flex:none;text-decoration:none;font:600 13px/1 var(--font);letter-spacing:.14em;text-transform:uppercase;color:var(--text-dim);padding:6px 0}
+  .quick a.hot{color:var(--gold)}
+  @media(min-width:760px){
+    .hero{padding-bottom:36px}
+    .hero-cta{display:flex}
+    .slides img:nth-child(1){object-position:30% 30%}
   }
-  @media(prefers-reduced-motion:reduce){.hero-body,.hero .plaques{transition:none;opacity:1;transform:none}.hero-photo img{transition:none;transform:none}}
+  @media(prefers-reduced-motion:reduce){.slides img{transition:none;transform:none}}
 
   /* ===== Sektionen ===== */
-  .booth{position:relative;padding:clamp(88px,12vw,150px) 0}
-  .booth + .booth{padding-top:clamp(56px,7vw,96px)}
-  .booth + .booth::before{content:"";position:absolute;top:0;left:50%;width:min(var(--wrap),100% - 40px);transform:translateX(-50%);height:7px;background:
-    linear-gradient(180deg,transparent 0 2px,var(--gold) 2px 3px,transparent 3px 4px,color-mix(in srgb,var(--gold) 50%,transparent) 4px 5px,transparent 5px);opacity:.8}
-  .booth-head{display:grid;gap:18px;margin-bottom:clamp(30px,4vw,48px)}
+  section.block{padding:clamp(80px,12vw,150px) 0 0}
+  .head{display:grid;gap:18px;margin-bottom:32px}
+  .photo{position:relative;overflow:hidden;background:var(--card)}
+  .photo img{width:100%;height:100%;object-fit:cover}
 
-  /* Escort – die größte Séparée, mit Blick auf die nächtliche Stadt */
-  #escort{padding-top:clamp(64px,8vw,110px);background:linear-gradient(180deg,var(--bg),var(--bg-2) 40%,var(--bg))}
-  .esc{display:grid;gap:34px;grid-template-areas:"head" "media" "body"}
-  .esc-head{grid-area:head}.esc-media{grid-area:media}.esc-body{grid-area:body}
-  .esc-body .menu-card{margin-top:0}
-  .esc-media{position:relative;padding:0 0 40px}
-  .esc-media .alcove{position:relative;z-index:1;aspect-ratio:4/5;width:64%;max-width:420px}
-  .esc-media .alcove img{object-position:22% 50%}
-  .window{position:absolute;z-index:0;right:0;top:14%;width:62%;aspect-ratio:3/4.2;margin:0;border:7px solid color-mix(in srgb,var(--gold) 55%,var(--shade));outline:1px solid var(--gold);border-radius:2px;overflow:hidden;box-shadow:0 26px 50px -18px rgba(0,0,0,.85)}
-  .window img{width:100%;height:100%;object-fit:cover;object-position:62% 50%}
-  .window::before,.window::after{content:"";position:absolute;z-index:2;background:color-mix(in srgb,var(--gold) 55%,var(--shade))}
-  .window::before{left:50%;top:0;bottom:0;width:5px;transform:translateX(-50%)}
-  .window::after{top:38%;left:0;right:0;height:5px}
-  .window figcaption{position:absolute;z-index:3;left:auto;right:10px;bottom:10px;max-width:52%;text-align:right;font:600 11px/1.35 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.9)}
-  .esc h2{font-size:clamp(46px,8.4vw,96px)}
-  .esc .lead{margin-top:20px}
-  .menu-card{margin-top:30px;padding:26px 24px 22px;border:1px solid var(--gold);outline:1px solid color-mix(in srgb,var(--gold) 45%,transparent);outline-offset:5px;background:color-mix(in srgb,var(--shade) 50%,transparent)}
-  .menu-card h3{font:500 15px/1.2 var(--serif);letter-spacing:.2em;text-transform:uppercase;color:var(--gold-2);margin-bottom:14px}
-  .menu{list-style:none;margin:0;padding:0;display:grid;gap:12px}
-  .menu li{display:flex;align-items:baseline;gap:10px}
-  .menu li span{white-space:nowrap}
-  .menu li i{flex:1;border-bottom:1px dotted color-mix(in srgb,var(--gold) 55%,transparent);transform:translateY(-4px)}
-  .menu li b{font:300 24px/1 var(--serif);color:var(--gold-2);font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
-  .menu-note{margin-top:16px;font-size:14px;color:var(--text-dim)}
-  .menu-note b{color:var(--text);font-weight:600}
-  .how{list-style:none;margin:28px 0 0;padding:0;display:grid;gap:14px;counter-reset:how}
-  .how li{position:relative;padding-left:44px;color:var(--text-dim)}
-  .how li b{color:var(--text);font-weight:600}
-  .how li::before{counter-increment:how;content:counter(how);position:absolute;left:0;top:-3px;width:30px;height:30px;display:grid;place-items:center;border:1px solid var(--gold);border-radius:50%;font:400 15px/1 var(--serif);color:var(--gold-2)}
-  .pickup{margin-top:28px;padding-top:22px;border-top:1px solid var(--line);display:grid;gap:6px}
-  .pickup h3{font:500 15px/1.2 var(--serif);letter-spacing:.2em;text-transform:uppercase;color:var(--gold-2)}
+  /* Escort */
+  .esc-photo{height:min(125vw,72svh);margin-inline:calc(var(--pad)*-1)}
+  .esc-photo img{object-position:50% 20%}
+  .esc-photo h2{position:absolute;left:var(--pad);right:var(--pad);bottom:22px;z-index:2}
+  .esc-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(6,5,7,.85))}
+  .esc-photo h2 span{display:block;font-size:.42em;letter-spacing:.02em;color:var(--gold)}
+  .esc-body{display:grid;gap:30px;margin-top:30px}
+  .prices{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+  .prices li{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .prices li span{font-size:18px}
+  .prices li b{font-size:clamp(34px,8vw,48px);font-weight:600;line-height:1;color:var(--gold);font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
+  .note{font-size:15px;color:var(--text-dim)}
+  .note b{color:var(--text);font-weight:600}
+  .steps{list-style:none;margin:0;padding:0;display:grid;gap:18px;counter-reset:s}
+  .steps li{display:grid;grid-template-columns:44px 1fr;gap:4px 14px;color:var(--text-dim)}
+  .steps li::before{counter-increment:s;content:counter(s);grid-row:span 2;font:700 40px/1 var(--font);color:var(--text)}
+  .steps li b{color:var(--text);font-weight:600;font-size:18px}
+  .pickup{padding:18px 0;border-block:1px solid var(--line)}
+  .pickup h3{font:700 22px/1.1 var(--font);text-transform:uppercase;margin-bottom:8px}
   .pickup p{color:var(--text-dim)}
-  .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+  .cta{display:grid;gap:10px}
+  @media(min-width:760px){.cta{display:flex;flex-wrap:wrap}}
   @media(min-width:960px){
-    .esc{grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);grid-template-areas:"media head" "media body";grid-template-rows:auto 1fr;gap:30px 72px;align-items:start}
-    .esc-media{position:sticky;top:96px}
+    .esc{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+    .esc-photo{margin:0;position:sticky;top:80px;height:auto;aspect-ratio:4/5}
+    .esc-body{margin-top:0}
   }
 
   /* Girls */
-  .girls{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-inline:-20px;padding:0 20px 8px}
-  .girls::-webkit-scrollbar{display:none}
-  .girl{flex:0 0 min(64vw,280px);scroll-snap-align:start;margin:0}
-  .girl .alcove{aspect-ratio:3/4.3}
-  .girl figcaption{margin-top:14px;display:flex;align-items:baseline;justify-content:space-between;gap:10px}
-  .girl figcaption b{font:400 18px/1 var(--serif);letter-spacing:.18em;text-transform:uppercase;color:var(--text)}
-  .girl figcaption span{font-size:13px;color:var(--text-dim)}
-  @media(min-width:960px){.girls{display:grid;grid-template-columns:repeat(4,1fr);overflow:visible;margin-inline:0;padding:0}.girl{flex:none}}
-  .types{display:flex;flex-wrap:wrap;gap:10px 26px;list-style:none;margin:34px 0 0;padding:22px 0 0;border-top:1px solid var(--line)}
-  .types li{font:300 20px/1.3 var(--serif);color:var(--gold-2)}
-  .girls-foot{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;margin-top:28px}
-  .girls-foot small{color:var(--text-dim);font-size:13px}
+  .filters{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 calc(var(--pad)*-1) 22px;padding:0 var(--pad)}
+  .filters::-webkit-scrollbar{display:none}
+  .filters button{flex:none;min-height:44px;padding:0 16px;border:1px solid var(--line);background:none;color:var(--text);font:500 14px/1 var(--font);letter-spacing:.04em;cursor:pointer;white-space:nowrap}
+  .filters button[aria-pressed=true]{background:var(--gold);border-color:var(--gold);color:var(--on-accent)}
+  .filters button b{font-weight:inherit}
+  .filters button span{margin-left:6px;opacity:.6;font-variant-numeric:tabular-nums}
+  .roster{display:grid;grid-template-columns:1fr 1fr;gap:22px 12px}
+  @media(min-width:760px){.roster{grid-template-columns:repeat(3,1fr)}}
+  @media(min-width:1100px){.roster{grid-template-columns:repeat(4,1fr);gap:30px 18px}}
+  .girl[hidden]{display:none}
+  .girl .photo{aspect-ratio:3/4}
+  /* Ohne Foto: kompakte Zeile über die ganze Breite – mit Foto (im Admin hochgeladen) wieder Karte */
+  .girl.nophoto{grid-column:1/-1;display:grid;grid-template-columns:minmax(110px,30%) 1fr;gap:4px 16px;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--line)}
+  .girl.nophoto .photo{display:none}
+  .girl.nophoto h3{margin:0;grid-row:span 2}
+  .girl.nophoto .tags{margin:0}
+  .girl.nophoto .fav{margin:0}
+  .girl.nophoto + .girl.nophoto{margin-top:-22px}
+  .girl:not(.nophoto) + .girl.nophoto{margin-top:12px;border-top:1px solid var(--line)}
+  @media(min-width:1100px){.girl.nophoto + .girl.nophoto{margin-top:-30px}}
+  .girl h3{margin-top:12px;font:700 22px/1 var(--font);text-transform:uppercase;letter-spacing:.04em}
+  .tags{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:4px 10px}
+  .tags li{font-size:13px;line-height:1.35;color:var(--text-dim)}
+  .tags li.esc{color:var(--gold)}
+  .fav{margin-top:6px;font-size:13px;line-height:1.35;color:var(--text-dim)}
+  .also{margin-top:34px;padding-top:20px;border-top:1px solid var(--line);color:var(--text-dim)}
+  .also b{color:var(--text);font-weight:500}
+  .girls-cta{display:grid;gap:12px;margin-top:26px}
+  .girls-cta small{font-size:14px;color:var(--text-dim)}
+  @media(min-width:760px){.girls-cta{display:flex;align-items:center;flex-wrap:wrap;gap:20px}}
 
-  /* Club & Zimmer */
-  .club{display:grid;gap:36px}
-  .club .alcove{aspect-ratio:16/11}
-  .facts{margin-top:30px;max-width:520px}
-  @media(min-width:960px){.club{grid-template-columns:1.1fr .9fr;gap:64px;align-items:center}}
-  .rooms{display:grid;gap:40px;margin-top:clamp(70px,9vw,110px)}
-  .room-pics{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  .room-pics .alcove{aspect-ratio:3/4}
-  .room-pics .alcove:nth-child(2){margin-top:44px}
-  .rooms h3{font-size:clamp(34px,5vw,54px)}
-  .rooms .lead{margin-top:16px}
-  .vip{margin-top:18px;color:var(--text-dim)}
-  .vip b{color:var(--text);font-weight:600}
-  @media(min-width:960px){.rooms{grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center}.rooms .room-pics{order:2}}
+  /* Club */
+  .club-photo{aspect-ratio:3/2;margin-inline:calc(var(--pad)*-1)}
+  @media(min-width:760px){.club-photo{aspect-ratio:21/9;margin-inline:0}}
+  .facts{list-style:none;margin:28px 0 0;padding:0;border-top:1px solid var(--line)}
+  .facts li{display:flex;justify-content:space-between;gap:16px;padding:15px 0;border-bottom:1px solid var(--line)}
+  .facts li span{color:var(--text-dim)}
+  .facts li b{font-weight:600;text-align:right}
+  .club-grid{display:grid;gap:10px;margin-top:30px}
+  @media(min-width:960px){.club-grid{grid-template-columns:1fr 1fr;gap:64px;align-items:start}.club-grid .facts{margin-top:0}}
 
-  /* Champagner – die Karte */
-  #champagner{background:radial-gradient(90% 60% at 50% 0,color-mix(in srgb,var(--red) 30%,transparent),transparent 70%),var(--bg)}
-  .wine{max-width:880px;margin-inline:auto;text-align:center}
-  .wine .lead{margin:18px auto 0}
-  .wine-list{list-style:none;margin:40px 0 0;padding:30px 0 0;border-top:1px solid var(--gold);columns:2 260px;column-gap:48px;text-align:left}
-  .wine-list li{break-inside:avoid;padding:9px 0;border-bottom:1px solid var(--line);font:400 18px/1.35 var(--serif)}
-  .wine-list li small{display:block;font:500 12px/1.4 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim)}
-  .wine .menu-note{text-align:center;margin-top:22px}
+  /* Zimmer */
+  .rooms{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 calc(var(--pad)*-1)}
+  .rooms .photo{aspect-ratio:3/4}
+  @media(min-width:760px){.rooms{margin:0;gap:14px}.rooms .photo{aspect-ratio:4/3}}
+  .rooms-body{display:grid;gap:26px;margin-top:30px}
+  @media(min-width:960px){.rooms-body{grid-template-columns:1fr 1fr;gap:64px}}
 
-  /* Legacy Bar */
-  .legacy{display:grid;gap:30px;padding:clamp(28px,4vw,48px);border:1px solid var(--line);background:linear-gradient(160deg,color-mix(in srgb,var(--shade) 70%,transparent),color-mix(in srgb,var(--card) 70%,transparent))}
-  .legacy h2{font-size:clamp(40px,6vw,68px)}
-  .legacy .lead{margin-top:16px}
-  .ldl{display:grid;gap:0;margin:0;border-top:1px solid var(--line)}
-  .ldl div{display:grid;grid-template-columns:130px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
-  .ldl dt{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);padding-top:3px}
-  .ldl dd{margin:0;color:var(--text)}
-  .group{margin-top:26px;font-size:14px;color:var(--text-dim)}
-  .group b{color:var(--gold-2);font-weight:600}
+  /* Champagner */
+  .champ{display:grid;gap:34px}
+  @media(min-width:760px){.champ{grid-template-columns:1fr 1fr;gap:40px 56px}}
+  .champ h3{font:700 15px/1 var(--font);letter-spacing:.18em;text-transform:uppercase;color:var(--gold);padding-bottom:12px;border-bottom:1px solid var(--line)}
+  .champ ul{list-style:none;margin:0;padding:0}
+  .champ li{padding:13px 0;border-bottom:1px solid var(--line)}
+  .champ li b{display:block;font-weight:500;font-size:18px;line-height:1.3}
+  .champ li > span{display:block;margin-top:3px;font-size:13px;color:var(--text-dim)}
+
+  /* Legacy */
+  .legacy{display:grid;gap:26px;padding:28px var(--pad);margin:0 calc(var(--pad)*-1);background:var(--card)}
+  @media(min-width:760px){.legacy{margin:0;padding:44px}}
   @media(min-width:960px){.legacy{grid-template-columns:1fr 1fr;gap:64px;align-items:center}}
+  .legacy h2{font-size:clamp(40px,9vw,88px)}
 
   /* FAQ */
-  .faq-grid{display:grid;gap:30px}
   .faq{border-top:1px solid var(--line)}
   .faq details{border-bottom:1px solid var(--line)}
-  .faq summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;font:400 19px/1.35 var(--serif);cursor:pointer}
+  .faq summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;font-weight:500;font-size:19px;line-height:1.35;cursor:pointer}
   .faq summary::-webkit-details-marker{display:none}
-  .faq summary svg{flex:none;width:18px;height:18px;color:var(--gold);transition:transform .3s var(--ease)}
+  .faq summary svg{flex:none;width:20px;height:20px;transition:transform .3s var(--ease)}
   .faq details[open] summary svg{transform:rotate(45deg)}
-  .faq .ans{padding:0 0 22px;color:var(--text-dim);max-width:64ch}
-  @media(min-width:960px){.faq-grid{grid-template-columns:.8fr 1.2fr;gap:64px}}
+  .faq .ans{padding:0 0 22px;color:var(--text-dim);max-width:62ch}
 
   /* Kontakt */
-  #kontakt{text-align:center;overflow:hidden}
-  #kontakt .mark{width:120px;margin:0 auto 26px}
-  #kontakt h2{font-size:clamp(46px,9vw,110px)}
-  #kontakt .lead{margin:18px auto 0}
-  .c-phone{display:inline-block;margin-top:30px;font:300 clamp(30px,5vw,48px)/1 var(--serif);letter-spacing:.04em;color:var(--gold-2);text-decoration:none;font-variant-numeric:lining-nums}
-  .c-phone:hover{text-decoration:underline;text-decoration-thickness:1px}
-  .c-list{display:grid;gap:4px;margin:22px auto 0;color:var(--text-dim)}
+  #kontakt{padding-bottom:clamp(80px,10vw,120px)}
+  .c-phone{display:block;margin-top:24px;font:600 clamp(34px,9vw,64px)/1 var(--font);text-decoration:none;font-variant-numeric:lining-nums;letter-spacing:-.01em}
+  .c-list{display:grid;gap:4px;margin-top:16px;color:var(--text-dim)}
   .c-list a{color:var(--text)}
-  #kontakt .cta-row{justify-content:center}
+  #kontakt .cta{margin-top:28px}
 
-  footer{padding:36px 0 130px;border-top:1px solid var(--line);color:var(--text-dim);font-size:14px}
-  .foot{display:flex;flex-wrap:wrap;gap:16px 28px;justify-content:space-between;align-items:center}
-  @media(min-width:760px){footer{padding-bottom:40px}}
+  footer{padding:30px 0 120px;border-top:1px solid var(--line);color:var(--text-dim);font-size:14px}
+  .foot{display:flex;flex-wrap:wrap;gap:14px 26px;justify-content:space-between;align-items:center}
+  @media(min-width:760px){footer{padding-bottom:36px}}
 
-  .mobile-bar{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:60;display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:6px;padding:6px;border-radius:4px;background:var(--shade);border:1px solid var(--line);box-shadow:0 10px 24px -8px rgba(0,0,0,.8);
-    opacity:0;transform:translateY(calc(100% + 24px));pointer-events:none;transition:opacity .25s,transform .4s var(--ease)}
-  .mobile-bar.show{opacity:1;transform:none;pointer-events:auto}
-  .mobile-bar a{display:flex;align-items:center;justify-content:center;gap:7px;min-height:48px;border-radius:2px;text-decoration:none;font:600 13px/1 var(--sans);letter-spacing:.05em;text-transform:uppercase;color:var(--gold-2);border:1px solid var(--line)}
-  .mobile-bar a svg{width:17px;height:17px}
-  .mobile-bar .mb-save{background:var(--gold);color:var(--on-accent);border-color:var(--gold)}
+  .mobile-bar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:1px;padding-bottom:env(safe-area-inset-bottom,0px);background:var(--line);border-top:1px solid var(--line);
+    transform:translateY(105%);transition:transform .4s var(--ease)}
+  .mobile-bar.show{transform:none}
+  .mobile-bar a{display:flex;align-items:center;justify-content:center;gap:8px;min-height:58px;background:var(--bg);text-decoration:none;font:600 13px/1 var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--text)}
+  .mobile-bar a svg{width:18px;height:18px}
+  .mobile-bar .mb-save{background:var(--text);color:var(--bg)}
   @media(min-width:760px){.mobile-bar{display:none}}
 
-  .reveal{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform 1.1s var(--ease)}
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .8s var(--ease),transform 1s var(--ease)}
   .reveal.in{opacity:1;transform:none}
   html:not(.js) .reveal{opacity:1;transform:none}
   @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
@@ -289,15 +241,15 @@
     <nav class="nav-links" aria-label="Bereiche">
       <a href="#escort" data-i18n="navEscort">Escort</a>
       <a href="#girls" data-i18n="navGirls">Girls</a>
-      <a href="#club" data-i18n="navClub">Club &amp; Zimmer</a>
+      <a href="#club" data-i18n="navClub">Club</a>
+      <a href="#zimmer" data-i18n="navRooms">Zimmer &amp; Preise</a>
       <a href="#champagner" data-i18n="navChamp">Champagner</a>
       <a href="#legacy" data-i18n="navLegacy">Legacy Bar</a>
-      <a href="#kontakt" data-i18n="navContact">Kontakt</a>
     </nav>
     <div class="nav-right">
       <a class="nav-phone" href="tel:+4369917172031">+43 699 1717 2031</a>
       <div class="langbox">
-        <button id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Sprache / Language"><span id="langFlag">🇦🇹</span><span id="langCode">DE</span></button>
+        <button id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Sprache / Language"><span id="langCode">DE</span></button>
         <div id="langPanel" role="listbox"></div>
       </div>
     </div>
@@ -308,64 +260,57 @@
 
   <!-- ===== Hero ===== -->
   <section class="hero" id="hero">
-    <div class="hero-photo"><img src="img/club.webp" alt="Der Club im Maxim Wien – Bühne, Lounge und Bar" width="1028" height="539" fetchpriority="high"></div>
-    <div class="curtain shut" aria-hidden="true"></div>
-    <div class="valance" aria-hidden="true"></div>
-    <div class="wrap hero-body">
-      <i class="mark" aria-hidden="true"></i>
-      <h1 data-i18n-html="heroTitle">Maxim <em>Wien</em></h1>
-      <p class="hero-sub" data-i18n="heroSub">Nightclub, Maxim Girls und Escort ins Hotel – gegenüber der Staatsoper.</p>
-      <div class="hero-cta">
-        <a class="btn btn-brass" href="maxim.vcf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg><span data-i18n="ctaSave">Kontakt speichern</span></a>
-        <a class="btn btn-line" href="tel:+4369917172031"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span data-i18n="ctaCall">Anrufen</span></a>
-      </div>
-      <p class="status" id="status"><i></i><span id="statusText">Club täglich 20:00 – 05:00 Uhr</span></p>
+    <div class="slides" aria-hidden="true">
+      <img class="on" src="img/escort.webp" alt="" width="1777" height="1080" fetchpriority="high">
+      <img src="img/club.webp" alt="" width="1028" height="539" loading="lazy">
+      <img src="img/zimmer-1.webp" alt="" width="1200" height="800" loading="lazy">
     </div>
-    <div class="wrap"><nav class="plaques" aria-label="Unsere Séparées">
-      <a class="plaque lit" href="#escort"><b data-i18n="plEscort">Escort</b><span data-i18n="plEscortS">24/7 ins Hotel</span></a>
-      <a class="plaque" href="#girls"><b data-i18n="plGirls">Maxim Girls</b><span data-i18n="plGirlsS">Heute Nacht</span></a>
-      <a class="plaque" href="#club"><b data-i18n="plClub">Club &amp; Zimmer</b><span data-i18n="plClubS">20 – 05 Uhr</span></a>
-      <a class="plaque" href="#champagner"><b data-i18n="plChamp">Champagner</b><span data-i18n="plChampS">Die Karte</span></a>
-      <a class="plaque" href="#legacy"><b data-i18n="plLegacy">Legacy Bar</b><span data-i18n="plLegacyS">Schellinggasse 1</span></a>
-    </nav></div>
+    <div class="wrap hero-body">
+      <h1>Maxim</h1>
+      <p class="hero-sub" data-i18n-html="heroSub">Nightclub · Girls · <b>Escort 24/7 ins Hotel</b> · gegenüber der Staatsoper.</p>
+      <p class="status" id="status"><i></i><span id="statusText">Club täglich 20:00 – 05:00 Uhr</span></p>
+      <div class="hero-cta">
+        <a class="btn btn-solid" href="maxim.vcf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg><span data-i18n="ctaSave">Kontakt speichern</span></a>
+        <a class="btn btn-line" href="tel:+4369917172031"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span data-i18n="ctaCall">Anrufen</span></a>
+      </div>
+      <nav class="quick" aria-label="Schnellzugriff">
+        <a class="hot" href="#escort" data-i18n="navEscort">Escort</a>
+        <a href="#girls" data-i18n="navGirls">Girls</a>
+        <a href="#club" data-i18n="navClub">Club</a>
+        <a href="#zimmer" data-i18n="navPrices">Preise</a>
+        <a href="#champagner" data-i18n="navChamp">Champagner</a>
+        <a href="#legacy" data-i18n="navLegacy">Legacy Bar</a>
+      </nav>
+    </div>
   </section>
 
   <!-- ===== Escort ===== -->
-  <section class="booth" id="escort">
+  <section class="block" id="escort">
     <div class="wrap esc">
-      <div class="esc-media">
-        <div class="alcove reveal-curtain"><img src="img/escort.webp" alt="Maxim Escort – Lady im roten Kleid" width="1777" height="1080" loading="lazy"><div class="curtain shut" aria-hidden="true"></div></div>
-        <figure class="window">
-          <img src="img/oper-nacht.jpg" alt="Die Wiener Staatsoper bei Nacht – gegenüber vom Maxim" width="1000" height="667" loading="lazy">
-          <figcaption data-i18n="escWindow">Gegenüber: die Staatsoper bei Nacht</figcaption>
-        </figure>
-      </div>
-      <div class="esc-head">
-        <h2 class="reveal" data-i18n-html="escTitle">Escort – <em>wir kommen zu dir.</em></h2>
-        <p class="lead reveal" data-i18n="escLead">Der Maxim Escort-Service bringt deine Wunsch-Lady diskret in dein Hotel – in ganz Wien, rund um die Uhr buchbar. Du wählst, wir kümmern uns um den Rest: transparente Preise, keine versteckten Kosten.</p>
+      <div class="photo esc-photo">
+        <img src="img/escort-2.webp" alt="Maxim Escort – Lady im schwarzen Kleid" width="1210" height="1080" loading="lazy">
+        <h2 data-i18n-html="escTitle">Escort<span>Wir kommen in dein Hotel.</span></h2>
       </div>
       <div class="esc-body">
-        <div class="menu-card reveal">
-          <h3 data-i18n="escMenuT">Hotel-Escort</h3>
-          <ul class="menu">
-            <li><span data-i18n="esc2h">2 Stunden</span><i></i><b>500 €</b></li>
-            <li><span data-i18n="esc3h">3 Stunden</span><i></i><b>750 €</b></li>
-            <li><span data-i18n="esc4h">4 Stunden</span><i></i><b>950 €</b></li>
-            <li><span data-i18n="esc5h">5 Stunden</span><i></i><b>1.100 €</b></li>
-          </ul>
-          <p class="menu-note" data-i18n-html="escNote"><b>Anfahrt in Wien inklusive.</b> Bitte mindestens 24 Stunden vorher buchen – kurzfristig einfach anrufen.</p>
-        </div>
-        <ol class="how reveal">
-          <li data-i18n-html="how1"><b>Lady wählen</b> – aus den Maxim Girls oder telefonisch beraten lassen.</li>
-          <li data-i18n-html="how2"><b>Termin, Dauer und Hotel nennen</b> – mit Zimmernummer, ganz diskret.</li>
-          <li data-i18n-html="how3"><b>Wir bestätigen</b> kurz danach persönlich, und deine Lady ist auf dem Weg.</li>
+        <p class="lead reveal" data-i18n="escLead">Deine Wunsch-Lady kommt diskret zu dir ins Hotel – überall in Wien, rund um die Uhr buchbar. Transparente Preise, keine versteckten Kosten.</p>
+        <ul class="prices reveal">
+          <li><span data-i18n="esc2h">2 Stunden</span><b>500 €</b></li>
+          <li><span data-i18n="esc3h">3 Stunden</span><b>750 €</b></li>
+          <li><span data-i18n="esc4h">4 Stunden</span><b>950 €</b></li>
+          <li><span data-i18n="esc5h">5 Stunden</span><b>1.100 €</b></li>
+        </ul>
+        <p class="note reveal" data-i18n-html="escNote"><b>Taxi in Wien inklusive.</b> Bitte mindestens 24 Stunden vorher buchen – kurzfristig einfach anrufen.</p>
+        <ol class="steps reveal">
+          <li><b data-i18n="s1t">Lady wählen</b><span data-i18n="s1d">Unten bei den Girls nach „Escort“ filtern – oder telefonisch beraten lassen.</span></li>
+          <li><b data-i18n="s2t">Termin, Dauer, Hotel</b><span data-i18n="s2d">Mit Zimmernummer. Alles bleibt diskret.</span></li>
+          <li><b data-i18n="s3t">Bestätigung</b><span data-i18n="s3d">Wir melden uns kurz danach persönlich – und deine Lady ist unterwegs.</span></li>
         </ol>
         <div class="pickup reveal">
-          <h3 data-i18n="pickT">Oder: Pickup im Club</h3>
-          <p data-i18n="pickD">Lerne die Escort-Girls im Maxim persönlich kennen, such dir deine Favoritin aus und nimm sie mit in dein Hotel.</p>
+          <h3 data-i18n="pickT">Pickup im Club</h3>
+          <p data-i18n="pickD">Lerne die Escort-Girls im Maxim persönlich kennen, wähle deine Favoritin und nimm sie mit in dein Hotel.</p>
         </div>
-        <div class="cta-row reveal">
-          <a class="btn btn-brass" href="tel:+4369917172031"><span data-i18n="escCta">Escort buchen</span></a>
+        <div class="cta reveal">
+          <a class="btn btn-solid" href="tel:+4369917172031"><span data-i18n="escCta">Escort buchen</span></a>
           <a class="btn btn-line" href="https://maxim-wien.com/maxim-escort-service/" target="_blank" rel="noopener"><span data-i18n="escOnline">Online buchen</span></a>
         </div>
       </div>
@@ -373,155 +318,188 @@
   </section>
 
   <!-- ===== Girls ===== -->
-  <section class="booth" id="girls">
+  <section class="block" id="girls">
     <div class="wrap">
-      <div class="booth-head">
-        <h2 class="reveal" data-i18n-html="girlsTitle">Maxim <em>Girls.</em></h2>
-        <p class="lead reveal" data-i18n="girlsLead">Jede Nacht warten im Maxim Ladies aus vielen Ländern auf dich – im Club, im Séparée und als Escort. Jede hat ihren eigenen Stil, alle eines gemeinsam: echte Lust auf einen besonderen Abend mit dir.</p>
+      <div class="head">
+        <h2 class="reveal" data-i18n="girlsTitle">Maxim Girls</h2>
+        <p class="lead reveal" data-i18n="girlsLead">Wer was anbietet, steht bei jeder Lady – laut ihrem Profil auf maxim-wien.com. Filtere nach dem, was du suchst.</p>
       </div>
-      <div class="girls">
-        <figure class="girl"><div class="alcove reveal-curtain"><img src="img/girl-dyana.webp" alt="Dyana" width="1200" height="1600" loading="lazy"><div class="curtain shut" aria-hidden="true"></div></div><figcaption><b>Dyana</b><span data-i18n="gClub">Club &amp; Escort</span></figcaption></figure>
-        <figure class="girl"><div class="alcove reveal-curtain"><img src="img/girl-amina.webp" alt="Amina" width="1536" height="2048" loading="lazy"><div class="curtain shut" aria-hidden="true"></div></div><figcaption><b>Amina</b><span data-i18n="gLegacy">Legacy Bar</span></figcaption></figure>
-        <figure class="girl"><div class="alcove reveal-curtain"><img src="img/girl-sophia.webp" alt="Sophia" width="1196" height="1500" loading="lazy"><div class="curtain shut" aria-hidden="true"></div></div><figcaption><b>Sophia</b><span data-i18n="gClub">Club &amp; Escort</span></figcaption></figure>
-        <figure class="girl"><div class="alcove reveal-curtain"><img src="img/girl-lory.webp" alt="Lory" width="946" height="1419" loading="lazy"><div class="curtain shut" aria-hidden="true"></div></div><figcaption><b>Lory</b><span data-i18n="gClub">Club &amp; Escort</span></figcaption></figure>
+      <div class="filters" role="toolbar" aria-label="Girls filtern">
+        <button type="button" data-f="all" aria-pressed="true"><b data-i18n="fAll">Alle</b><span></span></button>
+        <button type="button" data-f="escort" aria-pressed="false"><b data-i18n="tEscort">Escort</b><span></span></button>
+        <button type="button" data-f="gfe" aria-pressed="false"><b data-i18n="tGfe">Girlfriend-Experience</b><span></span></button>
+        <button type="button" data-f="strip" aria-pressed="false"><b data-i18n="tStrip">Striptease</b><span></span></button>
+        <button type="button" data-f="duo" aria-pressed="false"><b data-i18n="tDuo">Duo &amp; Dreier</b><span></span></button>
+        <button type="button" data-f="bdsm" aria-pressed="false"><b data-i18n="tBdsm">BDSM &amp; Fetisch</b><span></span></button>
+        <button type="button" data-f="paare" aria-pressed="false"><b data-i18n="tPaare">Auch für Paare</b><span></span></button>
       </div>
-      <ul class="types reveal">
-        <li data-i18n="t1">Girlfriend-Experience</li>
-        <li data-i18n="t2">Striptease</li>
-        <li data-i18n="t3">Duo &amp; Dreier</li>
-        <li data-i18n="t4">BDSM &amp; Fetisch</li>
-        <li data-i18n="t5">Auch für Paare</li>
-      </ul>
-      <div class="girls-foot reveal">
-        <a class="btn btn-brass" href="https://maxim-wien.com/all-girls/" target="_blank" rel="noopener"><span data-i18n="girlsCta">Wer ist heute da?</span></a>
-        <a class="text-link" href="tel:+4369917172031" data-i18n="girlsCall">Oder anrufen und fragen</a>
+      <div class="roster" id="roster">
+        <article class="girl" data-tags="escort bdsm"><div class="photo"><img src="img/girl-amina.webp" alt="Amina" width="1536" height="2048" loading="lazy"></div><h3>Amina</h3><ul class="tags"><li class="esc" data-i18n="tEscort">Escort</li><li data-i18n="tBdsm">BDSM &amp; Fetisch</li></ul><p class="fav"><span data-i18n="gFav">Liebt</span> Cristal Rosé · <span data-i18n="gLangAmina">spricht Ungarisch, Deutsch, Italienisch</span></p></article>
+        <article class="girl" data-tags="escort"><div class="photo"><img src="img/girl-dyana.webp" alt="Dyana" width="1200" height="1600" loading="lazy"></div><h3>Dyana</h3><ul class="tags"><li class="esc" data-i18n="tEscort">Escort</li></ul><p class="fav"><span data-i18n="gFav">Liebt</span> Armand de Brignac Gold</p></article>
+        <article class="girl" data-tags="escort"><div class="photo"><img src="img/girl-sophia.webp" alt="Sophia" width="1196" height="1500" loading="lazy"></div><h3>Sophia</h3><ul class="tags"><li class="esc" data-i18n="tEscort">Escort</li></ul><p class="fav"><span data-i18n="gFav">Liebt</span> Moët Nectar Impérial Rosé</p></article>
+        <article class="girl" data-tags="escort"><div class="photo"><img src="img/girl-lory.webp" alt="Lory" width="946" height="1419" loading="lazy"></div><h3>Lory</h3><ul class="tags"><li class="esc" data-i18n="tEscort">Escort</li></ul><p class="fav"><span data-i18n="gFav">Liebt</span> Krug Rosé</p></article>
+        <article class="girl nophoto" data-tags="escort paare"><h3>Ariana</h3><ul class="tags"><li class="esc" data-i18n="tEscort">Escort</li><li data-i18n="tPaare">Auch für Paare</li></ul><p class="fav"><span data-i18n="gFav">Liebt</span> Moët Ice Impérial · 180 cm</p></article>
+        <article class="girl nophoto" data-tags="escort strip bdsm paare"><h3>Lady M</h3><ul class="tags"><li class="esc" data-i18n="tEscort">Escort</li><li data-i18n="tStrip">Striptease</li><li data-i18n="tBdsm">BDSM &amp; Fetisch</li><li data-i18n="tPaare">Auch für Paare</li></ul><p class="fav"><span data-i18n="gFav">Liebt</span> Armand de Brignac Rosé</p></article>
+        <article class="girl nophoto" data-tags="escort strip bdsm paare"><h3>Kendra</h3><ul class="tags"><li class="esc" data-i18n="tEscort">Escort</li><li data-i18n="tStrip">Striptease</li><li data-i18n="tBdsm">BDSM &amp; Fetisch</li><li data-i18n="tPaare">Auch für Paare</li></ul><p class="fav"><span data-i18n="gFav">Liebt</span> Moët Ice Impérial Rosé</p></article>
+        <article class="girl nophoto" data-tags="escort gfe duo paare"><h3>Flora</h3><ul class="tags"><li class="esc" data-i18n="tEscort">Escort</li><li data-i18n="tGfe">Girlfriend-Experience</li><li data-i18n="tDuo">Duo &amp; Dreier</li><li data-i18n="tPaare">Auch für Paare</li></ul><p class="fav"><span data-i18n="gFav">Liebt</span> Moët Ice Impérial</p></article>
+        <article class="girl nophoto" data-tags="escort strip gfe duo"><h3>Bella</h3><ul class="tags"><li class="esc" data-i18n="tEscort">Escort</li><li data-i18n="tStrip">Striptease</li><li data-i18n="tGfe">Girlfriend-Experience</li><li data-i18n="tDuo">Duo &amp; Dreier</li></ul><p class="fav"><span data-i18n="gFav">Liebt</span> Moët Nectar Impérial Rosé</p></article>
+        <article class="girl nophoto" data-tags="escort strip paare"><h3>Maria</h3><ul class="tags"><li class="esc" data-i18n="tEscort">Escort</li><li data-i18n="tStrip">Striptease</li><li data-i18n="tPaare">Auch für Paare</li></ul><p class="fav"><span data-i18n="gFav">Liebt</span> Veuve Clicquot La Grande Dame</p></article>
+        <article class="girl nophoto" data-tags="escort paare"><h3>Zavana</h3><ul class="tags"><li class="esc" data-i18n="tEscort">Escort</li><li data-i18n="tPaare">Auch für Paare</li></ul><p class="fav"><span data-i18n="gFav">Liebt</span> Louis Roederer Rosé Vintage · <span data-i18n="gLangZavana">spricht Englisch, Deutsch, Spanisch</span></p></article>
+        <article class="girl nophoto" data-tags="escort"><h3>Lena</h3><ul class="tags"><li class="esc" data-i18n="tEscort">Escort</li></ul><p class="fav"><span data-i18n="gFav">Liebt</span> Piper-Heidsieck Demi-Sec</p></article>
+        <article class="girl nophoto" data-tags="escort"><h3>Carina</h3><ul class="tags"><li class="esc" data-i18n="tEscort">Escort</li></ul></article>
+        <article class="girl nophoto" data-tags="strip"><h3>Vivien</h3><ul class="tags"><li data-i18n="tStrip">Striptease</li><li data-i18n="tClubOnly">nur im Club</li></ul><p class="fav"><span data-i18n="gFav">Liebt</span> Veuve Clicquot Rich</p></article>
+        <article class="girl nophoto" data-tags=""><h3>Laura</h3><ul class="tags"><li data-i18n="tClubOnly">nur im Club</li></ul><p class="fav"><span data-i18n="gFav">Liebt</span> Louis Roederer Cristal Rosé</p></article>
+      </div>
+      <p class="also reveal" data-i18n-html="girlsAlso">Außerdem im Maxim: <b>Melissa, Louisa, Kiara, Ela, Raluca, Bianka, Astrid, Anca, Carla, Irina, Gabriela, Isabella</b> und weitere.</p>
+      <div class="girls-cta reveal">
+        <a class="btn btn-solid" href="https://maxim-wien.com/all-girls/" target="_blank" rel="noopener"><span data-i18n="girlsCta">Wer ist heute da?</span></a>
+        <a class="link" href="tel:+4369917172031" data-i18n="girlsCall">Oder anrufen und fragen</a>
         <small data-i18n="girlsNote">Die Live-Liste auf maxim-wien.com wird täglich aktualisiert.</small>
       </div>
     </div>
   </section>
 
-  <!-- ===== Club & Zimmer ===== -->
-  <section class="booth" id="club">
+  <!-- ===== Club ===== -->
+  <section class="block" id="club">
     <div class="wrap">
-      <div class="club">
-        <div>
-          <h2 class="reveal" data-i18n-html="clubTitle">Der Club. <em>Seit über 50 Jahren.</em></h2>
-          <p class="lead reveal" style="margin-top:20px" data-i18n="clubLead">Familiengeführt und eine feste Größe im Wiener Nachtleben: Bühne, Bar und Séparées mitten im 1. Bezirk, direkt gegenüber der Staatsoper. Die besten Hotels an der Ringstraße sind nur wenige Gehminuten entfernt.</p>
-          <ul class="menu facts reveal">
-            <li><span data-i18n="fHours">Täglich geöffnet</span><i></i><b>20 – 05 Uhr</b></li>
-            <li><span data-i18n="fEntry">Eintritt</span><i></i><b>20 €</b></li>
-            <li><span data-i18n="fAge">Einlass mit Ausweis</span><i></i><b data-i18n="fAgeV">ab 18</b></li>
-          </ul>
-        </div>
-        <div class="alcove reveal-curtain"><img src="img/club.webp" alt="Bühne und Lounge im Maxim" width="1028" height="539" loading="lazy"><div class="curtain shut" aria-hidden="true"></div></div>
+      <div class="head">
+        <h2 class="reveal" data-i18n="clubTitle">Der Club</h2>
+        <p class="lead reveal" data-i18n="clubLead">Seit über 50 Jahren familiengeführt: Bühne, Bar und Zimmer mitten im 1. Bezirk, direkt gegenüber der Staatsoper. Die Hotels an der Ringstraße sind wenige Gehminuten entfernt.</p>
+      </div>
+      <div class="photo club-photo"><img src="img/club.webp" alt="Bühne und Lounge im Maxim" width="1028" height="539" loading="lazy"></div>
+      <div class="club-grid">
+        <ul class="facts reveal">
+          <li><span data-i18n="fHours">Geöffnet</span><b data-i18n="fHoursV">täglich 20 – 05 Uhr</b></li>
+          <li><span data-i18n="fEntry">Eintritt</span><b>20 €</b></li>
+          <li><span data-i18n="fAge">Einlass</span><b data-i18n="fAgeV">ab 18, mit Ausweis</b></li>
+          <li><span data-i18n="fWhere">Adresse</span><b>Kärntner Straße 61</b></li>
+        </ul>
+        <p class="lead reveal" data-i18n="clubShow">Auf der Bühne tanzen die Girls die ganze Nacht – Striptease und Lapdance inklusive. Gentlemen und Paare sind willkommen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Zimmer & Preise ===== -->
+  <section class="block" id="zimmer">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="reveal" data-i18n="roomsTitle">Zimmer &amp; Preise</h2>
+        <p class="lead reveal" data-i18n="roomsLead">Du zahlst die Zeit mit deiner Lady – das Zimmer ist inklusive. Reserviert wird nicht: Du entscheidest vor Ort.</p>
       </div>
       <div class="rooms">
-        <div class="room-pics">
-          <div class="alcove reveal-curtain"><img src="img/zimmer-1.webp" alt="Zimmer im Maxim mit großem Bett" width="1200" height="800" loading="lazy"><div class="curtain shut" aria-hidden="true"></div></div>
-          <div class="alcove reveal-curtain"><img src="img/zimmer-2.webp" alt="Zimmer im Maxim" width="1200" height="800" loading="lazy"><div class="curtain shut" aria-hidden="true"></div></div>
-        </div>
-        <div>
-          <h3 class="reveal" data-i18n-html="roomsTitle">Du zahlst die Zeit – <em>das Zimmer ist inklusive.</em></h3>
-          <p class="lead reveal" data-i18n="roomsLead">Mit deiner Lady gehst du in eines unserer Zimmer. Bezahlt wird die Zeit mit ihr, nicht das Zimmer – Standard für den privaten Moment, VIP für die große Nacht.</p>
-          <div class="menu-card reveal">
-            <ul class="menu">
-              <li><span data-i18n="rm1">30 Min · Standard</span><i></i><b>170 €</b></li>
-              <li><span data-i18n="rm2">1 Stunde · Standard</span><i></i><b>220 €</b></li>
-              <li><span data-i18n="rm3">1 Stunde · VIP</span><i></i><b>300 €</b></li>
-              <li><span data-i18n="rm4">1 Stunde · BDSM-Raum</span><i></i><b>400 €</b></li>
-            </ul>
-            <p class="menu-note" data-i18n="rmNote">Preis pro Lady – gern auch mit zwei oder mehr. VIP ab einer Stunde. Zimmer werden nicht reserviert: Du entscheidest vor Ort.</p>
-          </div>
-          <p class="vip reveal" data-i18n-html="vipD"><b>VIP-Zimmer:</b> Kingsize-Bett, Jacuzzi, Spiegeldecke und viel Platz. <b>BDSM-Raum:</b> auf Wunsch mit professioneller Domina.</p>
+        <div class="photo"><img src="img/zimmer-1.webp" alt="Zimmer im Maxim mit großem Bett" width="1200" height="800" loading="lazy"></div>
+        <div class="photo"><img src="img/zimmer-2.webp" alt="Zimmer im Maxim" width="1200" height="800" loading="lazy"></div>
+      </div>
+      <div class="rooms-body">
+        <ul class="prices reveal">
+          <li><span data-i18n="rm1">30 Min · Standard</span><b>170 €</b></li>
+          <li><span data-i18n="rm2">1 Std · Standard</span><b>220 €</b></li>
+          <li><span data-i18n="rm3">1 Std · VIP</span><b>300 €</b></li>
+          <li><span data-i18n="rm4">1 Std · BDSM-Raum</span><b>400 €</b></li>
+        </ul>
+        <div class="reveal" style="display:grid;gap:16px">
+          <p class="note" data-i18n-html="vipD"><b>VIP:</b> Kingsize-Bett, Jacuzzi, Spiegeldecke – ab einer Stunde.<br><b>BDSM-Raum:</b> auf Wunsch mit professioneller Domina.</p>
+          <p class="note" data-i18n="rmNote">Preis pro Lady – gern auch mit zwei oder mehr.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ===== Champagner ===== -->
-  <section class="booth" id="champagner">
-    <div class="wrap wine">
-      <h2 class="reveal" data-i18n-html="champTitle">Die <em>Champagner</em>karte.</h2>
-      <p class="lead reveal" data-i18n="champLead">Vom lebhaften Brut bis zum seltenen Jahrgang – dazu Bier, Wein und erstklassige Spirituosen von Kuba bis Japan. Unser Team berät dich gern.</p>
-      <ul class="wine-list reveal">
-        <li>Dom Pérignon Rosé<small>Prestige</small></li>
-        <li>Dom Pérignon Lady Gaga<small>Edition</small></li>
-        <li>Krug Grande Cuvée<small>Brut</small></li>
-        <li>Krug Rosé<small>Rosé</small></li>
-        <li>Louis Roederer Cristal<small>Prestige</small></li>
-        <li>Louis Roederer Cristal Rosé<small>Prestige</small></li>
-        <li>Louis Roederer Rosé Vintage<small>Jahrgang</small></li>
-        <li>Louis Roederer Brut Premier<small>Brut</small></li>
-        <li>Armand de Brignac Gold<small>Ace of Spades</small></li>
-        <li>Armand de Brignac Rosé<small>Ace of Spades</small></li>
-        <li>Veuve Clicquot La Grande Dame<small>Prestige</small></li>
-        <li>Veuve Clicquot Rich<small>On ice</small></li>
-        <li>Rare Brut Vintage<small>Jahrgang</small></li>
-        <li>Piper-Heidsieck Demi-Sec Riviera<small>Demi-Sec</small></li>
-        <li>Pierre Morlet Rosé<small>Rosé</small></li>
-        <li>Moët Impérial<small>Brut</small></li>
-        <li>Moët Rosé Impérial<small>Rosé</small></li>
-        <li>Moët Nectar Impérial<small>Demi-Sec</small></li>
-        <li>Moët Ice Impérial<small>On ice</small></li>
-        <li>Moët Ice Impérial Rosé<small>On ice</small></li>
-      </ul>
-      <p class="menu-note reveal" data-i18n="champNote">Preise auf der Karte im Club.</p>
+  <section class="block" id="champagner">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="reveal" data-i18n="champTitle">Champagner</h2>
+        <p class="lead reveal" data-i18n="champLead">Jede Lady hat ihren Lieblings-Champagner – überrasch sie damit. Dazu Bier, Wein und Spirituosen von Kuba bis Japan. Preise auf der Karte im Club.</p>
+      </div>
+      <div class="champ">
+        <div class="reveal"><h3 data-i18n="cPrestige">Prestige</h3><ul>
+          <li><b>Armand de Brignac Gold</b><span><span data-i18n="cFav">Liebling von</span> Dyana</span></li>
+          <li><b>Armand de Brignac Rosé</b><span><span data-i18n="cFav">Liebling von</span> Lady M</span></li>
+          <li><b>Louis Roederer Cristal</b></li>
+          <li><b>Louis Roederer Cristal Rosé</b><span><span data-i18n="cFav">Liebling von</span> Amina, Laura</span></li>
+          <li><b>Dom Pérignon Rosé</b></li>
+          <li><b>Dom Pérignon Lady Gaga</b></li>
+          <li><b>Krug Grande Cuvée</b></li>
+          <li><b>Veuve Clicquot La Grande Dame</b><span><span data-i18n="cFav">Liebling von</span> Maria</span></li>
+          <li><b>Rare Brut Vintage</b></li>
+        </ul></div>
+        <div class="reveal"><h3 data-i18n="cRose">Rosé</h3><ul>
+          <li><b>Krug Rosé</b><span><span data-i18n="cFav">Liebling von</span> Lory, Carla</span></li>
+          <li><b>Louis Roederer Rosé Vintage</b><span><span data-i18n="cFav">Liebling von</span> Zavana</span></li>
+          <li><b>Moët Rosé Impérial</b></li>
+          <li><b>Moët Nectar Impérial Rosé</b><span><span data-i18n="cFav">Liebling von</span> Sophia, Bella</span></li>
+          <li><b>Pierre Morlet Rosé</b></li>
+        </ul></div>
+        <div class="reveal"><h3 data-i18n="cBrut">Brut</h3><ul>
+          <li><b>Moët Impérial</b></li>
+          <li><b>Louis Roederer Brut Premier</b></li>
+        </ul></div>
+        <div class="reveal"><h3 data-i18n="cSweet">Demi-Sec &amp; süß</h3><ul>
+          <li><b>Piper-Heidsieck Demi-Sec Riviera</b><span><span data-i18n="cFav">Liebling von</span> Lena, Anca</span></li>
+          <li><b>Moët Nectar Impérial</b></li>
+          <li><b>Veuve Clicquot Rich</b><span><span data-i18n="cFav">Liebling von</span> Vivien</span></li>
+        </ul></div>
+        <div class="reveal"><h3 data-i18n="cIce">Ice – auf Eis</h3><ul>
+          <li><b>Moët Ice Impérial</b><span><span data-i18n="cFav">Liebling von</span> Flora, Ariana</span></li>
+          <li><b>Moët Ice Impérial Rosé</b><span><span data-i18n="cFav">Liebling von</span> Kendra</span></li>
+        </ul></div>
+      </div>
     </div>
   </section>
 
   <!-- ===== Legacy Bar ===== -->
-  <section class="booth" id="legacy">
+  <section class="block" id="legacy">
     <div class="wrap">
       <div class="legacy reveal">
         <div>
-          <h2 data-i18n-html="legTitle">Maxim <em>Legacy Bar.</em></h2>
-          <p class="lead" data-i18n="legLead">Das stille Gegenstück zum Club: eine kleine, elegante Gentlemen’s Bar ohne Bühne und ohne Trubel. Handverlesene Ladies, Top-Champagner, feine Whiskys – und volle Diskretion.</p>
-          <p class="group" data-i18n-html="legGroup">Teil der <b>Maxim Gentlemen Group</b> – mit dem Club Maxim und dem Maxim Escort-Service.</p>
+          <h2 data-i18n="legTitle">Legacy Bar</h2>
+          <p class="lead" style="margin-top:16px" data-i18n="legLead">Das stille Gegenstück zum Club: eine kleine Gentlemen’s Bar ohne Bühne und Trubel. Handverlesene Ladies, Top-Champagner, feine Whiskys – volle Diskretion.</p>
         </div>
         <div>
-          <dl class="ldl">
-            <div><dt data-i18n="legAddrT">Adresse</dt><dd>Schellinggasse 1, 1010 Wien</dd></div>
-            <div><dt data-i18n="legRoomsT">Zimmer</dt><dd data-i18n="legRooms">4 private, elegante Zimmer</dd></div>
-            <div><dt data-i18n="legDressT">Dresscode</dt><dd data-i18n="legDress">Business casual</dd></div>
-            <div><dt data-i18n="legPriceT">Preise</dt><dd data-i18n="legPrice">auf Anfrage</dd></div>
-          </dl>
-          <div class="cta-row">
+          <ul class="facts" style="margin-top:0">
+            <li><span data-i18n="legAddrT">Adresse</span><b>Schellinggasse 1, 1010 Wien</b></li>
+            <li><span data-i18n="legRoomsT">Zimmer</span><b data-i18n="legRooms">4 private Zimmer</b></li>
+            <li><span data-i18n="legDressT">Dresscode</span><b data-i18n="legDress">Business casual</b></li>
+            <li><span data-i18n="legPriceT">Preise</span><b data-i18n="legPrice">auf Anfrage</b></li>
+          </ul>
+          <div class="cta" style="margin-top:22px">
             <a class="btn btn-line" href="https://www.google.com/maps/dir/?api=1&amp;destination=Schellinggasse+1,+1010+Wien" target="_blank" rel="noopener"><span data-i18n="legRoute">Route zur Legacy Bar</span></a>
           </div>
+          <p class="note" style="margin-top:18px" data-i18n="legGroup">Teil der Maxim Gentlemen Group – mit dem Club Maxim und dem Maxim Escort-Service.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ===== FAQ ===== -->
-  <section class="booth" id="faq">
-    <div class="wrap faq-grid">
-      <h2 class="reveal" data-i18n-html="faqTitle">Gut <em>zu wissen.</em></h2>
+  <section class="block" id="faq">
+    <div class="wrap">
+      <div class="head"><h2 class="reveal" data-i18n="faqTitle">Fragen</h2></div>
       <div class="faq reveal">
-        <details><summary><span data-i18n="q1">Was kostet der Eintritt?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><div class="ans" data-i18n="a1">Der Eintritt in den Club kostet 20 €. Einlass ab 18 Jahren – bitte einen Ausweis mitnehmen.</div></details>
-        <details><summary><span data-i18n="q2">Wie buche ich einen Escort?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><div class="ans" data-i18n="a2">Telefonisch unter +43 699 1717 2031 oder online auf maxim-wien.com – am besten 24 Stunden vorher. Für kurzfristige Buchungen einfach anrufen, wir sind rund um die Uhr erreichbar.</div></details>
-        <details><summary><span data-i18n="q3">Ist die Anfahrt im Escort-Preis enthalten?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><div class="ans" data-i18n="a3">Ja, innerhalb von Wien ist die Anfahrt in allen Preisen enthalten. Keine versteckten Kosten.</div></details>
-        <details><summary><span data-i18n="q4">Muss ich ein Zimmer reservieren?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><div class="ans" data-i18n="a4">Nein. Du buchst Zeit mit einer Lady, nicht das Zimmer – entscheiden kannst du ganz entspannt vor Ort.</div></details>
+        <details><summary><span data-i18n="q1">Was kostet der Eintritt?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><div class="ans" data-i18n="a1">20 €. Einlass ab 18 Jahren – bitte einen Ausweis mitnehmen.</div></details>
+        <details><summary><span data-i18n="q2">Wie buche ich einen Escort?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><div class="ans" data-i18n="a2">Telefonisch unter +43 699 1717 2031 oder online auf maxim-wien.com – am besten 24 Stunden vorher. Kurzfristig einfach anrufen, wir sind rund um die Uhr erreichbar.</div></details>
+        <details><summary><span data-i18n="q3">Ist das Taxi im Escort-Preis enthalten?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><div class="ans" data-i18n="a3">Ja, innerhalb von Wien ist die Anfahrt in allen Preisen enthalten.</div></details>
+        <details><summary><span data-i18n="q4">Muss ich ein Zimmer reservieren?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><div class="ans" data-i18n="a4">Nein. Du buchst Zeit mit einer Lady, nicht das Zimmer – entscheiden kannst du vor Ort.</div></details>
         <details><summary><span data-i18n="q5">Kann ich zwei Ladies gleichzeitig buchen?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><div class="ans" data-i18n="a5">Ja, gern auch zwei oder mehr. Der Preis gilt pro Lady.</div></details>
-        <details><summary><span data-i18n="q6">Sind Paare willkommen?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><div class="ans" data-i18n="a6">Ja – Gentlemen und Paare ab 18 Jahren sind herzlich willkommen.</div></details>
+        <details><summary><span data-i18n="q6">Sind Paare willkommen?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><div class="ans" data-i18n="a6">Ja – Gentlemen und Paare ab 18 sind herzlich willkommen. Bei den Girls zeigt der Filter „Auch für Paare“, wer dafür offen ist.</div></details>
         <details><summary><span data-i18n="q7">Wie finde ich das Maxim?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><div class="ans" data-i18n="a7">Kärntner Straße 61, 1010 Wien – direkt gegenüber der Staatsoper, U-Bahn Karlsplatz (U1, U2, U4).</div></details>
       </div>
     </div>
   </section>
 
   <!-- ===== Kontakt ===== -->
-  <section class="booth" id="kontakt">
+  <section class="block" id="kontakt">
     <div class="wrap">
-      <i class="mark full reveal" aria-hidden="true"></i>
-      <h2 class="reveal" data-i18n-html="ctTitle">Heute Nacht <em>im Maxim.</em></h2>
-      <p class="lead reveal" data-i18n="ctLead">Club täglich von 20 bis 5 Uhr, Escort rund um die Uhr. Speichere unseren Kontakt – dann hast du uns immer dabei.</p>
+      <h2 class="reveal" data-i18n="ctTitle">Heute Nacht</h2>
+      <p class="lead reveal" style="margin-top:16px" data-i18n="ctLead">Club täglich 20 – 05 Uhr, Escort rund um die Uhr. Speichere den Kontakt – dann hast du uns immer dabei.</p>
       <a class="c-phone reveal" href="tel:+4369917172031">+43 699 1717 2031</a>
       <div class="c-list reveal">
         <span><a href="tel:+436606001669">+43 660 600 1669</a> · <a href="mailto:office@maxim-wien.com">office@maxim-wien.com</a></span>
         <span>Kärntner Straße 61, 1010 Wien</span>
       </div>
-      <div class="cta-row reveal">
-        <a class="btn btn-brass" href="maxim.vcf" download><span data-i18n="ctaSave">Kontakt speichern</span></a>
+      <div class="cta reveal">
+        <a class="btn btn-solid" href="maxim.vcf" download><span data-i18n="ctaSave">Kontakt speichern</span></a>
         <a class="btn btn-line" href="https://www.google.com/maps/dir/?api=1&amp;destination=Maxim+Wien,+K%C3%A4rntner+Stra%C3%9Fe+61,+1010+Wien" target="_blank" rel="noopener"><span data-i18n="ctaRoute">Route planen</span></a>
       </div>
     </div>
@@ -545,14 +523,14 @@
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   var T = window.I18N || {};
-  var LANGS = [["de","🇦🇹","Deutsch"],["en","🇬🇧","English"],["hu","🇭🇺","Magyar"]];
+  var LANGS = [["de","","Deutsch"],["en","","English"],["hu","","Magyar"]];
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* Deutsch = Inhalt im HTML (SEO), wird beim Start eingesammelt */
   var DE = {};
   document.querySelectorAll("[data-i18n]").forEach(function(el){ var k = el.getAttribute("data-i18n"); if(!(k in DE)) DE[k] = el.innerHTML; });
   document.querySelectorAll("[data-i18n-html]").forEach(function(el){ DE[el.getAttribute("data-i18n-html")] = el.innerHTML; });
-  var DE_EXTRA = { stOpen:"Club jetzt geöffnet · bis 05:00 Uhr", stClosed:"Club heute ab 20:00 Uhr · Escort rund um die Uhr" };
+  var DE_EXTRA = { stOpen:"Club jetzt geöffnet · bis 05:00 Uhr", stClosed:"Club ab 20:00 Uhr · Escort rund um die Uhr" };
   var cur = "de";
   function tx(k){ var d = cur === "de" ? DE : (T[cur] || DE); return d[k] != null ? d[k] : (DE[k] != null ? DE[k] : DE_EXTRA[k]); }
 
@@ -561,7 +539,7 @@ document.addEventListener("DOMContentLoaded", function(){
   LANGS.forEach(function(l){
     var b = document.createElement("button");
     b.type = "button"; b.setAttribute("role","option"); b.setAttribute("data-code", l[0]);
-    b.innerHTML = "<span>"+l[1]+"</span><span>"+l[2]+"</span><span class=\"code\">"+l[0].toUpperCase()+"</span>";
+    b.innerHTML = "<span>"+l[2]+"</span><span class=\"code\">"+l[0].toUpperCase()+"</span>";
     b.addEventListener("click", function(){ apply(l[0]); langPanel.classList.remove("open"); langBtn.setAttribute("aria-expanded","false"); });
     langPanel.appendChild(b);
   });
@@ -574,11 +552,10 @@ document.addEventListener("DOMContentLoaded", function(){
     document.querySelectorAll("[data-i18n-html]").forEach(function(el){ var v = tx(el.getAttribute("data-i18n-html")); if(v != null) el.innerHTML = v; });
     document.documentElement.setAttribute("lang", cur);
     var meta = LANGS.filter(function(l){ return l[0] === cur; })[0];
-    document.getElementById("langFlag").textContent = meta[1];
     document.getElementById("langCode").textContent = meta[0].toUpperCase();
     langPanel.querySelectorAll("button").forEach(function(b){ b.setAttribute("aria-current", b.getAttribute("data-code") === cur ? "true" : "false"); });
     try{ localStorage.setItem("mx_lang", cur); }catch(e){}
-    renderStatus();
+    renderStatus(); updateCounts();
   }
 
   /* ---- Live-Status: Club täglich 20:00 – 05:00 (Wiener Zeit) ---- */
@@ -596,19 +573,26 @@ document.addEventListener("DOMContentLoaded", function(){
   }
   setInterval(renderStatus, 60000);
 
-  /* ---- Vorhang im Hero öffnet sich beim Laden ---- */
-  var hero = document.getElementById("hero"), heroCurtain = hero && hero.querySelector(".curtain");
-  function openHero(){ if(!hero || hero.classList.contains("open")) return; hero.classList.add("open"); if(heroCurtain) heroCurtain.classList.remove("shut"); }
-  if(reduce) openHero(); else { requestAnimationFrame(function(){ setTimeout(openHero, 250); }); }
-
-  /* ---- Séparées: Vorhänge öffnen sich, wenn sie ins Bild kommen ---- */
-  var shut = document.querySelectorAll(".reveal-curtain .curtain.shut");
-  function openCurtain(c){ c.classList.remove("shut"); }
-  if(reduce || !("IntersectionObserver" in window)) shut.forEach(openCurtain);
-  else {
-    var cio = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ var c = e.target.querySelector(".curtain"); var k = Array.prototype.indexOf.call(e.target.parentNode.parentNode.children, e.target.parentNode); setTimeout(function(){ openCurtain(c); }, e.target.closest(".girls") ? Math.max(0, k) * 120 : 0); cio.unobserve(e.target); } }); }, {threshold:.3});
-    document.querySelectorAll(".reveal-curtain").forEach(function(el){ cio.observe(el); });
+  /* ---- Hero: Fotos blenden über ---- */
+  var slides = document.querySelectorAll(".slides img"), si = 0;
+  if(slides.length > 1 && !reduce){
+    setInterval(function(){
+      if(document.hidden) return;
+      slides[si].classList.remove("on"); si = (si + 1) % slides.length; slides[si].classList.add("on");
+    }, 5200);
   }
+
+  /* ---- Girls filtern ---- */
+  var girls = document.querySelectorAll("#roster .girl"), fbtns = document.querySelectorAll(".filters button");
+  function has(g, f){ return f === "all" || (" " + g.getAttribute("data-tags") + " ").indexOf(" " + f + " ") >= 0; }
+  function updateCounts(){ fbtns.forEach(function(b){ var f = b.getAttribute("data-f"), n = 0; girls.forEach(function(g){ if(has(g, f)) n++; }); b.querySelector("span").textContent = n; }); }
+  fbtns.forEach(function(b){
+    b.addEventListener("click", function(){
+      var f = b.getAttribute("data-f");
+      fbtns.forEach(function(x){ x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      girls.forEach(function(g){ g.hidden = !has(g, f); });
+    });
+  });
 
   /* ---- Header & Einblenden ---- */
   var header = document.querySelector("header.top");
